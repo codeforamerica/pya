@@ -7,6 +7,3 @@ window.$ = $;
 
 RailsUJS.start();
 ActiveStorage.start();
-
-import "../lib/honeycrisp";
-"./app/javascript/lib/honeycrisp.js":
