@@ -1,0 +1,257 @@
+// Sassy
+@import "cfa_styleguide_main"; // 15
+@import "sr-only"; // 17
+@import "variables"; // 18
+@import "honeycrisp-compact"; // 27
+@import "reveal"; // 46
+@import "external-link"; // 73
+@import "home"; // 100
+@import "ClientMenu"; // 108
+@import "state-file"; // 111
+
+html {
+  background-color: black;
+}
+
+body {
+  margin-bottom: 0;
+  background-color: $color-white;
+  font-family: $font-gyr;
+}
+
+// Setting overflow to anything but visible or no-height breaks/prevents use of a couple features of CSS (including position: sticky).
+// This gets set in honeycrisp to overflow: hidden, likely to fix/prevent an obscure one-off issue that we solve
+// differently in GYR.
+.page-wrapper {
+  overflow: unset !important;
+  position: relative;
+
+  .page-content, .menu-overlay {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hide-on-mobile {
+  @media screen and (max-width: $tablet-up) {
+    @include visually-hidden;
+  }
+}
+
+.open-intercom {
+  cursor: pointer;
+}
+
+.link--delete {
+  font-size: 1.6rem;
+  color: inherit;
+}
+
+.main-content-inner {
+  a:last-child{
+    margin-bottom: 0;
+  }
+
+  input:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.main-header {
+  background-color: black;
+  color: white;
+
+  .main-header__link {
+    color: inherit;
+    font-size: $font-size-25-small;
+    font-weight: 600;
+  }
+
+  .main-header__logo {
+    padding-left: 3rem;
+
+    &:before {
+      top: 0.4rem;
+      width: 2.0rem;
+      height: 1.7rem;
+      background-size: 100% auto;
+      @include retina-bg(checkbox-logo--white, 100% auto);
+    }
+  }
+}
+
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.toolbar {
+  height: 100%;
+  &__left {
+    margin-top: 0;
+  }
+
+  &__right {
+    margin-top: -0.4rem;
+  }
+}
+
+.main-header__title {
+  .toolbar__logo-text {
+    color: white;
+    font-size: $font-size-25-small;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.main-header .toolbar__item {
+  color: white;
+}
+
+.main-header .button--toolbar {
+  background-color: $color-green-money;
+  color: black !important;
+  padding: 0.75rem 1rem;
+  border-radius: 1.2rem;
+}
+
+.grid.wide {
+  @media screen and (min-width: $tablet-up) {
+    max-width: 1200px;
+  }
+}
+
+/* Create disabled checkbox style because Honeycrisp lacks it */
+.checkbox.is-disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+// This class overrides the honeycrisp sr-only class with our more comprehensive mixin
+.sr-only {
+  @include sr-only;
+}
+
+a[href^='http']:not([href*=request_domain i]) {
+  @include external-link;
+}
+
+ul.with-bullets {
+  margin-left: 20px;
+  list-style-type: disc;
+}
+
+.text--error {
+  .icon-warning {
+    margin-right: .5rem;
+  }
+}
+
+.text--red-bold {
+  font-weight: bold;
+  color: $color-red;
+}
+
+.text--red-small {
+  font-size: $font-size-25-small;
+  color: $color-red;
+}
+
+.text--grey-bold {
+  font-weight: bold;
+  color: $color-grey-medium;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+.skip-link {
+  font-weight: bold;
+  padding: $s15 !important;
+  border-radius: 0 0 0.5rem 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.30);
+  left: 0;
+  position: fixed;
+  transform: translateY(-100%);
+  transition: transform 0.3s;
+  z-index: 1001;
+}
+
+.admin .skip-link {
+  left: unset;
+  right: 25px;
+  border-radius: .5rem;
+  box-shadow: none;
+}
+
+.skip-link:visited {
+  color: black;
+}
+
+.skip-link:focus {
+  transform: translateY(0%);
+}
+
+// Use `.hidden` for elements that should be fully removed from the page, even for screen readers.
+.hidden {
+  display: none;
+}
+
+// GYR override to reflect design requested defaults
+.slab--half-padded {
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+}
+
+ol.with-bullets {
+  list-style-type: decimal;
+  margin-left: 2rem;
+}
+
+.tight-checkboxes {
+  .form-group {
+    margin-bottom: .5rem;
+  }
+}
+
+.fyst-home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.fyst-home-content {
+  flex: 1;
+  padding: 15px;
+  padding-top: 45px;
+}
+.fyst-home-image {
+  flex-shrink: 0;
+  width: auto;
+  height: auto;
+  padding: 15px;
+  padding-top: 45px;
+  align-self: flex-start;
+}
+
+/* Media query for screens smaller than 768px (typical mobile devices) */
+@media (max-width: 767px) {
+  .fyst-home-image {
+    display: none; /* Hides the home page image on mobile */
+  }
+}

@@ -1,0 +1,59 @@
+// Fonts
+$font-gyr: "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI",
+"Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+sans-serif;
+$font-state-file: "Public Sans", -apple-system, sans-serif;
+
+// Colors
+$color-green-money: #c6f9ec;
+$color-gyr-green: #E8FDF7;
+$color-beige: #F7F5F4;
+$color-orange-light: #ffead2;
+$color-orange-medium: #ffd29c;
+$color-orange-dark: #d73d02;
+$color-red-medium: #F2C7B7;
+$color-gold-accent: #ff9214;
+$color-lavender: #C2C2FF;
+$color-purple: #3d3de1;
+$color-default-purple: #4c2c92;
+$color-venice-blue: #03578c;
+$color-stimulus-blue: #89DDEF;
+$color-notification-blue: #2FA7C6;
+$color-ctc-blue: #d7f3fa;
+$color-tag-bg: #EBFBFF;
+$color-grey-light: #F7F7F7;
+$color-grey: darken($color-grey-light, 10%); // override form honeycrisp $color-grey w/brownish tint
+$color-grey-medium-light: #B2B2B2;
+$color-grey-medium: #757575;
+$color-grey-dark: #4F4E4E;
+$color-black: #000000;
+
+$color-link-default: #0358a2;
+$color-link-hover: #0358a1;
+$color-link-active: #1d70b8;
+$color-link-visited: #4c2c92;
+$color-focused-link-background: #f9c802;
+$color-focused-link: #000000;
+
+// state file / usds colors
+$color-state-file-black: #3C3A3A;
+$color-az-grey: #3C3A3A;
+$color-id-green: #30462F;
+$color-ny-blue: #184A72;
+$color-nc-blue: #092940;
+$color-md-primary: #2A3760;
+$color-nj-blue-darker: #112F4E;
+$color-state-file-bg: #FBFCF7;
+$color-state-file-blue-box: #E7F6F8;
+$color-state-file-blue-box-border: #52DAF2;
+$color-state-file-input-border: #1B1B1B;
+$color-state-file-primary: #21C834;
+$color-state-file-separator: #BCBCBC;
+$color-state-file-chat: #4dcce3;
+$color-state-file-grey-darker: #454545;
+
+// Size
+$intake-max-width: 570px;
+
+// Focus
+$focus-box-shadow: 0 0 0 2px #ffffff, 0 0 0 7px #1A8CFF

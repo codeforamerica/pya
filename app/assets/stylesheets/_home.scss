@@ -1,0 +1,371 @@
+.body--home {
+  .button {
+    padding: $s35/2 4rem;
+  }
+
+  .slab--hero {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+
+    p {
+      margin-bottom: 2.5rem;
+      @media screen and (min-width: $site-max-up) {
+        margin-bottom: 4.5rem;
+      }
+    }
+    h1 {
+      font-size: 5rem;
+      line-height: 6rem;
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+
+      &.landing-page-header {
+        font-size: 2.7rem;
+        line-height: 3.5rem;
+        margin-top: 2.5rem;
+      }
+
+      @media screen and (min-width: $tablet-up) {
+        font-size: 5rem;
+        line-height: 6rem;
+        margin-top: 2.5rem;
+
+        &.landing-page-header {
+          font-size: 5rem;
+          line-height: 6rem;
+          margin-top: 3.5rem;
+        }
+      }
+
+      @media screen and (min-width: $site-max-up) {
+        margin-bottom: 2.5rem;
+      }
+    }
+
+    .landing-page-subheader {
+      font-weight: 200;
+      max-width: 450px;
+      position: relative;
+      margin-bottom: 6rem;
+    }
+
+    .grid {
+      position: relative;
+      min-height: 355px;
+
+      @media screen and (max-width: $site-max-up) {
+        position: static;
+
+        .grid__item {
+          width: 100%;
+        }
+      }
+
+      .hero-illustration {
+        margin-top: $s60;
+        text-align: center;
+        padding: 0 $s10;
+
+        &__mobile {
+          max-width: 100%;
+        }
+
+        &__desktop {
+          display: none;
+        }
+
+        &__image {
+          width: 100%;
+          max-width: 30rem;
+        }
+
+        @media screen and (min-width: $tablet-up) {
+          padding: 0 $s60;
+
+          .hero-illustration__mobile {
+            display: none;
+          }
+
+          .hero-illustration__desktop {
+            display: inline-block;
+            width: 100%;
+            max-width: 30rem;
+          }
+
+          .hero-illustration__image {
+            max-width: none;
+          }
+        }
+
+        @media screen and (min-width: $site-max-up) {
+          .hero-illustration__desktop {
+            max-width: none;
+          }
+          padding: 0 0 0 5rem;
+        }
+      }
+    }
+  }
+
+  .slab--info-section {
+    background-color: white;
+    padding: 6rem 4.5rem;
+    ul {
+      padding-left: 2.4rem;
+    }
+    li {
+      font-size: 1.6rem;
+      &:before {
+        content: "→";
+        font-weight: bold;
+      }
+      a {
+        color: black;
+      }
+    }
+  }
+  .banner {
+    background-color: $color-orange-light;
+    padding: 2rem 6rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 1.8rem;
+
+    @media screen and (max-width: $tablet-up) {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  .slab--intro {
+    background-color: white;
+
+    .irs-logo {
+      img {
+        width: 178px;
+        height: 173px;
+        margin-top: 2.5rem;
+      }
+    }
+
+    .irs-logo-es {
+      img {
+        width: 178px;
+        height: unset;
+      }
+    }
+
+    @media screen and (max-width: $tablet-up) {
+      .irs-logo {
+        text-align: center;
+        padding-bottom: 3.8rem;
+
+        img {
+          margin-top: 0;
+        }
+      }
+
+      #money-fan {
+        margin-top: 3.2rem;
+        text-align: center;
+      }
+    }
+  }
+
+  .slab--partners {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+
+    #about-us-link {
+      font-weight: bold;
+      text-decoration: underline;
+      color: black;
+    }
+
+    @media screen and (max-width: $tablet-up) {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+  }
+
+  .slab--rating {
+    padding-bottom: 3.5rem;
+    .title {
+      font-size: 2.7rem;
+    }
+    .text--small {
+      font-size: 1.4rem;
+    }
+    #star-rating {
+      img {
+        height: 4rem;
+        width: 100%;
+      }
+      @media screen and (max-width: $tablet-up) {
+        padding: 0;
+      }
+    }
+    #trusted-support {
+      padding-left: 3rem;
+      @media screen and (max-width: $tablet-up) {
+        text-align: center;
+        padding: 0 1.5rem 0 1.5rem;
+      }
+    }
+  }
+
+  .slab-habla-espanol {
+    padding-top: 0;
+    padding-bottom: 0;
+
+    .rounded-box {
+      background-color: #FFD29C;
+
+      a {
+        color: black;
+      }
+    }
+
+    @media screen and (max-width: $tablet-up) {
+      .rounded-box {
+        padding: 20px;
+      }
+    }
+  }
+
+  .rounded-box {
+    border-radius: 1rem;
+    padding: 3rem 6rem 3rem 6rem;
+  }
+
+  .slab--service-comparison {
+    padding-bottom: 0;
+    padding-top: 6rem;
+  }
+
+  .slab--testimonials {
+    background-color: white;
+    padding-top: 6rem;
+    padding-below: 6rem;
+
+    #testimonial-title {
+      display: flex;
+      flex-direction: column;
+      img {
+        height: 5rem;
+        min-height: 5rem;
+        padding-right: 0;
+        width: 100%;
+      }
+    }
+    #testimonial-left {
+      padding-right: 3rem;
+      .rounded-box {
+        background-color: #FFD29C;
+      }
+    }
+    #testimonial-right {
+      padding-left: 3rem;
+      .rounded-box {
+        background-color: #C2C2FF;
+      }
+    }
+    @media screen and (max-width: $tablet-up) {
+      #testimonial-title {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        img {
+          height: 4rem;
+          margin-bottom: 10px;
+        }
+        h2 {
+          margin-top: 0;
+          padding-left: 2.5rem;
+          padding-right: 2.5rem;
+        }
+      }
+      #testimonial-left {
+        padding: 0;
+        margin-bottom: 2rem;
+      }
+      #testimonial-right {
+        padding: 0;
+        margin-top: 0;
+      }
+      .rounded-box {
+        padding: 1.5rem;
+      }
+    }
+  }
+
+  .slab--security {
+    background-color: white;
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+
+    p {
+      font-weight: 500;
+    }
+
+    div.grid__item {
+      display: flex;
+
+      img {
+        width: 10rem;
+        min-width: 10rem;
+        padding-right: 4rem;
+        height: 100%;
+      }
+    }
+
+    @media screen and (max-width: $tablet-up) {
+      padding-top: 1.5rem;
+      div.grid__item {
+        flex-direction: column;
+        img {
+          padding-right: 0;
+          width: 100%;
+          height: 4rem;
+          margin-bottom: 1.5rem;
+        }
+      }
+    }
+  }
+
+  .grid__divider {
+    margin: 0 auto;
+    width: 31.5rem;
+    height: 0.1rem;
+    background-color: #aaaaaa;
+  }
+
+  h2 {
+    font-weight: 900;
+  }
+
+  @media screen and (max-width: $tablet-up) {
+    h2 {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .slab--banner.get-ctc {
+    border: 0;
+    background-color: #FFE8CC;
+  }
+
+  .link--subtle {
+    color: inherit;
+  }
+
+  .slab--secondary-cta{
+    padding: 2rem;
+
+    .faq.rounded-box {
+      background-color: $color-beige;
+      padding: 3rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}

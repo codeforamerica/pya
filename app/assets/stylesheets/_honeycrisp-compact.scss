@@ -1,0 +1,436 @@
+
+// likely needed in main repo
+.honeycrisp-compact {
+  .tab-bar__tab {
+    background-color: $color-grey-light;
+  }
+
+  textarea, input.text-input {
+    background-color: $color-grey-light;
+  }
+
+  textarea {
+    border-width: 1px;
+    min-height: 18rem;
+
+    &.textarea--short {
+      min-height: unset;
+    }
+  }
+
+  ul {
+    list-style-type: initial;
+  }
+
+  ul.no-bullets {
+    list-style-type: none;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+  hr {
+    background-color: $color-grey;
+    margin-top: $s35;
+    margin-bottom: $s35;
+    height: 1px;
+  }
+
+  .form-question {
+    font-size: $font-size-18;
+    line-height: $s18;
+  }
+
+  .button:first-of-type {
+    margin-left: 0;
+  }
+
+  .button:last-of-type {
+    margin-right: 0;
+  }
+
+  .index-table {
+    th {
+      font-size: inherit;
+    }
+  }
+
+  .text--help {
+    font-size: $font-size-18;
+    margin-bottom: 1rem;
+  }
+
+  // In Honeycrisp, a form group with help text has a negative margin-top.
+  // This is unnecessary and troublesome in honeycrisp-compact.
+  .form-group .form-question + .text--help, .form-group .data-table .form-question + th, .data-table .form-group .form-question + th, .form-group .form-question + .summary-table__label, .form-group .form-question + .statistic-card__label {
+    margin-top: inherit;
+  }
+
+  .text-input-group {
+    border: 1px solid rgb(18,17,17) !important;
+  }
+
+  // custom ssn logic for hub.
+  .field--last-four-ssn {
+    .text-input-group__prefix {
+      width: 100px;
+      padding-right: 0;
+      padding-top: 2px;
+    }
+    > input.field--last-four-ssn {
+      margin-bottom: 0;
+      padding: 0;
+    }
+  }
+}
+
+.background--white {
+  background-color: white;
+}
+@mixin no-bleed() {
+  margin: {
+    left: 0;
+    right: 0;
+  }
+  padding: {
+    left: 0;
+    right: 0;
+  }
+}
+
+// GYR customizations
+.honeycrisp-compact {
+  .main-header {
+    @include no-bleed();
+    background: black;
+    height: $s35;
+    line-height: 4.0rem;
+  }
+
+  .grid {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: unset;
+    width: 100%;
+  }
+
+  .slab {
+    margin: {
+      left: 0;
+      right: 0;
+    }
+    padding: {
+      left: $s25;
+      right: $s25;
+    }
+  }
+
+  .slab--padded {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .slab--half-padded {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .single-input-form {
+    textarea {
+      margin-bottom: 0;
+    }
+    .form-group {
+      margin-bottom: 2.5rem;
+    }
+    .button {
+      margin-bottom: 0 !important
+    }
+  }
+
+  .toolbar {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0 3rem;
+    max-width: 100%;
+  }
+
+  .h1 {
+    line-height: 25px;
+    font-size: 2rem;
+  }
+
+  .field_with_errors {
+    select, input, textarea {
+      border: 2px solid $color-red;
+    }
+  }
+
+  .form-group {
+    position: relative;
+    .text--error {
+      margin: 0;
+      position: absolute;
+      font-size: 1.2rem;
+      line-height: 1.2rem;
+      margin: 5px 0;
+    }
+    &--error {
+      margin-left: 0;
+      margin-right: inherit;
+      padding-left: 0;
+      padding-right: 0;
+      &:before {
+        display: none;
+      }
+    }
+    .select, select {
+      width: 100%;
+    }
+    input:disabled, select:disabled {
+      background-color: darken($color-grey-light, 5%);
+      cursor: not-allowed;
+    }
+  }
+
+  .checkbox-group {
+    margin-top: 2.5rem;
+  }
+
+  .form-question {
+    color: $color-grey-medium;
+    margin-bottom: $s5 !important;
+  }
+
+  .text-input, .select {
+    margin-bottom: 0; // simplify margins on form-group contents to ensure similar items are similar heights
+  }
+
+  .button {
+    padding-left: $s15;
+    padding-right: $s15;
+    box-shadow: none;
+    font-weight: 500;
+    letter-spacing: .25px;
+  }
+
+  .button + .button {
+    margin-left: $s15;
+  }
+
+  .button--no-margin {
+    margin: 0;
+  }
+
+  .button--cta {
+    background-color: black;
+    border: 1px solid black;
+    font-weight: 500;
+  }
+
+  .button--small {
+    font-size: $font-size-18;
+    line-height: 1.6rem;
+    padding: $s5 $s10;
+  }
+
+  .button--inverted {
+    background-color: $color-grey-darkest;
+    color: white;
+    &:hover {
+      color: white;
+      background-color: transparentize($color-grey-darkest, .1);
+    }
+  }
+
+  .checkbox--gyr {
+    font-size: $font-size-25-small;
+    font-weight: $font-weight-normal;
+    display: flex;
+    align-items: center;
+    input[type="checkbox"] {
+      width: 2rem;
+      height: 2rem;
+      margin-right: 1rem;
+    }
+
+    &.checkbox--wide {
+      min-width: 200px;
+    }
+  }
+
+  .field-display {
+    margin-bottom: $s15;
+    .form-question {
+      display: inline;
+      margin-right: $s15 ;
+    }
+    .label-indented {
+      padding-left: 2.5rem;
+    }
+  }
+
+  .password {
+    .form-group {
+      margin-bottom: $s10;
+    }
+    .text-input {
+      margin-bottom: 0;
+    }
+  }
+
+  .label {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .inline-form-items-wrapper {
+    display: flex;
+    align-items: center;
+    > * {
+      margin-right: 1rem;
+    }
+  }
+
+  .no-bottom-margin-children {
+    .form-group {
+      margin-bottom: 0;
+    }
+  }
+
+  .button-bar {
+    display: flex;
+    margin-bottom: 0;
+
+    button {
+      border-radius: $s5;
+      margin: 0 !important;
+      border-left: none;
+    }
+
+    button:first-of-type {
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+      border-left: 1px solid $color-grey-darkest;
+    }
+    button:last-of-type {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  .client-navigation {
+    @include no-bleed();
+    .security-wrapper {
+      display: flex;
+      img {
+        margin-left: .5rem;
+      }
+    }
+  }
+
+  .client-container {
+    max-width: 800px;
+  }
+}
+
+.padding-20 {
+  padding: 2rem;
+}
+// Plain help text without extra line height or margin.
+.help-text {
+  color: $color-grey-medium;
+}
+
+.data-table--tight td{
+    padding-top: .75rem !important;
+    padding-bottom: .75rem !important;
+}
+
+.grid-flex {
+  display: flex;
+
+  &.display-block-on-small-screens {
+    @media screen and (max-width: $site-max-up) {
+      display: block;
+    }
+  }
+
+  &.contained {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  &.space-between {
+    justify-content: space-between;
+  }
+
+  &.justify-flex-end {
+    justify-content: flex-end;
+  }
+
+  &.align-flex-start {
+    align-items: flex-start;
+  }
+
+  &.align-flex-end {
+    align-items: flex-end;
+  }
+
+  &.center-aligned {
+    align-items: center;
+  }
+
+  &.center-justified {
+    justify-content: center;
+  }
+
+  .no-shrink {
+    flex-shrink: 0;
+  }
+
+  .item {
+    margin-right: 6rem;
+  }
+
+  .item:last-of-type {
+    margin-right: 0;
+  }
+
+  .item-15r {
+    margin-right: 1.5rem;
+  }
+
+  .item-15l {
+    margin-left: 1.5rem;
+  }
+
+  .item-5l {
+    margin-left: 5px;
+  }
+
+  .item-5r {
+    margin-right: 5px;
+  }
+
+  .item-40l {
+    margin-left: 4rem;
+  }
+
+  &.full-height, .full-height {
+    height: 100vh;
+  }
+
+  &.column-column {
+    flex-direction: column;
+  }
+
+  &.column-row {
+    flex-direction: column;
+    @media screen and (min-width: $site-max-up) {
+      flex-direction: row;
+    }
+  }
+  .text--error {
+    margin: unset;
+  }
+}
+
