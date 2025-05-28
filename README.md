@@ -1,24 +1,6 @@
-# README
+## README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### How to compile sass files
+This repo uses the gem `dart-sass` to compile the .scss files. 
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+To run this locally, use the command: `bin/rake dartsass:build`
