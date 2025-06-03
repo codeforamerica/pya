@@ -16,7 +16,7 @@ gem "turbo-rails"
 gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
-gem 'cfa-styleguide', '0.16.0', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '0e15fc7d74a330866049d58516c6f2449958fb1b'
+gem "cfa-styleguide", "0.16.0", git: "https://github.com/codeforamerica/honeycrisp-gem", branch: "main", ref: "0e15fc7d74a330866049d58516c6f2449958fb1b"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
