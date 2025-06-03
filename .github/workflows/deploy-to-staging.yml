@@ -20,7 +20,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
 
-      - name: Run CI
+      - name: CI
         uses: ./.github/workflows/ci.yml
 
       - name: Configure AWS credentials
