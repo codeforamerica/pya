@@ -43,7 +43,7 @@ jobs:
           text: "Test suite ${{ job.status }} :sob:"
           status: ${{ job.status }}
           fields: message,commit,author,eventName,ref,workflow,job,took
-          mention: '!subteam^S06P99RGJDS'
+          mention: 'subteam^S06P99RGJDS', 'U07QATMB6SW',
           if_mention: failure,cancelled,success
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
