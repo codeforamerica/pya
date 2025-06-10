@@ -40,10 +40,10 @@ jobs:
       - name: Slack Notification
         uses: 8398a7/action-slack@v3
         with:
-          text: "Slack message text. ${{ job.status }} :no_entry:"
+          text: "Test suite ${{ job.status }} :sob:"
           status: ${{ job.status }}
           fields: message,commit,author,eventName,ref,workflow,job,took
-          mention: 'here'
+          mention: 'badger'
           if_mention: failure,cancelled,success
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
