@@ -10,18 +10,21 @@ on:
 
 jobs:
   ci:
-    uses: ./.github/workflows/ci.yml
     steps:
-    - uses: 8398a7/action-slack@v3
-      with:
-        text: "Slack message text. Failure :no_entry:"
-        status: ${{ job.status }}
-        fields: message,commit,author,eventName,ref,workflow,job,took
-        mention: 'here'
-        if_mention: failure,cancelled,success
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
-      if: always()
+      - name: CI workflow
+        uses: ./.github/workflows/ci.yml
+
+      - name: Slack Notification
+        uses: 8398a7/action-slack@v3
+        with:
+          text: "Slack message text. Failure :no_entry:"
+          status: ${{ job.status }}
+          fields: message,commit,author,eventName,ref,workflow,job,took
+          mention: 'here'
+          if_mention: failure,cancelled,success
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+        if: always()
   deploy:
     name: Deploy to Staging
     runs-on: ubuntu-latest
