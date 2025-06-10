@@ -40,7 +40,7 @@ jobs:
       - name: Slack Notification
         uses: 8398a7/action-slack@v3
         with:
-          text: "Slack message text. Failure :no_entry:"
+          text: "Slack message text. ${{ job.status }} :no_entry:"
           status: ${{ job.status }}
           fields: message,commit,author,eventName,ref,workflow,job,took
           mention: 'here'
@@ -50,6 +50,7 @@ jobs:
         if: always()
   deploy:
     name: Deploy to Staging
+    needs: test
     runs-on: ubuntu-latest
     env:
       ECR_REPOSITORY: pya-staging-web
