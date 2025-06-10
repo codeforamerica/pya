@@ -40,12 +40,12 @@ jobs:
       - name: Slack Notification
         uses: 8398a7/action-slack@v3
         with:
-          text: "<!subteam^S06P99RGJDS> Test suite ${{ job.status }} :sob:"
+          text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q99GPBK8> <@U07Q39HFLBG> Test suite ${{ job.status }} :sob:"
           status: ${{ job.status }}
           fields: message,commit,author,eventName,ref,workflow,job,took
           if_mention: failure,cancelled,success
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         if: always()
   deploy:
     name: Deploy to Staging
