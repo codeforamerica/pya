@@ -12,15 +12,7 @@ This project uses OpenTofu to manage infrastructure as code. It provisions and m
 - EC2 instances
 - IAM roles
 
-### Usage
-
-Developers interact with OpenTofu using the following commands:
-
-```bash
-tofu init        # Initialize the working directory
-tofu plan        # Preview changes
-tofu apply       # Apply changes to infrastructure
-```
+The infrastructure for this repository is located in the [CFA Tax-Benefits-Backend repository](https://github.com/codeforamerica/tax-benefits-backend/tree/main/tofu/config/staging.pya.fileyourstatetaxes.org)
 
 ### CI/CD Integration
 
@@ -54,6 +46,7 @@ This project uses a GitHub Actions workflow to automatically deploy to the AWS s
     "config": "staging.pya.fileyourstatetaxes.org"
   }
   ```
+  The deploy job can be triggered manually by navigating to the github actions page and running the `Deploy to AWS Staging` action.
 
 ### Environment Variables & Secrets
 
@@ -63,6 +56,7 @@ The workflow relies on the following secrets:
 - `SLACK_WEBHOOK_URL`: Sends Slack notifications for test results
 - `STAGING_DEPLOY_PAT`: GitHub Personal Access Token used to trigger the downstream deployment workflow
 
+  The staging PAT will need to be regenerated every 90 days and updated in Github and Lastpass
 ---
 
 ## Stylesheet Compilation
