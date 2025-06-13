@@ -5,6 +5,9 @@ on:
     workflows: [ "Run Linter and Tests" ]
     types: [ completed ]
     branches: [ main ]
+  concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true # cancel a deploy if it's already in progress & only deploy the latest commit
 
 jobs:
   on-success:
