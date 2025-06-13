@@ -10,12 +10,16 @@ on:
 
 jobs:
   deploy:
+    env:
+      ECR_REPOSITORY: pya-staging-web
+      IMAGE_TAG: ${{ github.sha }}
     on-success:
       name: Deploy to Staging
       runs-on: ubuntu-latest
       if: ${{ github.event.workflow_run.conclusion == 'success' }}
       steps:
         - run: echo 'The triggering workflow passed'
+
         - name: Check out code
           uses: actions/checkout@v4
 
@@ -59,6 +63,7 @@ jobs:
               -H "X-GitHub-Api-Version: 2022-11-28" \
               https://api.github.com/repos/$repo_owner/$repo_name/dispatches \
               -d "{\"event_type\": \"$event_type\", \"client_payload\": {\"environment\": \"$environment\", \"config\": \"$config\"}}"
+
         - name: Notify deploy failure on Slack
           uses: 8398a7/action-slack@v3
           if: failure()
@@ -68,6 +73,7 @@ jobs:
             fields: message,commit,author,eventName,ref,workflow,job,took
           env:
             SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
     on-failure:
       runs-on: ubuntu-latest
       if: ${{ github.event.workflow_run.conclusion == 'failure' }}
