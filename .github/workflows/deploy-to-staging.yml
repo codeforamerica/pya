@@ -1,24 +1,24 @@
 name: Deploy to AWS Staging
 
 on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
+  workflow_run:
     workflows: [ "Run Linter and Tests" ]
     types: [ completed ]
     branches: [ main ]
 
 jobs:
-  deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+  on-success:
     name: Deploy to Staging
-    needs: test
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     env:
       ECR_REPOSITORY: pya-staging-web
       IMAGE_TAG: ${{ github.sha }}
-
     steps:
+      - run: echo 'The triggering workflow passed'
+
+      - run: echo 'Starting the staging deploy'
+
       - name: Check out code
         uses: actions/checkout@v4
 
@@ -68,6 +68,19 @@ jobs:
         if: failure()
         with:
           text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q99GPBK8> <@U07Q39HFLBG> PYA staging deploy failed ${{ job.status }}"
+          status: ${{ job.status }}
+          fields: message,commit,author,eventName,ref,workflow,job,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - name: Send Slack notification on failure
+        uses: 8398a7/action-slack@v3
+        with:
+          text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q99GPBK8> <@U07Q39HFLBG> PYA test suite ${{ job.status }} :sob:"
           status: ${{ job.status }}
           fields: message,commit,author,eventName,ref,workflow,job,took
         env:
