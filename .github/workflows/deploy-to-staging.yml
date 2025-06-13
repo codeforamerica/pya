@@ -80,8 +80,8 @@ jobs:
       - name: Send Slack notification on failure
         uses: 8398a7/action-slack@v3
         with:
-          text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q99GPBK8> <@U07Q39HFLBG> PYA test suite ${{ job.status }} :sob:"
-          status: ${{ job.status }}
+          text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q99GPBK8> <@U07Q39HFLBG> PYA test suite ${{ github.event.workflow_run.conclusion }} :sob:"
+          status: ${{ github.event.workflow_run.conclusion }}
           fields: message,commit,author,eventName,ref,workflow,job,took
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
