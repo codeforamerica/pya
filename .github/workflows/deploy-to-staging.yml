@@ -10,6 +10,7 @@ on:
 
 jobs:
   deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: Deploy to Staging
     needs: test
     runs-on: ubuntu-latest
@@ -66,7 +67,7 @@ jobs:
         uses: 8398a7/action-slack@v3
         if: failure()
         with:
-          text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q99GPBK8> <@U07Q39HFLBG> PYA staging test failed ${{ job.status }}"
+          text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q99GPBK8> <@U07Q39HFLBG> PYA staging deploy failed ${{ job.status }}"
           status: ${{ job.status }}
           fields: message,commit,author,eventName,ref,workflow,job,took
         env:
