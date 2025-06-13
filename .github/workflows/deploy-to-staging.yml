@@ -1,8 +1,6 @@
 name: Deploy to AWS Staging
 
 on:
-  push:
-    branches: [ main ]
   workflow_dispatch:
     workflows: [ "Run Linter and Tests" ]
     types: [ completed ]
