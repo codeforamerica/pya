@@ -19,6 +19,8 @@ jobs:
     steps:
       - run: echo 'The triggering workflow passed'
 
+      - run: echo 'Starting the staging deploy'
+
       - name: Check out code
         uses: actions/checkout@v4
 
