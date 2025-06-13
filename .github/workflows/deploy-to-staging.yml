@@ -4,40 +4,17 @@ on:
   push:
     branches: [ main ]
   workflow_dispatch:
-    inputs: { }
+    workflows: [ "Run Linter and Tests" ] # or "ci" whatever we name the workflow
+    types: [ completed ]
+    branches: [ main ]
 
 jobs:
-  test:
+  notify_on_slack:
     runs-on: ubuntu-latest
     steps:
-      - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config google-chrome-stable
-
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .ruby-version
-          bundler-cache: true
-
-      - name: Run tests
-        env:
-          RAILS_ENV: test
-        run: bin/rails db:test:prepare test test:system
-
-      - name: Keep screenshots from failed system tests
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: screenshots
-          path: ${{ github.workspace }}/tmp/screenshots
-          if-no-files-found: ignore
-
-      - name: Slack Notification
+      - name: Send Slack notification on failure
+        if: ${{ github.event.workflow_run.conclusion == 'failure' }}  # Check if the first workflow failed
         uses: 8398a7/action-slack@v3
-        if: failure()
         with:
           text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q99GPBK8> <@U07Q39HFLBG> PYA test suite ${{ job.status }} :sob:"
           status: ${{ job.status }}
