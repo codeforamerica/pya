@@ -3,6 +3,7 @@ name: Run Linter and Tests
 on:
   pull_request:
   workflow_call:
+  worflow_dispatch:
 
 jobs:
   scan_ruby:
