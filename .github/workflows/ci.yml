@@ -81,6 +81,9 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      # TODO: add chrome-driver for when capybara tests are added
+      # https://codeforamerica.atlassian.net/browse/FYST-2139
+
       - name: Set up database
         run: |
           sudo apt-get install -y libpq-dev
