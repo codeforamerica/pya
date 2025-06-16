@@ -3,6 +3,8 @@ name: Run Linter and Tests
 on:
   pull_request:
   workflow_call:
+  push:
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
