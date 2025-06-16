@@ -2,6 +2,7 @@
 
 This repository supports **Prior Year Access** for users of **File Your State Taxes**. It allows individuals who filed their state taxes with us in **2023** or **2024** to securely retrieve their tax return PDFs.
 
+
 ---
 
 ## Infrastructure with OpenTofu
@@ -12,7 +13,9 @@ This project uses OpenTofu to manage infrastructure as code. It provisions and m
 - EC2 instances
 - IAM roles
 
-The infrastructure for this repository is located in the [CFA Tax-Benefits-Backend repository](https://github.com/codeforamerica/tax-benefits-backend/tree/main/tofu/config/staging.pya.fileyourstatetaxes.org)
+The infrastructure for this repository is located in the [CFA Tax-Benefits-Backend repository](https://github.com/codeforamerica/tax-benefits-backend)
+  [Staging](https://github.com/codeforamerica/tax-benefits-backend/tree/main/tofu/config/staging.pya.fileyourstatetaxes.org)
+  [Production](https://github.com/codeforamerica/tax-benefits-backend/tree/main/tofu/config/pya.fileyourstatetaxes.org)
 
 ### CI/CD Integration
 
