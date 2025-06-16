@@ -5,9 +5,10 @@ on:
     workflows: [ "Run Linter and Tests" ]
     types: [ completed ]
     branches: [ main ]
-  concurrency:
-    group: ${{ github.workflow }}-${{ github.ref }}
-    cancel-in-progress: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   on-success:
