@@ -6,6 +6,10 @@ on:
     types: [ completed ]
     branches: [ main ]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   on-success:
     name: Deploy to Staging
@@ -67,7 +71,7 @@ jobs:
         uses: 8398a7/action-slack@v3
         if: failure()
         with:
-          text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q99GPBK8> <@U07Q39HFLBG> PYA staging deploy failed ${{ job.status }}"
+          text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q99GPBK8> <@U07Q39HFLBG> PYA staging deploy ${{ job.status }} :sob:"
           status: ${{ job.status }}
           fields: message,commit,author,eventName,ref,workflow,job,took
         env:
