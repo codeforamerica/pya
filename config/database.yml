@@ -31,7 +31,17 @@ deploy_default: &deploy_default
 # Store production database in the storage/ directory, which by default
 # is mounted as a persistent Docker volume in config/deploy.yml.
 production:
-  <<: *deploy_default
+  primary:
+    <<: *deploy_default
+  cache:
+    <<: *deploy_default
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *deploy_default
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *deploy_default
+    migrations_paths: db/cable_migrate
 
 staging:
   <<: *deploy_default
