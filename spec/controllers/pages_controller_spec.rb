@@ -1,9 +1,10 @@
 require "rails_helper"
 
-RSpec.describe PagesController do
+RSpec.describe PagesController, type: :request  do
   describe "/" do
-    it "" do
-      expect(true).to eq(true)
+    it "returns a successful response" do
+      get "/"
+      expect(response).to be_ok
     end
   end
 end
