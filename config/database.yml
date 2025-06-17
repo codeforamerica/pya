@@ -36,3 +36,7 @@ production:
 
 staging:
   <<: *deploy_default
+
+heroku:
+  <<: *default
+  database: storage/test.sqlite3
