@@ -57,18 +57,26 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+
     services:
       postgres:
-        image: postgres:16
+        image: postgres
         env:
-          RAILS_ENV: test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
-        # needed because the postgres container does not provide a healthcheck
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
+
+      # redis:
+      #   image: redis
+      #   ports:
+      #     - 6379:6379
+      #   options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
+
     steps:
       - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config google-chrome-stable
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev node-gyp pkg-config python-is-python3 google-chrome-stable
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -79,10 +87,11 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      # TODO: add chrome-driver for when capybara tests are added
-      # https://codeforamerica.atlassian.net/browse/FYST-2139
-
-      - name: Set up database
+      - name: Run tests
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432
+          # REDIS_URL: redis://localhost:6379/0
         run: |
           sudo apt-get install -y libpq-dev
           RAILS_ENV=test bin/rails db:test:prepare
