@@ -20,7 +20,6 @@ test:
   <<: *default
   database: storage/test.sqlite3
 
-
 deploy_default: &deploy_default
   adapter: postgis
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 }.to_i + 1 %>
@@ -36,7 +35,3 @@ production:
 
 staging:
   <<: *deploy_default
-
-heroku:
-  <<: *default
-  database: storage/test.sqlite3
