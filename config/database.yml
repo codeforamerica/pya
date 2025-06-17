@@ -21,7 +21,6 @@ test:
   database: storage/test.sqlite3
 
 deploy_default: &deploy_default
-  adapter: postgis
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 }.to_i + 1 %>
   timeout: 5000
   url: <%= ENV["DATABASE_URL"] %>
