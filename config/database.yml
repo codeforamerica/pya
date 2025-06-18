@@ -20,22 +20,28 @@ test:
   <<: *default
   database: storage/test.sqlite3
 
+deploy_default: &deploy_default
+  adapter: postgresql
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 }.to_i + 1 %>
+  timeout: 5000
+  url: <%= ENV["DATABASE_URL"] %>
+  username: <%= ENV["DATABASE_USER"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
 
 # Store production database in the storage/ directory, which by default
 # is mounted as a persistent Docker volume in config/deploy.yml.
 production:
   primary:
-    <<: *default
-    database: storage/production.sqlite3
+    <<: *deploy_default
   cache:
-    <<: *default
-    database: storage/production_cache.sqlite3
+    <<: *deploy_default
     migrations_paths: db/cache_migrate
   queue:
-    <<: *default
-    database: storage/production_queue.sqlite3
+    <<: *deploy_default
     migrations_paths: db/queue_migrate
   cable:
-    <<: *default
-    database: storage/production_cable.sqlite3
+    <<: *deploy_default
     migrations_paths: db/cable_migrate
+
+staging:
+  <<: *deploy_default
