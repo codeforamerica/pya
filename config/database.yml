@@ -20,9 +20,7 @@ test:
   port: 5432
 
 deploy_default: &deploy_default
-  adapter: postgresql
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 }.to_i + 1 %>
-  timeout: 5000
+  <<: *default
   url: <%= ENV["DATABASE_URL"] %>
   username: <%= ENV["DATABASE_USER"] %>
   password: <%= ENV["DATABASE_PASSWORD"] %>
