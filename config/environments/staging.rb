@@ -1,7 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  config.active_storage.service = :s3_prod
+  config.active_storage.service = :s3_staging
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.

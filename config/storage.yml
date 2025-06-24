@@ -32,3 +32,18 @@ local:
 #   service: Mirror
 #   primary: local
 #   mirrors: [ amazon, google, microsoft ]
+
+deploy_default: &deploy_default
+  service: S3
+  access_key_id: <%= secrets.AWS_ACCESS_KEY %>
+  secret_access_key: <%= secrets.AWS_SECRET_KEY %>
+  region: us-east-1
+
+# Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
+s3_prod:
+  <<: *deploy_default
+  bucket: submission-pdfs-production
+
+s3_staging:
+  <<: *deploy_default
+  bucket: submission-pdfs-staging
