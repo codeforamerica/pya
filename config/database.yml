@@ -21,7 +21,7 @@ test:
 
 deploy_default: &deploy_default
   <<: *default
-  url: <%= ENV["DATABASE_URL"] %>
+  host: <%= ENV["DATABASE_HOST"] %>
   username: <%= ENV["DATABASE_USER"] %>
   password: <%= ENV["DATABASE_PASSWORD"] %>
 
