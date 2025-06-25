@@ -35,9 +35,6 @@ local:
 
 deploy_default: &deploy_default
   service: S3
-  access_key_id: <%= secrets.AWS_ACCESS_KEY %>
-  secret_access_key: <%= secrets.AWS_SECRET_KEY %>
-  region: us-east-1
 
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 s3_prod:
@@ -47,3 +44,7 @@ s3_prod:
 s3_staging:
   <<: *deploy_default
   bucket: submission-pdfs-staging
+
+s3_heroku:
+  <<: *deploy_default
+  bucket: submission-pdfs-heroku
