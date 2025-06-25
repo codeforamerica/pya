@@ -12,6 +12,7 @@ concurrency:
 
 jobs:
   on-success:
+    environment: staging
     name: Deploy to Staging
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
