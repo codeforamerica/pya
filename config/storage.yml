@@ -37,7 +37,7 @@ deploy_default: &deploy_default
   service: S3
 
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
-s3_prod:
+s3_production:
   <<: *deploy_default
   bucket: submission-pdfs-production
 
