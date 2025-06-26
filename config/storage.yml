@@ -33,18 +33,9 @@ local:
 #   primary: local
 #   mirrors: [ amazon, google, microsoft ]
 
-deploy_default: &deploy_default
+# AWS credentials come from the AWS fargate service module via OpenTofu for staging/production
+# AWS credentials for heroku environment are defined via Config Vars on the heroku pya pipeline
+# S3_BUCKET_ENV is defined for heroku environment only and via Config Vars
+s3:
   service: S3
-
-# Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
-s3_production:
-  <<: *deploy_default
-  bucket: submission-pdfs-production
-
-s3_staging:
-  <<: *deploy_default
-  bucket: submission-pdfs-staging
-
-s3_heroku:
-  <<: *deploy_default
-  bucket: submission-pdfs-heroku
+  bucket: submission-pdfs-<%= ENV["S3_BUCKET_ENV"] || Rails.env %>
