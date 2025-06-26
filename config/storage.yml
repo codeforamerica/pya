@@ -32,3 +32,9 @@ local:
 #   service: Mirror
 #   primary: local
 #   mirrors: [ amazon, google, microsoft ]
+
+# AWS credentials and S3_BUCKET come from the AWS fargate service module via OpenTofu for staging/production
+# AWS credentials and S3_BUCKET for heroku environment are defined via Config Vars on the heroku pya pipeline
+s3:
+  service: S3
+  bucket: <%= ENV["S3_BUCKET"] %>
