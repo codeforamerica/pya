@@ -38,4 +38,4 @@ local:
 # S3_BUCKET_ENV is defined for heroku environment only and via Config Vars
 s3:
   service: S3
-  bucket: submission-pdfs-<%= ENV["S3_BUCKET_ENV"] %>
+  bucket: <%= ENV["S3_BUCKET"] %>
