@@ -35,7 +35,6 @@ class StateFileArchivedIntakeAccessLog < ApplicationRecord
     client_pdf_download_click: 12,
     pdf_download_link_expired: 13,
     unauthorized_ssn_attempt: 14,
-    unauthorized_mailing_attempt: 15,
+    unauthorized_mailing_attempt: 15
   }, prefix: :event_type
 end
-
