@@ -34,7 +34,7 @@ unless Rails.env.production?
     mailing_street: "123 Yellow Brick Rd",
     mailing_state: "AZ",
     mailing_zip: "85034",
-    state_code: "AZ",
+    state_code: "az",
     tax_year: 2023
   )
 
@@ -46,7 +46,7 @@ unless Rails.env.production?
     mailing_street: "15 West Tower Blvd",
     mailing_state: "AZ",
     mailing_zip: "85035",
-    state_code: "AZ",
+    state_code: "az",
     tax_year: 2023
   )
 
@@ -58,7 +58,7 @@ unless Rails.env.production?
     mailing_street: "15 Maypole St",
     mailing_state: "AZ",
     mailing_zip: "85040",
-    state_code: "AZ",
+    state_code: "az",
     tax_year: 2023
   )
 
@@ -70,7 +70,7 @@ unless Rails.env.production?
     mailing_street: "5 Whispers Ln",
     mailing_state: "AZ",
     mailing_zip: "85001",
-    state_code: "AZ",
+    state_code: "az",
     tax_year: 2023
   )
 
@@ -82,7 +82,7 @@ unless Rails.env.production?
     mailing_street: "22-1 Arjiki Centre",
     mailing_state: "AZ",
     mailing_zip: "85701",
-    state_code: "AZ",
+    state_code: "az",
     tax_year: 2023
   )
 
@@ -95,7 +95,7 @@ unless Rails.env.production?
     mailing_street: "555 Tower Ave",
     mailing_state: "NY",
     mailing_zip: "10001",
-    state_code: "NY",
+    state_code: "ny",
     tax_year: 2023
   )
 
@@ -107,7 +107,7 @@ unless Rails.env.production?
     mailing_street: "120-12 Underground St",
     mailing_state: "NY",
     mailing_zip: "10006",
-    state_code: "NY",
+    state_code: "ny",
     tax_year: 2023
   )
 
@@ -119,7 +119,7 @@ unless Rails.env.production?
     mailing_street: "202 University Avenue",
     mailing_state: "NY",
     mailing_zip: "12208",
-    state_code: "NY",
+    state_code: "ny",
     tax_year: 2023
   )
 
@@ -131,7 +131,7 @@ unless Rails.env.production?
     mailing_street: "9 Great Railway Rd",
     mailing_state: "NY",
     mailing_zip: "11355",
-    state_code: "NY",
+    state_code: "ny",
     tax_year: 2023
   )
 
@@ -143,7 +143,7 @@ unless Rails.env.production?
     mailing_street: "12 Purple Meadow Dr",
     mailing_state: "NY",
     mailing_zip: "11101",
-    state_code: "NY",
+    state_code: "ny",
     tax_year: 11101
   )
 
