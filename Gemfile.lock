@@ -469,6 +469,7 @@ DEPENDENCIES
   cfa-styleguide (= 0.16.0)!
   dartsass-rails (~> 0.5.1)
   debug
+  dotenv
   importmap-rails
   jbuilder
   kamal
