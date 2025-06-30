@@ -26,64 +26,63 @@ def find_or_create_state_file_archived_intake(attributes)
 end
 
 unless Rails.env.production?
-  find_or_create_state_file_archived_intake(
-    email_address: "archivedaz@example.com",
-    hashed_ssn: SsnHashingService.hash("555001234"),
-    mailing_apartment: "Apt 2B",
-    mailing_city: "Munchkinville",
-    mailing_street: "123 Yellow Brick Rd",
-    mailing_state: "AZ",
-    mailing_zip: "85034",
-    state_code: "az",
-    tax_year: 2023
-  )
 
-  find_or_create_state_file_archived_intake(
-    email_address: "archivedaz1@example.com",
-    hashed_ssn: SsnHashingService.hash("555001235"),
-    mailing_apartment: nil,
-    mailing_city: "Munchkinville",
-    mailing_street: "15 West Tower Blvd",
-    mailing_state: "AZ",
-    mailing_zip: "85035",
-    state_code: "az",
-    tax_year: 2023
-  )
+  # 2023 AZ
+  az_2023_data = [
+    [ "Apt 2B", "Munchkinville", "123 Yellow Brick Rd", "85034" ],
+    [ nil, "Munchkinville", "15 West Tower Blvd", "85035" ],
+    [ "Bldg 5", "Munchkinville", "15 Maypole St", "85040" ], # 2023 only applicant
+    [ "Bldg A", "Thropp City", "5 Whispers Lnd", "85001" ],
+    [ "APT 2", "Winkie County", "22-1 Arjiki Centre", "85701" ]
+  ]
+  5.times do |i|
+    data = az_2023_data[0]
+    find_or_create_state_file_archived_intake(
+      email_address: "archivedaz#{i}@example.com",
+      hashed_ssn: SsnHashingService.hash("55500#{i}234"),
+      mailing_apartment: data[0],
+      mailing_city: data[1],
+      mailing_street: data[2],
+      mailing_state: "AZ",
+      mailing_zip: data[3],
+      state_code: "az",
+      tax_year: 2023
+    )
+  end
 
+  # 2023 AZ
+  az_2024_data = [
+    [ "Apt 2B", "Munchkinville", "123 Yellow Brick Rd", "85034" ],
+    [ nil, "Munchkinville", "15 West Tower Blvd", "85035" ],
+    [ "Bldg A", "Thropp City", "5 Whispers Lnd", "85001" ],
+    [ "APT 2", "Winkie County", "22-1 Arjiki Centre", "85701" ]
+  ]
+  4.times do |i|
+    data = az_2024_data[0]
+    find_or_create_state_file_archived_intake(
+      email_address: "archivedaz#{i}@example.com",
+      phone_number: "+1480555000#{i}",
+      hashed_ssn: SsnHashingService.hash("55500#{i}234"),
+      mailing_apartment: data[0],
+      mailing_city: data[1],
+      mailing_street: data[2],
+      mailing_state: "AZ",
+      mailing_zip: data[3],
+      state_code: "az",
+      tax_year: 2024
+    )
+  end
   find_or_create_state_file_archived_intake(
-    email_address: "archivedaz2@example.com",
-    hashed_ssn: SsnHashingService.hash("555001236"),
-    mailing_apartment: "Bldg 5",
-    mailing_city: "Munchkinville",
-    mailing_street: "15 Maypole St",
-    mailing_state: "AZ",
-    mailing_zip: "85040",
-    state_code: "az",
-    tax_year: 2023
-  )
-
-  find_or_create_state_file_archived_intake(
-    email_address: "archivedaz3@example.com",
-    hashed_ssn: SsnHashingService.hash("555001237"),
-    mailing_apartment: "Bldg A",
+    email_address: "archivedaz-2024@example.com",
+    phone_number: "+14805551133",
+    hashed_ssn: SsnHashingService.hash("555001515"),
+    mailing_apartment: "2G Apt",
     mailing_city: "Thropp City",
-    mailing_street: "5 Whispers Ln",
+    mailing_street: "1 Bop Ave",
     mailing_state: "AZ",
-    mailing_zip: "85001",
+    mailing_zip: 85002,
     state_code: "az",
-    tax_year: 2023
-  )
-
-  find_or_create_state_file_archived_intake(
-    email_address: "archivedaz4@example.com",
-    hashed_ssn: SsnHashingService.hash("555001238"),
-    mailing_apartment: "APT 2",
-    mailing_city: "Winkie County",
-    mailing_street: "22-1 Arjiki Centre",
-    mailing_state: "AZ",
-    mailing_zip: "85701",
-    state_code: "az",
-    tax_year: 2023
+    tax_year: 2024
   )
 
   # NY StateFileArchivedIntakes (5)
