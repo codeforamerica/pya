@@ -9,7 +9,7 @@
 #   end
 
 def find_or_create_state_file_archived_intake(attributes)
-  finder_columns = [:tax_year, :email_address, :phone_number, :hashed_ssn, :state_code]
+  finder_columns = [ :tax_year, :email_address, :phone_number, :hashed_ssn, :state_code ]
   finder_attributes = attributes.slice(*finder_columns)
   if finder_attributes.blank?
     raise "Seeder must provide at least one of (#{finder_columns.join(', ')}) when making an archived intake"
