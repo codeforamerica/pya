@@ -4,6 +4,10 @@ require "rails_helper"
 
 RSpec.describe 'Seeds' do
   context 'run seeder' do
+    before(:each) do
+      stub_const("ENV", "REVIEW_APP" => "true", "SSN_HASHING_KEY" => "hashing-key-test")
+    end
+
     it 'succeeds' do
       Rails.application.load_seed
       expect(StateFileArchivedIntake.count).to eq 29
