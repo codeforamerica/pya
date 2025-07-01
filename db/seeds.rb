@@ -116,8 +116,7 @@ def find_or_create_nj_archived_intake(attributes)
   )
 end
 
-unless Rails.env.production? && ENV["REVIEW_APP"].nil?
-
+if ENV["REVIEW_APP"] == "true"
   # 2023 and 2024 AZ Clients (same address, contact)
   az_repeat_data = [
     [ "Apt 2B", "Munchkinville", "123 Yellow Brick Rd", "85034" ],
