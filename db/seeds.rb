@@ -122,7 +122,7 @@ unless Rails.env.production?
   az_repeat_data = [
     [ "Apt 2B", "Munchkinville", "123 Yellow Brick Rd", "85034" ],
     [ nil, "Munchkinville", "15 West Tower Blvd", "85035" ],
-    [ nil, "Winkie County", "50 Feather Estates", "85033", true ],
+    [ nil, "Winkie County", "50 Feather Estates", "85033", true ]
   ]
   az_repeat_data.each_with_index do |data, i|
     changed_contact = data[4]
