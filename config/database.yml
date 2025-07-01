@@ -24,7 +24,6 @@ deploy_default: &deploy_default
   host: <%= ENV["DATABASE_HOST"] if ENV["DATABASE_USER"] %>
   username: <%= ENV["DATABASE_USER"] if ENV["DATABASE_USER"] %>
   password: <%= ENV["DATABASE_PASSWORD"] if ENV["DATABASE_PASSWORD"] %>
-  url: <%= ENV["DATABASE_URL"] %>
 
 # Store production database in the storage/ directory, which by default
 # is mounted as a persistent Docker volume in config/deploy.yml.
