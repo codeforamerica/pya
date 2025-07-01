@@ -5,9 +5,13 @@ RSpec.describe 'Seeds' do
   context 'run seeder' do
     it 'succeeds' do
       Rails.application.load_seed
-      expect(StateFileArchivedIntake.count).to eq 10
-      expect(StateFileArchivedIntake.where(state_code: "az").count).to eq(5)
-      expect(StateFileArchivedIntake.where(state_code: "ny").count).to eq(5)
+      expect(StateFileArchivedIntake.count).to eq 29
+      expect(StateFileArchivedIntake.where(state_code: "az").count).to eq(9)
+      expect(StateFileArchivedIntake.where(state_code: "ny").count).to eq(4)
+      expect(StateFileArchivedIntake.where(state_code: "nc").count).to eq(4)
+      expect(StateFileArchivedIntake.where(state_code: "id").count).to eq(4)
+      expect(StateFileArchivedIntake.where(state_code: "md").count).to eq(4)
+      expect(StateFileArchivedIntake.where(state_code: "nj").count).to eq(4)
     end
   end
 end
