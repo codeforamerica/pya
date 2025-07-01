@@ -4,6 +4,9 @@
   },
   "environments": {
     "review": {
+      "env": {
+        "REVIEW_APP": "true"
+      },
       "addons": ["heroku-postgresql"]
     }
   }
