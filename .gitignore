@@ -10,8 +10,9 @@
 # Ignore idea
 /.idea/*
 
-# Ignore all environment files.
-/.env*
+# Ignore local environment files, allow shared dev/test variables (no real secrets!) for convenience
+/.env.local
+/.env.*.local
 
 # Ignore all logfiles and tempfiles.
 /log/*

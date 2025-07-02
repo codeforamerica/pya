@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "postdeploy": "bundle exec rails db:migrate && bundle exec rails db:seed"
+  },
+  "environments": {
+    "review": {
+      "env": {
+        "REVIEW_APP": "true"
+      },
+      "addons": ["heroku-postgresql"]
+    }
+  }
+}
