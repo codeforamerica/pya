@@ -500,8 +500,8 @@ DEPENDENCIES
   cfa-styleguide (= 0.16.0)!
   dartsass-rails (~> 0.5.1)
   debug
-  http_accept_language
   dotenv
+  http_accept_language
   importmap-rails
   jbuilder
   kamal
