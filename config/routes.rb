@@ -15,5 +15,4 @@ Rails.application.routes.draw do
     root "pages#home"
     get "first_page", to: "pages#first_page"
   end
-
 end
