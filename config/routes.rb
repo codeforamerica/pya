@@ -11,6 +11,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  root "pages#home"
-  get "first_page" => "pages#first_page"
+  scope "(:locale)", locale: /en|es/ do
+    root "pages#home"
+    get "first_page", to: "pages#first_page"
+  end
+
 end

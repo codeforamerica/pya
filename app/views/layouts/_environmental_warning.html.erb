@@ -1,0 +1,9 @@
+<% unless Rails.env.production? %>
+  <div class="slab slab--flash flash--alert">
+    <div class="grid">
+      <div class="grid__item">
+        <%= t("views.layouts.environment_warning.banner_html") %>
+      </div>
+    </div>
+  </div>
+<% end %>

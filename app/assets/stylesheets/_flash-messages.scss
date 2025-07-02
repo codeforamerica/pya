@@ -1,0 +1,29 @@
+.slab--flash {
+  border: none;
+  color: white;
+  padding: 1.5rem;
+  a {
+    color: inherit;
+  }
+}
+
+.flash--notice {
+  background-color: $color-green-money;
+  color: #000;
+  font-weight: bold;
+}
+
+.flash--alert {
+  background-color: #D70A40;
+  font-weight: bold;
+}
+.flash--warning {
+  background-color: $color-yellow-light;
+  color: #000;
+}
+
+.flash--offseason-warning {
+  color: #000;
+  background-color: $color-red-light;
+  border: 2px solid $color-red;
+}
