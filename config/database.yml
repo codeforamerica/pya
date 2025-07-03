@@ -21,6 +21,7 @@ test:
 
 deploy_default: &deploy_default
   <<: *default
+  database: prior_year_access
   host: <%= ENV["DATABASE_HOST"] if ENV["DATABASE_USER"] %>
   username: <%= ENV["DATABASE_USER"] if ENV["DATABASE_USER"] %>
   password: <%= ENV["DATABASE_PASSWORD"] if ENV["DATABASE_PASSWORD"] %>
