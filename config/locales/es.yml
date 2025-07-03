@@ -1,4 +1,4 @@
-en:
+es:
   views:
     pages:
       home:
@@ -18,11 +18,11 @@ en:
         contact_us: "Contact us"
         contact_us_url: "mailto:help@fileyourstatetaxes.org"
         faq: "FAQ"
-        faq_url: "https://www.fileyourstatetaxes.org/en/us/faq"
+        faq_url: "https://www.fileyourstatetaxes.org/es/us/faq"
         privacy_policy: "Privacy Policy"
-        privacy_policy_url: "https://www.fileyourstatetaxes.org/en/privacy-policy"
+        privacy_policy_url: "https://www.fileyourstatetaxes.org/es/privacy-policy"
         sms_terms: "SMS Terms"
-        sms_terms_url: "https://www.fileyourstatetaxes.org/en/sms-terms"
+        sms_terms_url: "https://www.fileyourstatetaxes.org/es/sms-terms"
         spanish: "Español"
         built_by_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with state tax agencies to integrate with IRS Direct File.
       environment_warning:

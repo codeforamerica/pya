@@ -23,6 +23,11 @@
   </head>
 
   <body>
+    <%= render "layouts/header" %>
+    <%= render "layouts/environmental_warning" %>
     <%= yield %>
   </body>
+  <footer class="footer">
+    <%= render "layouts/footer" %>
+  </footer>
 </html>
