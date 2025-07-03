@@ -20,6 +20,7 @@ The infrastructure for this repository is located in the [CFA Tax-Benefits-Backe
 ### CI/CD Integration
 
 OpenTofu is integrated into our CI pipeline.
+
 ---
 
 ## Deployment to AWS Staging
@@ -71,3 +72,24 @@ To compile stylesheets locally:
 ```bash
 bin/rake dartsass:build
 ```
+
+## Access to Database
+
+Locally, you can use `bin/rails console`
+
+On Heroku, you can use `heroku run rails c -a <review-app-name>`
+
+On Staging and Production, you'll have to utilize AWS Query Editor or `aws rds-data` commands to access the database.
+
+```
+  AWS_PROFILE=<aws profile> \
+  aws rds-data execute-statement \
+    --resource-arn "arn:aws:rds:us-east-1:<account_id>:cluster:pya-<environment>-web" \
+    --secret-arn "arn:aws:secretsmanager:us-east-1:<account_id>:secret:rds\!cluster-<secret>" \
+    --database prior_year_access \
+    --sql '<enter sql statement here>'
+```
+
+- Your `AWS_PROFILE` should match the environment (Prior Year Access - Prod vs Non-Prod) you're trying to query
+- You can grab the `resource-arn` from AWS console > Aurora and RDS > Databases > pya-<environment>-web > Configuration > Amazon Resource Name (ARN).
+- `secret-arn` could be found in the AWS Secrets Manager (starts with `rds!cluster` -- grab the ARN)
