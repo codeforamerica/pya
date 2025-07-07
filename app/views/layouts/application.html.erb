@@ -23,10 +23,15 @@
   </head>
 
   <body>
-    <%= render "layouts/header" %>
-    <%= render "layouts/environmental_warning" %>
-    <%= yield %>
+  <%= render "layouts/header" %>
+
+  <div data-component="ClientMenuOverlay" class="menu-overlay"></div>
+  <%= render "layouts/client_menu" %>
+
+  <%= render "layouts/environmental_warning" %>
+  <%= yield %>
   </body>
+
   <footer class="footer">
     <%= render "layouts/footer" %>
   </footer>

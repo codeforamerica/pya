@@ -7,17 +7,19 @@
         <% end %>
       </div>
     </div>
-    <div class="toolbar__right is-mobile-hidden">
+
+    <div class="toolbar__right">
       <% if I18n.locale != :en %>
-        <%= link_to_english(class: "toolbar__item text--small") %>
+        <%= link_to_english(class: "toolbar__item text--small is-mobile-hidden") %>
       <% end %>
       <% if I18n.locale != :es %>
-        <%= link_to_spanish(class: "toolbar__item text--small") %>
+        <%= link_to_spanish(class: "toolbar__item text--small is-mobile-hidden") %>
       <% end %>
+
+      <a data-component="ClientMenuTrigger" class="client-menu-trigger toolbar__item text--small is-desktop-hidden">Menu</a>
+      <a data-component="ClientMenuCloser" class="client-menu-closer toolbar__item text--small is-desktop-hidden">
+        <%= image_tag "icons/close.svg" %>
+      </a>
     </div>
   </div>
-  <a data-component="ClientMenuTrigger" class="client-menu-trigger is-desktop-hidden toolbar__item text--small">Menu</a>
-  <a class="is-desktop-hidden client-menu-closer" data-component="ClientMenuCloser">
-    <%= image_tag "icons/close.svg"%>
-  </a>
 </div>

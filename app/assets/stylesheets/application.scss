@@ -232,17 +232,17 @@ ol.with-bullets {
   }
 }
 
-.fyst-home-container {
+.home-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.fyst-home-content {
+.home-content {
   flex: 1;
   padding: 15px;
   padding-top: 45px;
 }
-.fyst-home-image {
+.home-image {
   flex-shrink: 0;
   width: auto;
   height: auto;
@@ -253,7 +253,7 @@ ol.with-bullets {
 
 /* Media query for screens smaller than 768px (typical mobile devices) */
 @media (max-width: 767px) {
-  .fyst-home-image {
+  .home-image {
     display: none; /* Hides the home page image on mobile */
   }
 }

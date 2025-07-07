@@ -2,8 +2,8 @@
   <div class="page-wrapper">
     <div class="page-content">
       <main id="maincontent">
-        <div class="fyst-home-container">
-          <div class="fyst-home-content">
+        <div class="home-container">
+          <div class="home-content">
             <h1 class="h1 strong"><%= t("views.pages.home.headline") %></h1>
 
             <p><%= t("views.pages.home.integration_html").html_safe %></p>
@@ -15,7 +15,7 @@
             <%= link_to t("views.pages.home.sign_in"), root_path, class: "button button--primary button--wide" %>
           </div>
 
-          <%= image_tag("welcome.svg", class: "pya-home-image", alt: "") %>
+          <%= image_tag("welcome.svg", class: "home-image", alt: "") %>
         </div>
       </main>
     </div>
