@@ -1,38 +1,42 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= content_for(:title) || "Pya" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<html <% if content_for?(:html_class) %>class="<%= yield :html_class %>"<% end %>>
+<head>
+  <title><%= content_for(:title) || "Pya" %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= yield :head %>
+  <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+  <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+  <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+  <link rel="icon" href="/icon.png" type="image/png">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+  <%# Includes all stylesheet files in app/assets/stylesheets %>
+  <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
 
-  <body>
-  <%= render "layouts/header" %>
+<body <% if content_for?(:body_class) %>class="<%= yield :body_class %>"<% end %>>
+<div class="page-wrapper">
+  <div class="page-content">
+    <%= render "layouts/header" %>
 
-  <div data-component="ClientMenuOverlay" class="menu-overlay"></div>
-  <%= render "layouts/client_menu" %>
+    <div data-component="ClientMenuOverlay" class="menu-overlay"></div>
+    <%= render "layouts/client_menu" %>
 
-  <%= render "layouts/environmental_warning" %>
-  <%= yield %>
-  </body>
+    <%= render "layouts/environmental_warning" %>
+    <%= yield %>
 
-  <footer class="footer">
-    <%= render "layouts/footer" %>
-  </footer>
+    <footer class="footer">
+      <%= render "layouts/footer" %>
+    </footer>
+  </div>
+</div>
+</body>
 </html>
