@@ -8,14 +8,15 @@
       </div>
     </div>
 
-    <div class="toolbar__right">
+    <div class="toolbar__right is-mobile-hidden">
       <% if I18n.locale != :en %>
-        <%= link_to_english(class: "toolbar__item text--small is-mobile-hidden") %>
+        <%= link_to_english(class: "toolbar__item text--small") %>
       <% end %>
       <% if I18n.locale != :es %>
-        <%= link_to_spanish(class: "toolbar__item text--small is-mobile-hidden") %>
+        <%= link_to_spanish(class: "toolbar__item text--small") %>
       <% end %>
 
+      <%= link_to t("general.sign_in"), root_path, class: "toolbar__item text--small" %>
       <a data-component="ClientMenuTrigger" class="client-menu-trigger toolbar__item text--small is-desktop-hidden">Menu</a>
       <a data-component="ClientMenuCloser" class="client-menu-closer toolbar__item text--small is-desktop-hidden">
         <%= image_tag "icons/close.svg" %>
