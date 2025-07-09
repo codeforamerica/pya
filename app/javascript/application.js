@@ -3,6 +3,8 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import ClientMenuComponent from "ClientMenuComponent"
 import "rails-ujs"
+import "./honeycrisp"
+
 
 window.jQuery = $;
 window.$ = $;

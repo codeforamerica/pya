@@ -4,6 +4,11 @@
       <main id="maincontent">
         <div class="home-container">
           <div class="home-content">
+
+            <%= form_for :thingy, url: "/thingy/new", method: "post", builder: Cfa::Styleguide::CfaFormBuilder do |f| %>
+              <%= f.cfa_checkbox %>
+            <% end %>
+
             <h1 class="h1 strong"><%= t("views.pages.home.headline") %></h1>
 
             <p><%= t("views.pages.home.integration_html").html_safe %></p>
