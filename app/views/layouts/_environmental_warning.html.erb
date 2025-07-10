@@ -1,4 +1,4 @@
-<% unless Rails.env.production? %>
+<% if ENV["REVIEW_APP"] == "true" %>
   <div class="slab slab--flash flash--alert">
     <div class="grid">
       <div class="grid__item">

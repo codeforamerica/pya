@@ -1,24 +1,21 @@
-<body class="state-file us-state--">
-  <div class="page-wrapper">
-    <div class="page-content">
-      <main id="maincontent">
-        <div class="home-container">
-          <div class="home-content">
+<% content_for :html_class, "state-file-html-bg--" %>
+<% content_for :body_class, "state-file us-state--" %>
+<% content_for :page_title, t("views.pages.home.headline") %>
 
-            <h1 class="h1 strong"><%= t("views.pages.home.headline") %></h1>
+<main id="maincontent">
+  <div class="home-container">
+    <div class="home-content">
+      <h1 class="h1 strong"><%= t("views.pages.home.headline") %></h1>
 
-            <p><%= t("views.pages.home.integration_html").html_safe %></p>
+      <p><%= t("views.pages.home.integration_html").html_safe %></p>
 
-            <p class="strong-text"><%= t("views.pages.home.closed_notice_html") %></p>
+      <p class="strong-text"><%= t("views.pages.home.closed_notice_html") %></p>
 
-            <p><%= t("views.pages.home.download_notice_html").html_safe %></p>
+      <p><%= t("views.pages.home.download_notice_html").html_safe %></p>
 
             <%= link_to t("views.pages.home.sign_in"), year_select_path, class: "button button--primary button--wide" %>
           </div>
 
-          <%= image_tag("welcome.svg", class: "home-image", alt: "") %>
-        </div>
-      </main>
-    </div>
+    <%= image_tag("welcome.svg", class: "home-image", alt: "") %>
   </div>
-</body>
+</main>
