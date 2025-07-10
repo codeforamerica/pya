@@ -23,20 +23,22 @@
 </head>
 
 <body <% if content_for?(:body_class) %>class="<%= yield :body_class %>"<% end %>>
-<div class="page-wrapper">
-  <div class="page-content">
-    <%= render "layouts/header" %>
+  <div class="state-file">
+    <div class="page-wrapper">
+      <div class="page-content">
+        <%= render "layouts/header" %>
 
-    <div data-component="ClientMenuOverlay" class="menu-overlay"></div>
-    <%= render "layouts/client_menu" %>
+        <div data-component="ClientMenuOverlay" class="menu-overlay"></div>
+        <%= render "layouts/client_menu" %>
 
-    <%= render "layouts/environmental_warning" %>
-    <%= yield %>
+        <%= render "layouts/environmental_warning" %>
+        <%= yield %>
 
-    <footer class="footer">
-      <%= render "layouts/footer" %>
-    </footer>
+        <footer class="footer">
+          <%= render "layouts/footer" %>
+        </footer>
+      </div>
+    </div>
   </div>
-</div>
 </body>
 </html>
