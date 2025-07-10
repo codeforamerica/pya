@@ -54,10 +54,9 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     options = {},
     &block
   )
-
     html_options = {
       class: "select__element",
-      'aria-describedby': get_describedby(method, help_text: options[:help_text]),
+      'aria-describedby': get_describedby(method, help_text: options[:help_text])
     }
 
     label_class = options[:label_class] || ""
@@ -96,7 +95,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     &block
   )
     html_options = {
-      class: "select__element",
+      class: "select__element"
     }
 
     formatted_label = label(
@@ -129,7 +128,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     &block
   )
     html_options = {
-      class: "select__element",
+      class: "select__element"
     }
 
     formatted_label = label(
@@ -139,7 +138,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     html_options_with_errors = html_options.merge(error_attributes(method: select_method))
 
     text_field_options = standard_options.merge(
-      type: 'text',
+      type: "text",
       class: "text-input",
     ).merge(options).merge(error_attributes(method: input_method))
 
@@ -198,7 +197,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
 
   def text_field_with_options(input_method, options)
     text_field_options = standard_options.merge(
-      type: 'text',
+      type: "text",
       class: "text-input",
     ).merge(options).merge(error_attributes(method: input_method))
 
@@ -212,7 +211,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     checked_value = options[:checked_value] || "1"
     unchecked_value = options[:unchecked_value] || "0"
 
-    classes = ["checkbox checkbox--simplified"]
+    classes = [ "checkbox checkbox--simplified" ]
     if options[:disabled] && object.public_send(method) == checked_value
       classes.push("is-selected")
     end
@@ -255,9 +254,8 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
   end
 
   def cfa_file_field(method, label_text, help_text: nil, options: {}, classes: [], optional: false)
-
     file_field_options = {
-        class: (classes + ["file-input"]).join(" ")
+        class: (classes + [ "file-input" ]).join(" ")
     }.merge(options).merge(error_attributes(method: method))
 
     file_field_options[:id] ||= sanitized_id(method)
@@ -293,21 +291,21 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     describedby = get_describedby(method, help_text: help_text)
 
     text_field_options = standard_options.merge(error_attributes(method: method)).merge(
-      class: (classes + ["text-input money-input"]).join(" "),
+      class: (classes + [ "text-input money-input" ]).join(" "),
       'aria-describedby': describedby
-    ).merge(placeholder: '0.00').merge(options)
+    ).merge(placeholder: "0.00").merge(options)
 
     text_field_options[:id] ||= sanitized_id(method)
     options[:input_id] ||= sanitized_id(method)
 
     text_field_html = text_field(method, text_field_options)
 
-    wrapper_classes = classes + ['money-input-group']
+    wrapper_classes = classes + [ "money-input-group" ]
     label_and_field_html = label_and_field(
       method,
       label_text,
       text_field_html,
-      prefix: '$',
+      prefix: "$",
       options: options,
       wrapper_classes: wrapper_classes,
       help_text: help_text
@@ -330,7 +328,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     classes: []
   )
     text_field_options = standard_options.merge(
-      class: (classes + ["text-input"]).join(" "),
+      class: (classes + [ "text-input" ]).join(" "),
     ).merge(options).merge(error_attributes(method: method))
 
     text_field_options[:id] ||= sanitized_id(method)
@@ -352,12 +350,12 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
 
   def vita_min_searchbar(method, label_text, label_icon: "", options: {}, classes: [])
     text_field_options = {
-      class: (classes + ["vita-min-searchbar__input text-input"]).join(" ")
+      class: (classes + [ "vita-min-searchbar__input text-input" ]).join(" ")
     }.merge(options).merge(error_attributes(method: method))
 
     text_input_html = text_field(method, text_field_options)
 
-    return <<~HTML.html_safe
+    <<~HTML.html_safe
       <div class="vita-min-searchbar form-group#{error_state(object, method)}" role="search">
         <div class="vita-min-searchbar__field">
           <label class="vita-min-searchbar__label sr-only" for="#{object_name}_#{method}">#{label_text}</label>
@@ -375,17 +373,17 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
   end
 
   def vita_min_date_text_fields(method, label_text, help_text: nil, options: {}, options_by_date_component: {}, classes: [])
-    date_text_fields = [["month", 2], ["day", 2], ["year", 4]].map do |date_component, max_length|
+    date_text_fields = [ [ "month", 2 ], [ "day", 2 ], [ "year", 4 ] ].map do |date_component, max_length|
       date_component_slug = "#{method}_#{date_component}"
-      classes += ["text-input date-text-input form-width--short"]
-      classes += ["date-text-input-year"] if date_component == "year"
+      classes += [ "text-input date-text-input form-width--short" ]
+      classes += [ "date-text-input-year" ] if date_component == "year"
 
       text_field_options = standard_options
        .merge(class: classes.join(" "))
        .merge(options).merge(error_attributes(method: date_component_slug))
        .merge(
-         type: 'tel',
-         inputmode: 'numeric',
+         type: "tel",
+         inputmode: "numeric",
          maxlength: max_length,
          oninput: "this.value = this.value.replace(/[^0-9]/gi, '');",
        )
@@ -424,9 +422,9 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       container_id = item[:follow_up_id]
     end
 
-    joined_classes = ((item[:classes] || []) + ["checkbox"]).join(" ")
-    checkbox_args = [item[:method], item_options]
-    checkbox_args += ["yes", "no"] if enum
+    joined_classes = ((item[:classes] || []) + [ "checkbox" ]).join(" ")
+    checkbox_args = [ item[:method], item_options ]
+    checkbox_args += [ "yes", "no" ] if enum
 
     <<~HTML.html_safe
       <div id="#{container_id}" class="#{container_class}">
@@ -452,11 +450,11 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       vita_min_checkbox_in_set(item, enum: enum)
     end.join).html_safe
 
-    checkbox_container_classes = ["tight-ish-checkboxes"]
+    checkbox_container_classes = [ "tight-ish-checkboxes" ]
     includes_follow_up = (collection.any? { |item| item[:opens_follow_up_with_id] }) || (checkbox_html.include? "follow-up")
     checkbox_container_classes << "question-with-follow-up" if includes_follow_up
 
-    fieldset_classes = ["input-group", "form-group#{error_state(object, method)}"]
+    fieldset_classes = [ "input-group", "form-group#{error_state(object, method)}" ]
     describedby = get_describedby(method, help_text: help_text)
 
     <<~HTML.html_safe
