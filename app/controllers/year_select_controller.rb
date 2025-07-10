@@ -8,9 +8,11 @@ class YearSelectController < ApplicationController
     if @form.valid?
       case @form.year
       when "2023"
-        redirect_to year_2023_path
+        # TODO: replace with actual path for 2023
+        redirect_to root_path
       when "2024"
-        redirect_to year_2024_path
+        # TODO: replace with actual path for 2023
+        redirect_to root_path
       else
         redirect_to year_select_path, alert: "Please select a year"
       end
