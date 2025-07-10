@@ -1,35 +1,26 @@
-<% content_for :page_title, t(".title") %>
+<% content_for :page_title%>
+
 <section class="slab question-layout <%= controller_name.gsub("_", "-") %>-outer">
   <div class="grid">
     <div class="grid__item question-wrapper">
-  <h1 class="h2 spacing-below-5"><%= t(".title") %></h1>
-  <p class="spacing-below-15 spacing-above-0"><%= t(".subtitle") %></p>
+      <h1 class="h2 spacing-below-5"><%= t("views.year_select.show.title") %></h1>
+      <p class="spacing-below-15 spacing-above-0"><%= t("views.year_select.show.subtitle") %></p>
+          <div class="white-group">
+            <p class="spacing-below-10"><%= t("views.year_select.show.radio_label") %></p>
+          <%= form_with model: @form, url: year_select_path, local: true, method: :patch, builder: VitaMinFormBuilder do |f| %>
+            <%= f.cfa_radio_set(
+                  :year,
+                  collection: [
+                    { value: "2023", label: "2023" },
+                    { value: "2024", label: "2024" },
+                  ]
+                ) %>
 
-  <%= form_with model: @form, url: year_select_path, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-
-
-      <div class="white-group">
-        <%= f.vita_min_checkbox_set(
-              :opt_in,
-              [
-                {
-                  method: :sms_notification_opt_in,
-                  label: "2023"
-                },
-                {
-                  method: :email_notification_opt_in,
-                  label: "2024"
-                }
-              ],
-              enum: true,
-              label_text: t('.opt_in_label')
-            ) %>
-      </div>
-
-        <button type="submit" class="button button--primary button--wide spacing-below-15">
-          <%= t("general.continue") %>
-        </button>
-  <% end %>
-</div>
+        </div>
+      <button type="submit" class="button button--primary button--wide spacing-below-15">
+        <%= t("general.continue") %>
+      </button>
+            <% end %>
+    </div>
   </div>
 </section>

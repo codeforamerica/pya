@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   scope "(:locale)", locale: /#{I18n.available_locales.join('|')}/ do
     root "pages#home"
     get "first_page", to: "pages#first_page"
-    get  "year_select",        to: "year_select#show",    as: :year_select
+    get "year_select",        to: "year_select#show",    as: :year_select
+    patch "year_select", to: "year_select#update"
   end
 end
