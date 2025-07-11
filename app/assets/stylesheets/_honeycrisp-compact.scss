@@ -60,7 +60,7 @@
     margin-bottom: 1rem;
   }
 
-  // In Honeycrisp, a form group with help text has a negative margin-top.
+  // In Honeycrisp, a forms group with help text has a negative margin-top.
   // This is unnecessary and troublesome in honeycrisp-compact.
   .form-group .form-question + .text--help, .form-group .data-table .form-question + th, .data-table .form-group .form-question + th, .form-group .form-question + .summary-table__label, .form-group .form-question + .statistic-card__label {
     margin-top: inherit;
@@ -202,7 +202,7 @@
   }
 
   .text-input, .select {
-    margin-bottom: 0; // simplify margins on form-group contents to ensure similar items are similar heights
+    margin-bottom: 0; // simplify margins on forms-group contents to ensure similar items are similar heights
   }
 
   .button {

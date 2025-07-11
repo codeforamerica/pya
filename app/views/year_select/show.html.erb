@@ -1,0 +1,37 @@
+<% content_for :page_title %>
+
+<section class="slab question-layout <%= controller_name.gsub("_", "-") %>-outer">
+  <div class="grid">
+    <div class="grid__item question-wrapper">
+      <h1 class="h2 spacing-below-5">
+        <%= t("views.year_select.show.title") %>
+      </h1>
+      <p class="spacing-below-15 spacing-above-0">
+        <%= t("views.year_select.show.subtitle") %>
+      </p>
+
+      <%= form_with model: @form, url: year_select_path, local: true, method: :patch, builder: VitaMinFormBuilder do |f| %>
+
+        <div class="white-group spacing-below-15">
+          <p class="spacing-below-10">
+            <%= t("views.year_select.show.radio_label") %>
+          </p>
+
+          <%= f.cfa_radio_set(
+                :year,
+                collection: [
+                  { value: "2023", label: "2023" },
+                  { value: "2024", label: "2024" },
+                ]
+              ) %>
+        </div>
+
+        <button type="submit" class="button button--primary button--wide">
+          <%= t("general.continue") %>
+        </button>
+
+      <% end %>
+
+    </div>
+  </div>
+</section>
