@@ -17,7 +17,7 @@ class YearSelectController < ApplicationController
         redirect_to year_select_path, alert: "Please select a year"
       end
     else
-      render :show
+      render :show, status: :bad_request
     end
   end
 
