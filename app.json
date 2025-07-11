@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "postdeploy": "bundle exec rails db:migrate && bundle exec rails db:seed"
+    "postdeploy": "bundle exec rails db:migrate && bundle exec rails db:seed && bundle exec rails assets:precompile"
   },
   "environments": {
     "review": {
