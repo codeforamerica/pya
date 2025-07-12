@@ -12,7 +12,7 @@ class EmailAddressController < BaseController
         session[:code_verified] = false
         session[:email_address] = @form.email_address
         current_archived_intake
-        #TODO Add some kind of logging here
+        # TODO Add some kind of logging here
 
         redirect_to root_path
       else
@@ -26,5 +26,3 @@ class EmailAddressController < BaseController
       params.require(:email_address_form).permit(:email_address)
     end
 end
-
-

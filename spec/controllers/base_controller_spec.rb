@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe BaseController, type: :controller do
   let(:email_address) { 'test@example.com' }
-  let!(:archived_intake) {create :state_file_archived_intake, email_address: email_address}
+  let!(:archived_intake) { create :state_file_archived_intake, email_address: email_address }
   before do
     session[:email_address] = email_address
   end

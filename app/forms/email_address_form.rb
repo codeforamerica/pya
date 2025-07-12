@@ -5,4 +5,3 @@ class EmailAddressForm < Form
 
   validates :email_address, presence: true, 'valid_email_2/email': true
 end
-

@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe EmailAddressController, type: :controller do
-
   describe "GET #edit" do
     it "renders the edit template with a new EmailAddressForm" do
       get :edit
@@ -19,7 +18,7 @@ RSpec.describe EmailAddressController, type: :controller do
     context "when the form is valid" do
       context "and an archived intake exists with the email address" do
         let!(:archived_intake) { create :state_file_archived_intake, email_address: valid_email_address }
-        #TODO update this test with logging and the proper redirects
+        # TODO update this test with logging and the proper redirects
         it "creates a request, and redirects to the root path" do
           post :update, params: {
             email_address_form: { email_address: valid_email_address }
