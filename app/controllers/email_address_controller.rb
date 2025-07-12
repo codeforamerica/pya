@@ -1,4 +1,4 @@
-class EmailAddressController < ApplicationControllerController
+class EmailAddressController < BaseController
     def edit
       @form = EmailAddressForm.new
     end
@@ -11,9 +11,10 @@ class EmailAddressController < ApplicationControllerController
         session[:mailing_verified] = false
         session[:code_verified] = false
         session[:email_address] = @form.email_address
-        # create_state_file_access_log("issued_email_challenge")
+        current_archived_intake
+        #TODO Add some kind of logging here
 
-        # redirect_to state_file_archived_intakes_edit_verification_code_path
+        redirect_to root_path
       else
         render :edit
       end
@@ -22,7 +23,7 @@ class EmailAddressController < ApplicationControllerController
     private
 
     def email_address_form_params
-      params.require(:state_file_archived_intakes_email_address_form).permit(:email_address)
+      params.require(:email_address_form).permit(:email_address)
     end
 end
 

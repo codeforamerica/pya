@@ -1,4 +1,9 @@
 en:
+  errors:
+    attributes:
+      email_address:
+        invalid: Please enter a valid email address.
+        blank: Can't be blank.
   general:
     continue: Continue
   views:
