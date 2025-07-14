@@ -23,6 +23,13 @@ describe YearSelectController, type: :controller do
       end
     end
 
+    context "with and invalid year" do
+      it "renders :show again" do
+        post :update, params: { year_select_form: { year: "2025" } }
+        expect(response).to render_template(:show)
+      end
+    end
+
     context "with no year selected" do
       it "renders :show again" do
         post :update, params: { year_select_form: { year: nil } }
