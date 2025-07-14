@@ -53,7 +53,6 @@ group :development, :test do
   gem "rspec-rails"
   gem "dotenv", require: "dotenv/load"
   gem "pry-byebug"
-  gem "rails-controller-testing"
 end
 
 group :development do
