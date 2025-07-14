@@ -14,7 +14,7 @@ class YearSelectController < ApplicationController
         # TODO: replace with actual path for 2023
         redirect_to root_path
       else
-        redirect_to year_select_path, alert: "Please select a year"
+        redirect_to year_select_path
       end
     else
       render :show, status: :bad_request
