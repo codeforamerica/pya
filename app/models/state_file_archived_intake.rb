@@ -23,9 +23,21 @@
 class StateFileArchivedIntake < ApplicationRecord
   has_one_attached :submission_pdf
   has_many :state_file_archived_intake_access_logs, class_name: "StateFileArchivedIntakeAccessLog"
+  devise :lockable, unlock_in: 60.minutes, unlock_strategy: :time
 
   def full_address
     address_parts = [ mailing_street, mailing_apartment, mailing_city, mailing_state, mailing_zip ]
     address_parts.compact_blank.join(", ")
   end
+
+  def self.maximum_attempts
+    2
+  end
+
+  def increment_failed_attempts
+    super
+    lock_access! if attempts_exceeded? && !access_locked?
+  end
+
+
 end

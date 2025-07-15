@@ -7,6 +7,7 @@ gem "propshaft"
 gem "pg"
 gem "rails-i18n"
 gem "valid_email2", "~> 4.0.6"
+gem 'devise'
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
