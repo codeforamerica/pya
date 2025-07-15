@@ -15,6 +15,7 @@
 #  mailing_street          :string
 #  mailing_zip             :string
 #  permanently_locked_at   :datetime
+#  phone_number            :string
 #  state_code              :string
 #  tax_year                :integer
 #  unsubscribed_from_email :boolean          default(FALSE), not null

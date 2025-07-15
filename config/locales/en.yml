@@ -27,6 +27,17 @@ en:
         closed_notice_html: "<strong>We’re closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong>"
         download_notice_html: "Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong>."
         sign_in: "Sign in"
+      knock_out:
+        az_dor: Arizona Department of Revenue
+        locked_due_to: This account has been locked due to too many failed login attempts.
+        one_hour: Please try again in 1 hour.
+        ny_dor: NY State Tax Department
+        md_form: Maryland Form 129
+        nc_dor: North Carolina Department of Revenue
+        nj_dot: New Jersey Division of Taxation
+        return_to_home: Return to Homepage
+        also_visit_html: You can also visit your state’s tax agency website to request your %{year} tax return. For more information, click on the links below or visit our <a href='https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return'>FAQ page</a>.
+        title: Sorry, we were not able to verify your account
     layouts:
       header:
         link_to_main_content: "Skip to main content"
