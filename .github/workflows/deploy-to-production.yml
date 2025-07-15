@@ -1,28 +1,39 @@
-name: Deploy to AWS Staging
+name: Deploy to AWS Production
 
 on:
-  workflow_run:
-    workflows: [ "Run Linter and Tests" ]
-    types: [ completed ]
-    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: 'Part of version to increment (major, minor, patch)'
+        required: true
+        default: 'patch'
+        type: choice
+        options: [patch, minor, major]
+      release_title:
+        description: 'Optional title to replace auto-generated one'
+        required: false
+        type: string
+      additional_notes:
+        description: 'Optional notes to prepend to auto-generated notes'
+        required: false
+        type: string
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  on-success:
-    environment: staging
-    name: Deploy to Staging
+  deploy:
+    environment: production
+    name: Deploy to Production
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     env:
-      ECR_REPOSITORY: pya-staging-web
+      ECR_REPOSITORY: pya-production-web
       IMAGE_TAG: ${{ github.sha }}
     steps:
       - run: echo 'The triggering workflow passed'
 
-      - run: echo 'Starting the staging deploy'
+      - run: echo 'Starting the production deploy'
 
       - name: Check out code
         uses: actions/checkout@v4
@@ -41,14 +52,14 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
-          docker build -t 300423309117.dkr.ecr.us-east-1.amazonaws.com/pya-staging-web:${{env.IMAGE_TAG}} --platform linux/amd64 .
-          docker push 300423309117.dkr.ecr.us-east-1.amazonaws.com/pya-staging-web:${{env.IMAGE_TAG}}
+          docker build -t 828007041297.dkr.ecr.us-east-1.amazonaws.com/pya-production-web:${{env.IMAGE_TAG}} --platform linux/amd64 .
+          docker push 828007041297.dkr.ecr.us-east-1.amazonaws.com/pya-production-web:${{env.IMAGE_TAG}}
 
       - name: Update SSM Version Parameter
         run: |
           echo "tag:$IMAGE_TAG"
           aws ssm put-parameter \
-            --name  /pya/staging/web/version \
+            --name  /pya/production/web/version \
             --value "$IMAGE_TAG" \
             --overwrite
 
@@ -58,8 +69,8 @@ jobs:
           repo_owner="codeforamerica"
           repo_name="tax-benefits-backend"
           event_type="deploy"
-          environment="pya-nonprod"
-          config="staging.pya.fileyourstatetaxes.org"
+          environment="pya-prod"
+          config="pya.fileyourstatetaxes.org"
           curl -L \
             -X POST \
             -H "Accept: application/vnd.github+json" \
@@ -72,21 +83,8 @@ jobs:
         uses: 8398a7/action-slack@v3
         if: failure()
         with:
-          text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q99GPBK8> <@U07Q39HFLBG> PYA staging deploy ${{ job.status }} :sob:"
+          text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q99GPBK8> <@U07Q39HFLBG> PYA production deploy ${{ job.status }} :sob:"
           status: ${{ job.status }}
-          fields: message,commit,author,eventName,ref,workflow,job,took
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
-  on-failure:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-    steps:
-      - name: Send Slack notification on failure
-        uses: 8398a7/action-slack@v3
-        with:
-          text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q99GPBK8> <@U07Q39HFLBG> PYA test suite ${{ github.event.workflow_run.conclusion }} :sob:"
-          status: ${{ github.event.workflow_run.conclusion }}
           fields: message,commit,author,eventName,ref,workflow,job,took
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
