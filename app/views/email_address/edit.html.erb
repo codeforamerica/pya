@@ -4,17 +4,19 @@
   <div class="grid">
     <div class="grid__item question-wrapper">
       <h1 class="h2" id="main-question"><%= title %></h1>
-      <%= form_with model: @form, url: email_address_path, local: true, method: :patch, builder: VitaMinFormBuilder do |f| %>
-        <div class="white-group">
-          <%= f.cfa_input_field(:email_address, t("views.email_address.edit.email_address_label"), help_text: 'example@email.com', classes: ["form-width--long"]) %>
-        </div>
+      <div>
+        <%= form_with model: @form, url: email_address_path, local: true, method: :patch, builder: VitaMinFormBuilder do |f| %>
+          <div class="white-group">
+            <%= f.cfa_input_field(:email_address, t("views.email_address.edit.email_address_label"), help_text: 'example@email.com', classes: ["form-width--long"]) %>
+          </div>
 
-        <div class="form-actions">
-          <button type="submit" class="button button--primary button--wide spacing-below-15">
-            <%= t("general.submit") %>
-          </button>
-        </div>
-      <% end %>
+          <div class="form-actions">
+            <button type="submit" class="button button--primary button--wide spacing-below-15">
+              <%= t("general.submit") %>
+            </button>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </section>
