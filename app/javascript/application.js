@@ -2,12 +2,12 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import ClientMenuComponent from "ClientMenuComponent"
-import "rails-ujs"
+import * as $ from "jquery"
+import * as ActiveStorage from "@rails/activestorage"
 
 window.jQuery = $;
 window.$ = $;
 
-RailsUJS.start();
 ActiveStorage.start();
 
 document.addEventListener("turbo:load", () => {
