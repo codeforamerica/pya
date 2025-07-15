@@ -6,7 +6,7 @@
     <div class="grid__item question-wrapper">
       <h1 class="h2" id="main-question"><%= title %></h1>
 
-      <%= form_with model: @form, url: email_address_path, local: true, method: :patch, builder: VitaMinFormBuilder do |f| %>
+      <%= form_with model: @form, url: email_address_path, data: { turbo: false }, local: true, method: :patch, builder: VitaMinFormBuilder do |f| %>
         <div class="white-group">
           <%= f.cfa_input_field(
                 :email_address,
