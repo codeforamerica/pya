@@ -32,7 +32,7 @@ RSpec.describe EmailAddressController, type: :controller do
           expect(session[:ssn_verified]).to be(false)
           expect(session[:mailing_verified]).to be(false)
           expect(session[:code_verified]).to be(false)
-          expect(session[:email_address]).to eq("new@example.com")
+          expect(session[:email_address]).to eq(valid_email_address)
 
           expect(response).to redirect_to(root_path)
         end

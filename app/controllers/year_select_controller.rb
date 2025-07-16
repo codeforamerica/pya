@@ -9,15 +9,16 @@ class YearSelectController < ApplicationController
       case @form.year
       when "2023"
         session[:year_selected] = "2023"
+        redirect_to edit_email_address_path
       when "2024"
         session[:year_selected] = "2024"
+        redirect_to edit_email_address_path
       else
-        redirect_to year_select_path
+        render :show
       end
     else
       render :show, status: :bad_request
     end
-    redirect_to edit_email_address_path
   end
 
   private
