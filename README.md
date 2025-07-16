@@ -79,10 +79,51 @@ Locally, you can use `bin/rails console`
 
 On Heroku, you can use `heroku run rails c -a <review-app-name>`
 
-On Staging and Production, you'll have to utilize AWS Query Editor or `aws rds-data` commands to access the database.
+On Staging and Production, use the `aws ecs execute-command`. You must have `awscli` isntalled on your machine already (check with `aws --version`). 
+If not, `brew install awscli` on your local machine ([AWS instructions here](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)). 
+
+You also need `AWS_PROFILE` for Prior Year Access (for both Prod and Non-Prod AWS accounts). [Follow AWS Identity Center: Configuring SSO instructions](https://www.notion.so/cfa/AWS-Identity-Center-e8a28122b2f44595a2ef56b46788ce2c?source=copy_link#ef1c6c77703b4215bbe1953de4692054) to configure your profile correctly.
+
+1. Find your `task ARN`
+```
+AWS_PROFILE=<aws profile name> \
+    aws ecs list-tasks --cluster pya-staging-web \
+    --query "taskArns[0]" --output text
+```
+This will return the RUNNING task. 
+
+Note that if the newest deploy ran into trouble starting the task, it will be in the STOPPED state. In order to try to debug tasks that have not started successfully or have died/finished, you can add in `--desired-status STOPPED`
+See [AWS CLI list-tasks docs for more information and options](https://docs.aws.amazon.com/cli/latest/reference/ecs/list-tasks.html#options)
+
+2. Run the `aws ecs execute-command` ([AWS ECS Execute-Command Docs](https://docs.aws.amazon.com/cli/latest/reference/ecs/execute-command.html))
+```
+AWS_PROFILE=<aws profile name> \
+    aws ecs execute-command --cluster pya-<environment>-web \
+    --task <task ARN; from above> \
+    --container pya-<environment>-web \
+    --interactive \
+    --command "/bin/sh"
+```
+then when you successfully connect, you'll see:
 
 ```
-  AWS_PROFILE=<aws profile> \
+The Session Manager plugin was installed successfully. Use the AWS CLI to start a session.
+
+
+Starting session with SessionId: ecs-execute-command-<some random string>
+#
+```
+3. `bin/rails c --sandbox` (omit the `--sandbox` if you have to perform a write operation)
+
+
+---
+
+### (Not recommended) Direct DB access via SQL Statements
+
+You can also utilize AWS Query Editor or `aws rds-data` commands to directly access the staging/production database via psql.
+
+```
+  AWS_PROFILE=<aws profile name> \
   aws rds-data execute-statement \
     --resource-arn "arn:aws:rds:us-east-1:<account_id>:cluster:pya-<environment>-web" \
     --secret-arn "arn:aws:secretsmanager:us-east-1:<account_id>:secret:rds\!cluster-<secret>" \
