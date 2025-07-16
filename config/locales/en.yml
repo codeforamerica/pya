@@ -8,6 +8,11 @@ en:
     continue: Continue
     submit: Submit
   views:
+    phone_number:
+      edit:
+        title: Enter the phone number linked to your account
+        phone_number_label: Your phone number
+        numbers_only: Enter numbers only
     email_address:
       edit:
         title: Enter the email address linked to your account

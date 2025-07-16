@@ -1,0 +1,2 @@
+class ContactPreferenceController < BaseController
+end

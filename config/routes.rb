@@ -19,7 +19,8 @@ Rails.application.routes.draw do
     get "email_address/edit", to: "email_address#edit", as: "edit_email_address"
     patch "email_address", to: "email_address#update"
     get 'knock_out', to: "pages#knock_out"
-
+    get "phone_number/edit", to: "phone_number#edit", as: "edit_phone_number"
+    patch "phone_number", to: "phone_number#update"
     devise_for :state_file_archived_intakes
   end
 end

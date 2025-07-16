@@ -1,16 +1,16 @@
-class EmailAddressController < BaseController
+class PhoneNumberController < BaseController
   def edit
-    @form = SmsContactForm.new
+    @form = PhoneNumberForm.new
   end
 
   def update
-    @form = SmsContactForm.new(sms_contact_form_params)
+    @form = PhoneNumberForm.new(phone_number_form_params)
 
     if @form.valid?
       session[:ssn_verified] = false
       session[:mailing_verified] = false
       session[:code_verified] = false
-      session[:sms_contact] = @form.sms_contact
+      session[:phone_number] = @form.phone_number
       current_archived_intake
       # TODO Add some kind of logging here
 
@@ -22,7 +22,7 @@ class EmailAddressController < BaseController
 
   private
 
-  def sms_contact_form_params
-    params.require(:sms_contact_form).permit(:sms_contact)
+  def phone_number_form_params
+    params.require(:phone_number_form).permit(:phone_number)
   end
 end
