@@ -1,8 +1,5 @@
-class PagesController < BaseController
+class PagesController < ApplicationController
   def home
-  end
-
-  def first_page
   end
 
   def knock_out
