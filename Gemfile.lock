@@ -150,11 +150,6 @@ GEM
     et-orbi (1.2.11)
       tzinfo
     execjs (2.10.0)
-    factory_bot (6.5.1)
-      activesupport (>= 6.1.0)
-    factory_bot_rails (6.4.4)
-      factory_bot (~> 6.5)
-      railties (>= 5.0.0)
     ffi (1.17.2-aarch64-linux-gnu)
     ffi (1.17.2-aarch64-linux-musl)
     ffi (1.17.2-arm-linux-gnu)
@@ -448,9 +443,6 @@ GEM
     unicode-emoji (4.0.4)
     uri (1.0.3)
     useragent (0.16.11)
-    valid_email2 (4.0.6)
-      activemodel (>= 3.2)
-      mail (~> 2.5)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -487,7 +479,6 @@ DEPENDENCIES
   dartsass-rails (~> 0.5.1)
   debug
   dotenv
-  factory_bot_rails
   http_accept_language
   importmap-rails
   jbuilder
@@ -508,7 +499,6 @@ DEPENDENCIES
   thruster
   turbo-rails
   tzinfo-data
-  valid_email2 (~> 4.0.6)
   web-console
 
 BUNDLED WITH

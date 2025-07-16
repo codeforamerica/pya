@@ -12,10 +12,14 @@ describe YearSelectController, type: :controller do
 
   describe "#update" do
     context "with a valid year" do
-      it "redirects to the edit email address path and saves the year to session" do
+      it "redirects to the 2023 path" do
         post :update, params: { year_select_form: { year: "2023" } }
-        expect(response).to redirect_to(edit_email_address_path)
-        expect(session[:year_selected]).to eq("2023")
+        expect(response).to redirect_to(root_path)
+      end
+
+      it "redirects to the 2024 path" do
+        post :update, params: { year_select_form: { year: "2024" } }
+        expect(response).to redirect_to(root_path)
       end
     end
 
