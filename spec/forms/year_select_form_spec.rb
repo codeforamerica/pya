@@ -9,7 +9,7 @@ RSpec.describe YearSelectForm do
 
       it "is invalid" do
         expect(form).not_to be_valid
-        expect(form.errors[:year]).to include("can't be blank")
+        expect(form.errors[:year]).to include("Can't be blank.")
       end
     end
 
@@ -18,7 +18,7 @@ RSpec.describe YearSelectForm do
 
       it "is invalid" do
         expect(form).not_to be_valid
-        expect(form.errors[:year]).to include("can't be blank")
+        expect(form.errors[:year]).to include("Can't be blank.")
       end
     end
 

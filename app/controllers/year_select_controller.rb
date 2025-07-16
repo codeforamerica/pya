@@ -8,13 +8,13 @@ class YearSelectController < ApplicationController
     if @form.valid?
       case @form.year
       when "2023"
-        # TODO: replace with actual path for 2023
-        redirect_to root_path
+        session[:year_selected] = "2023"
+        redirect_to edit_email_address_path
       when "2024"
-        # TODO: replace with actual path for 2023
-        redirect_to root_path
+        session[:year_selected] = "2024"
+        redirect_to edit_email_address_path
       else
-        redirect_to year_select_path
+        render :show
       end
     else
       render :show, status: :bad_request
