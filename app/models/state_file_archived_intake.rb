@@ -40,6 +40,4 @@ class StateFileArchivedIntake < ApplicationRecord
     super
     lock_access! if attempts_exceeded? && !access_locked?
   end
-
-
 end
