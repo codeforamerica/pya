@@ -6,7 +6,6 @@ gem "rails", "~> 8.0.2"
 gem "propshaft"
 gem "pg"
 gem "rails-i18n"
-gem "valid_email2", "~> 4.0.6"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
@@ -55,7 +54,6 @@ group :development, :test do
   gem "dotenv", require: "dotenv/load"
   gem "pry-byebug"
   gem "rails-controller-testing"
-  gem "factory_bot_rails"
 end
 
 group :development do
