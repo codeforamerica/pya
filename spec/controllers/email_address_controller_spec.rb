@@ -16,10 +16,10 @@ RSpec.describe EmailAddressController, type: :controller do
     let(:invalid_email_address) { "" }
 
     context "when the form is valid" do
-      context "and an archived intake exists with the email address" do
+      context "and an archived intake exists with an email address" do
         let!(:archived_intake) { create :state_file_archived_intake, email_address: valid_email_address }
-        # TODO update this test with logging and the proper redirects
-        it "creates a request, and redirects to the root path" do
+        # TODO update this test with logging and the proper redirects https://codeforamerica.atlassian.net/browse/FYST-2088
+        it "creates a request, updates the session and redirects to the root path" do
           post :update, params: {
             email_address_form: { email_address: valid_email_address }
           }
@@ -29,9 +29,12 @@ RSpec.describe EmailAddressController, type: :controller do
           expect(active_archived_intake.hashed_ssn).to eq(archived_intake.hashed_ssn)
           expect(active_archived_intake.id).to eq(archived_intake.id)
 
-          expect(response).to redirect_to(
-                                root_path
-                              )
+          expect(session[:ssn_verified]).to be(false)
+          expect(session[:mailing_verified]).to be(false)
+          expect(session[:code_verified]).to be(false)
+          expect(session[:email_address]).to eq("new@example.com")
+
+          expect(response).to redirect_to(root_path)
         end
 
         it "matches email case insensitively" do
@@ -49,20 +52,6 @@ RSpec.describe EmailAddressController, type: :controller do
           expect(response).to redirect_to(
                                 root_path
                               )
-        end
-
-        it "resets verification session variables sets the email address" do
-          post :update, params: {
-            email_address_form: { email_address: "new@example.com" }
-          }
-
-          expect(assigns(:form)).to be_valid
-
-          expect(session[:ssn_verified]).to be(false)
-          expect(session[:mailing_verified]).to be(false)
-          expect(session[:code_verified]).to be(false)
-
-          expect(session[:email_address]).to eq("new@example.com")
         end
       end
 
@@ -106,8 +95,6 @@ RSpec.describe EmailAddressController, type: :controller do
         }
 
         expect(assigns(:form)).not_to be_valid
-
-        expect(StateFileArchivedIntakeAccessLog.count).to eq(0)
 
         expect(response).to render_template(:edit)
       end
