@@ -13,6 +13,7 @@ class EmailAddressController < BaseController
         session[:email_address] = @form.email_address
         current_archived_intake
         # TODO Add some kind of logging here
+        # https://codeforamerica.atlassian.net/browse/FYST-2088
 
         redirect_to root_path
       else

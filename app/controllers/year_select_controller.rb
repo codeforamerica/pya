@@ -14,7 +14,7 @@ class YearSelectController < ApplicationController
         session[:year_selected] = "2024"
         redirect_to contact_preference_edit_path
       else
-        redirect_to year_select_path, alert: "Please select a year"
+        render :show
       end
     else
       render :show, status: :bad_request

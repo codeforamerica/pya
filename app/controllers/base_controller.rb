@@ -8,22 +8,8 @@ class BaseController < ApplicationController
     # be able to pass the identification number controller.
     return unless session[:email_address].present?
 
-    email = session[:email_address].downcase
-    existing = StateFileArchivedIntake.find_by("LOWER(email_address) = ?", email)
-    existing || StateFileArchivedIntake.create(email_address: email)
-  end
-
-  def is_intake_locked
-    if current_archived_intake.nil? || current_archived_intake.access_locked? || current_archived_intake.permanently_locked_at.present?
-      redirect_to knock_out_path
+      email = session[:email_address].downcase
+      existing = StateFileArchivedIntake.find_by("LOWER(email_address) = ?", email)
+      existing || StateFileArchivedIntake.create(email_address: email)
     end
-  end
-
-  def edit
-    @form = form_class.new
-  end
-
-  def form_class
-    "#{controller_name.classify}Form".constantize
-  end
 end
