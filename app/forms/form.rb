@@ -3,7 +3,6 @@ class Form
   include ActiveModel::AttributeAssignment
   include ActiveModel::Validations::Callbacks
   extend ActiveModel::Callbacks
-  include FormAttributes
 
   define_model_callbacks :save
 
