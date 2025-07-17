@@ -13,6 +13,7 @@ en:
       edit:
         title: Enter the email address linked to your account
         email_address_label: Your email address
+        send_code: Send code
     year_select:
       show:
         title: Select the tax year of the return you want to download
