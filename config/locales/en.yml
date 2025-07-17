@@ -1,13 +1,24 @@
 en:
+  errors:
+    messages:
+      blank: Can't be blank.
+    attributes:
+      email_address:
+        invalid: Please enter a valid email address.
   general:
     continue: Continue
+    submit: Submit
   views:
+    email_address:
+      edit:
+        title: Enter the email address linked to your account
+        email_address_label: Your email address
+        send_code: Send code
     year_select:
       show:
         title: Select the tax year of the return you want to download
         subtitle: To keep your information secure, if you need to download both returns, you can download the second one after you finish downloading the first.
         radio_label: "Select the tax year of the return you want to download:"
-
     pages:
       home:
         skip_to_main_content: "Skip to main content"
