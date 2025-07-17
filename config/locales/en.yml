@@ -8,6 +8,12 @@ en:
     continue: Continue
     submit: Submit
   views:
+    contact_preference:
+      edit:
+        title: What sign in method did you use to create an account?
+        subtitle: Your sign in method might be different than how you received notifications about your tax return.
+        text_message_option: Sign in with phone number
+        email_option: Sign in with email
     phone_number:
       edit:
         title: Enter the phone number linked to your account

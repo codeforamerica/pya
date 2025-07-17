@@ -19,7 +19,7 @@ describe YearSelectController, type: :controller do
 
       it "redirects to the 2024 path" do
         post :update, params: { year_select_form: { year: "2024" } }
-        expect(response).to redirect_to(edit_email_address_path)
+        expect(response).to redirect_to(contact_preference_edit_path)
       end
     end
 

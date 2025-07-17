@@ -9,6 +9,7 @@ gem "rails-i18n"
 gem "valid_email2", "~> 4.0.6"
 gem "devise"
 gem "phony"
+gem "auto_strip_attributes"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
