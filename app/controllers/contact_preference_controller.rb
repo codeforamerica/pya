@@ -7,7 +7,15 @@ class ContactPreferenceController < BaseController
     @form = ContactPreferenceForm.new(contact_preference_form_params.merge(state_file_archived_intake: current_archived_intake))
     @form.save
 
-    redirect_to root_path
+    case @form.state_file_archived_intake.contact_preference
+    when "email"
+      redirect_to edit_email_address_path
+    when "text"
+      redirect_to edit_phone_number_path
+    else
+      render :edit
+    end
+
   end
 
   private
