@@ -12,7 +12,7 @@ class PhoneNumberController < BaseController
       session[:code_verified] = false
       session[:phone_number] = @form.phone_number
       current_archived_intake
-      # TODO Add some kind of logging here
+      # TODO Add some kind of logging here. https://codeforamerica.atlassian.net/browse/FYST-2088
 
       redirect_to root_path
     else

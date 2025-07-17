@@ -11,5 +11,5 @@ class BaseController < ApplicationController
       email = session[:email_address].downcase
       existing = StateFileArchivedIntake.find_by("LOWER(email_address) = ?", email)
       existing || StateFileArchivedIntake.create(email_address: email)
-    end
+  end
 end

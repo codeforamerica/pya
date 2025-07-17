@@ -7,7 +7,6 @@ gem "propshaft"
 gem "pg"
 gem "rails-i18n"
 gem "valid_email2", "~> 4.0.6"
-gem "devise"
 gem "phony"
 gem "auto_strip_attributes"
 
