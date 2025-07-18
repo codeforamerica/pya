@@ -11,12 +11,13 @@ class PhoneNumberController < BaseController
       session[:mailing_verified] = false
       session[:code_verified] = false
       session[:phone_number] = @form.phone_number
+      session[:email_address] = nil
       current_archived_intake
       # TODO Add some kind of logging here. https://codeforamerica.atlassian.net/browse/FYST-2088
 
       redirect_to root_path
     else
-      render :edit
+      render :show
     end
   end
 
