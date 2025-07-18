@@ -1,0 +1,18 @@
+<% title = t("views.contact_preference.edit.title") %>
+<% content_for :page_title, title %>
+
+<section class="slab question-layout <%= controller_name.gsub("_", "-") %>-outer">
+  <div class="grid">
+    <div class="grid__item question-wrapper">
+      <h1 class="h2" id="main-question"><%= title %></h1>
+      <p><%= t("views.contact_preference.edit.subtitle") %></p>
+
+      <div class="options-wrapper">
+        <div class="yes-no-buttons">
+          <%= link_to t("views.contact_preference.edit.text_message_option"), edit_phone_number_path, class: "button" %>
+          <%= link_to t("views.contact_preference.edit.email_option"), edit_email_address_path, class: "button" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

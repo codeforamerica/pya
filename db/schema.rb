@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_30_175244) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_18_064459) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -66,8 +66,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_30_175244) do
     t.string "mailing_zip"
     t.string "state_code"
     t.integer "tax_year"
-    t.string "contact_preference"
     t.boolean "unsubscribed_from_email", default: false, null: false
+    t.integer "contact_preference", default: 0, null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
