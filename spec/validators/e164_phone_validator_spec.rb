@@ -2,7 +2,7 @@ require "rails_helper"
 require 'ostruct'
 
 RSpec.describe E164PhoneValidator do
-  subject { described_class.new(attributes: [:phone_number]) }
+  subject { described_class.new(attributes: [ :phone_number ]) }
 
   let!(:record) { OpenStruct.new(errors: ActiveModel::Errors.new(nil)) }
   before { subject.validate_each(record, :phone_number, value) }
@@ -19,7 +19,7 @@ RSpec.describe E164PhoneValidator do
     let(:value) { "15005550006" }
 
     it "adds an error" do
-      expect(record.errors[:phone_number]).to eq(["Please enter a valid phone number."])
+      expect(record.errors[:phone_number]).to eq([ "Please enter a valid phone number." ])
     end
   end
 
@@ -27,7 +27,7 @@ RSpec.describe E164PhoneValidator do
     let(:value) { "(500) 555-0006" }
 
     it "adds an error" do
-      expect(record.errors[:phone_number]).to eq(["Please enter a valid phone number."])
+      expect(record.errors[:phone_number]).to eq([ "Please enter a valid phone number." ])
     end
   end
 
@@ -35,7 +35,7 @@ RSpec.describe E164PhoneValidator do
     let(:value) { "653423" }
 
     it "adds an error" do
-      expect(record.errors[:phone_number]).to eq(["Please enter a valid phone number."])
+      expect(record.errors[:phone_number]).to eq([ "Please enter a valid phone number." ])
     end
   end
 
@@ -43,7 +43,7 @@ RSpec.describe E164PhoneValidator do
     let(:value) { "\x80" } # .valid_encoding? returns false for this string
 
     it "adds an error" do
-      expect(record.errors[:phone_number]).to eq(["Please enter a valid phone number."])
+      expect(record.errors[:phone_number]).to eq([ "Please enter a valid phone number." ])
     end
   end
 
@@ -51,7 +51,7 @@ RSpec.describe E164PhoneValidator do
     let(:value) { " " }
 
     it "adds an error" do
-      expect(record.errors[:phone_number]).to eq(["Please enter a valid phone number."])
+      expect(record.errors[:phone_number]).to eq([ "Please enter a valid phone number." ])
     end
   end
 end

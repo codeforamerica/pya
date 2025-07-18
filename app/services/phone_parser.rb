@@ -7,16 +7,16 @@ class PhoneParser
   private
 
   def self.phony_normalize_or_error(raw_phone_number)
-    return [false, nil] if raw_phone_number.nil?
-    return [false, ""] if raw_phone_number == ""
+    return [ false, nil ] if raw_phone_number.nil?
+    return [ false, "" ] if raw_phone_number == ""
 
     raw_phone_number = raw_phone_number.to_s
 
-    phony_normalized = Phony.normalize(raw_phone_number, cc: '1')
+    phony_normalized = Phony.normalize(raw_phone_number, cc: "1")
     if Phony.plausible?(phony_normalized)
-      [true, phony_normalized]
+      [ true, phony_normalized ]
     else
-      [false, raw_phone_number]
+      [ false, raw_phone_number ]
     end
   end
 
