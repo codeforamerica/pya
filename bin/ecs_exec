@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Script to connect to the first running task in the pya-staging-web cluster
+# Script to connect to the first task in the pya-<environment>-web cluster
 
 # --- Default Configuration ---
-DEFAULT_ENV="staging"
+ENVIRONMENT="staging"
 DESIRED_STATUS="RUNNING"
 COMMAND="/bin/sh" # Default shell
 
@@ -13,18 +13,17 @@ usage() {
     echo "Connects to the first running ECS task in a specified environment."
     echo ""
     echo "Options:"
-    echo "  --env <environment>      Specify the environment (e.g., staging, production). Determines cluster and container names. Defaults to '$DEFAULT_ENV'"
-    echo "                           Required if CLUSTER_NAME/CONTAINER_NAME are not hardcoded."
-    echo "  --profile <profile_name> AWS profile to use (e.g., pya-nonprod). Required."
+    echo "  --env <environment>      Specify the environment (e.g., staging, production). Determines cluster and container names. Defaults to '$ENVIRONMENT'"
     echo "  --desired-status <status> Task status to search for (e.g., RUNNING, STOPPED). Defaults to '$DESIRED_STATUS'."
+    echo "                            Can set to STOPPED for debugging tasks failing to start or for connecting to finished/dead tasks"
     echo "  --command <command>      Command to execute on the container (e.g., \"/bin/bash\", \"ls -la\")."
     echo "                           Defaults to \"$COMMAND\"."
     echo "  -h, --help               Display this help message."
     echo ""
     echo "Examples:"
-    echo "  $(basename "$0") --env staging --profile pya-nonprod"
-    echo "  $(basename "$0") --env production --command \"/bin/bash\""
-    echo "  $(basename "$0") --env staging --desired-status STOPPED"
+    echo "  $(basename "$0"): to connect to staging"
+    echo "  $(basename "$0") --env production: to connect to production"
+    echo "  $(basename "$0") --desired-status STOPPED: to connect to staging but view the last stopped task"
     exit 1
 }
 
@@ -35,11 +34,6 @@ while [[ "$#" -gt 0 ]]; do
             ENVIRONMENT="$2"
             shift # past argument
             shift # past value
-            ;;
-        --profile)
-            PROFILE="$2"
-            shift
-            shift
             ;;
         --desired-status)
             DESIRED_STATUS="$2"
@@ -61,18 +55,15 @@ while [[ "$#" -gt 0 ]]; do
     esac
 done
 
-# --- Validate and Set Cluster/Container Names based on AWS_PROFILE ---
-if [ -z "$PROFILE" ]; then
-    echo "Error: --profile parameter is required."
-    usage
-fi
-
+# --- Set environment-specific variables  ---
 case "$ENVIRONMENT" in
     staging)
+        PROFILE="pya-nonprod"
         CLUSTER_NAME="pya-staging-web"
         CONTAINER_NAME="pya-staging-web"
         ;;
     production)
+        PROFILE="pya-prod"
         CLUSTER_NAME="pya-production-web"
         CONTAINER_NAME="pya-production-web"
         ;;
@@ -113,9 +104,10 @@ aws ecs execute-command \
 if [ $? -ne 0 ]; then
     echo "Error: Failed to execute command on the task."
     echo "Please check:"
-    echo "  - Your AWS CLI credentials for profile $(echo $PROFILE_ARG | cut -d' ' -f2)"
+    echo "  - Your AWS CLI credentials for profile $(echo $PROFILE | cut -d' ' -f2)."
+    echo "    Your aws profile name needs to be pya-prod (production) or pya-nonprod (staging)"
     echo "  - Network connectivity from your machine"
-    echo "  - ECS Exec permissions for your task's IAM role"
+    echo "  - ECS execute-command permissions for your account"
     echo "  - That the container has the specified command available (e.g., /bin/sh, /bin/bash)"
     echo "  - That the task itself is healthy and not restarting."
     exit 1
