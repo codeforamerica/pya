@@ -3,7 +3,7 @@
 # Table name: state_file_archived_intakes
 #
 #  id                      :bigint           not null, primary key
-#  contact_preference      :string
+#  contact_preference      :integer          default("unfilled"), not null
 #  email_address           :string
 #  fake_address_1          :string
 #  fake_address_2          :string
