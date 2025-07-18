@@ -17,7 +17,7 @@ class PhoneNumberController < BaseController
 
       redirect_to root_path
     else
-      render :show
+      render :edit
     end
   end
 

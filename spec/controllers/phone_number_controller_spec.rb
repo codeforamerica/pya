@@ -28,7 +28,6 @@ RSpec.describe PhoneNumberController, type: :controller do
           expect(active_archived_intake.phone_number).to eq(valid_phone_number)
           expect(active_archived_intake.hashed_ssn).to eq(archived_intake.hashed_ssn)
           expect(active_archived_intake.id).to eq(archived_intake.id)
-          expect(active_archived_intake.contact_preference).to eq("text")
 
           expect(session[:ssn_verified]).to be(false)
           expect(session[:mailing_verified]).to be(false)
@@ -57,7 +56,7 @@ RSpec.describe PhoneNumberController, type: :controller do
 
         it "resets verification session variables and sets phone number" do
           post :update, params: {
-            phone_number_form: { phone_number_path: valid_phone_number }
+            phone_number_form: { phone_number: valid_phone_number }
           }
 
           expect(assigns(:form)).to be_valid

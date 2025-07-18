@@ -25,7 +25,6 @@ RSpec.describe EmailAddressController, type: :controller do
           }
           expect(assigns(:form)).to be_valid
           active_archived_intake = controller.send(:current_archived_intake)
-          binding.pry
           expect(active_archived_intake.email_address).to eq(valid_email_address)
           expect(active_archived_intake.hashed_ssn).to eq(archived_intake.hashed_ssn)
           expect(active_archived_intake.id).to eq(archived_intake.id)
