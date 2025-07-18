@@ -95,6 +95,8 @@ Name the Prior Year Access - Prod profile as `pya-prod` and Prior Year Access - 
    3. There are other commands that the aws ecs can call. The options can be passed manually into the `list-tasks` ([doc](https://docs.aws.amazon.com/cli/latest/reference/ecs/list-tasks.html)) and `execute-command`([doc](https://docs.aws.amazon.com/cli/latest/reference/ecs/execute-command.html)) commands. See linked documentation.
 4. Type in `bin/rails c --sandbox` (remove `--sandbox` if you must perform operations that will write/modify data in the db; please pair/try to be loud as possible when performing a write operation)
 
+---
+
 ### Ssh into AWS ECS Manually (if you need to pass in more parameters than the script supports)
 
 1. Find your `task ARN`
@@ -127,7 +129,6 @@ Starting session with SessionId: ecs-execute-command-<some random string>
 #
 ```
 3. `bin/rails c --sandbox` (omit the `--sandbox` if you have to perform a write operation)
-
 
 ---
 
