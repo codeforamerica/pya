@@ -83,6 +83,19 @@ On Staging and Production, use the `aws ecs execute-command`. You must have `aws
 If not, `brew install awscli` on your local machine ([AWS instructions here](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)). 
 
 You also need `AWS_PROFILE` for Prior Year Access (for both Prod and Non-Prod AWS accounts). [Follow AWS Identity Center: Configuring SSO instructions](https://www.notion.so/cfa/AWS-Identity-Center-e8a28122b2f44595a2ef56b46788ce2c?source=copy_link#ef1c6c77703b4215bbe1953de4692054) to configure your profile correctly.
+Name the Prior Year Access - Prod profile as `pya-prod` and Prior Year Access - Non-prod profile as `pya-nonprod`. You can rename your aws profile by editing your `~/.aws/config` and `~/.aws/credentials`.
+
+### Use ecs_exec bin script (recommended in most cases)
+
+1. For staging, you can use `bin/ecs_exec`
+2. For production, you can pass in `bin/ecs_exece --environment production`
+3. You can pass in other parameters like:
+   1. `--desired-status`: `RUNNING` by default, but can specify `STOPPED`. See documentation for [list-tasks](https://docs.aws.amazon.com/cli/latest/reference/ecs/list-tasks.html).
+   2. `--command`: if you want to run something other than `bin/sh`
+   3. There are other commands that the aws ecs can call. The options can be passed manually into the `list-tasks` ([doc](https://docs.aws.amazon.com/cli/latest/reference/ecs/list-tasks.html)) and `execute-command`([doc](https://docs.aws.amazon.com/cli/latest/reference/ecs/execute-command.html)) commands. See linked documentation.
+4. Type in `bin/rails c --sandbox` (remove `--sandbox` if you must perform operations that will write/modify data in the db; please pair/try to be loud as possible when performing a write operation)
+
+### Ssh into AWS ECS Manually (if you need to pass in more parameters than the script supports)
 
 1. Find your `task ARN`
 ```
