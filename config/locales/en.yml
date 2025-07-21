@@ -16,6 +16,12 @@ en:
         title: Enter the email address linked to your account
         email_address_label: Your email address
         send_code: Send code
+    verification_code:
+      edit:
+        action: Verify code
+        subtitle_html: If you didn’t receive a code, please <a class="open-intercom">chat with us</a>.
+        title_html: We’ve sent your code to <strong>%{contact_info}</strong>
+        verification_code_label: Enter the 6-digit code
     year_select:
       show:
         title: Select the tax year of the return you want to download

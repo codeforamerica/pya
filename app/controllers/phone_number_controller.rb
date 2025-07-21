@@ -15,7 +15,7 @@ class PhoneNumberController < BaseController
       current_archived_intake
       # TODO Add some kind of logging here. https://codeforamerica.atlassian.net/browse/FYST-2088
 
-      redirect_to root_path
+      redirect_to verification_code_edit_path
     else
       render :edit
     end
