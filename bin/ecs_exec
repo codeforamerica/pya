@@ -93,6 +93,7 @@ echo "Found task: $TASK_ARN (Status: $DESIRED_STATUS)"
 
 # --- Execute the command ---
 echo "Executing command '$COMMAND' on container: $CONTAINER_NAME..."
+echo "!!!! ----- YOU ARE CURRENTLY ON $ENVIRONMENT ----- !!!!"
 aws ecs execute-command \
     --cluster "$CLUSTER_NAME" \
     --task "$TASK_ARN" \
