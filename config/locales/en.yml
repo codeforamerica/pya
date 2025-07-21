@@ -1,9 +1,12 @@
 en:
   errors:
+    messages:
+      blank: Can't be blank.
     attributes:
       email_address:
         invalid: Please enter a valid email address.
-        blank: Can't be blank.
+      phone_number:
+        invalid: Please enter a valid phone number.
   general:
     continue: Continue
     submit: Submit
@@ -12,11 +15,23 @@ en:
       edit:
         title: Enter the email address linked to your account
         email_address_label: Your email address
+        send_code: Send code
     year_select:
       show:
         title: Select the tax year of the return you want to download
         subtitle: To keep your information secure, if you need to download both returns, you can download the second one after you finish downloading the first.
         radio_label: "Select the tax year of the return you want to download:"
+    contact_preference:
+      edit:
+        title: What sign in method did you use to create an account?
+        subtitle: Your sign in method might be different than how you received notifications about your tax return.
+        text_message_option: Sign in with phone number
+        email_option: Sign in with email
+    phone_number:
+      edit:
+        title: Enter the phone number linked to your account
+        phone_number_label: Your phone number
+        numbers_only: Enter numbers only
     pages:
       home:
         skip_to_main_content: "Skip to main content"
@@ -27,17 +42,6 @@ en:
         closed_notice_html: "<strong>We’re closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong>"
         download_notice_html: "Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong>."
         sign_in: "Sign in"
-      knock_out:
-        az_dor: Arizona Department of Revenue
-        locked_due_to: This account has been locked due to too many failed login attempts.
-        one_hour: Please try again in 1 hour.
-        ny_dor: NY State Tax Department
-        md_form: Maryland Form 129
-        nc_dor: North Carolina Department of Revenue
-        nj_dot: New Jersey Division of Taxation
-        return_to_home: Return to Homepage
-        also_visit_html: You can also visit your state’s tax agency website to request your %{year} tax return. For more information, click on the links below or visit our <a href='https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return'>FAQ page</a>.
-        title: Sorry, we were not able to verify your account
     layouts:
       header:
         link_to_main_content: "Skip to main content"
