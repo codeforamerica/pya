@@ -3,11 +3,20 @@ module ArchivedIntakes
     before_action :is_intake_locked
     def edit
       @form = VerificationCodeForm.new(email_address: current_archived_intake.email_address)
-      @email_address = current_archived_intake.email_address
-      ArchivedIntakeEmailVerificationCodeJob.perform_later(
-        email_address: @email_address,
-        locale: I18n.locale
-      )
+      case current_intake.contact_preference
+      when "text"
+        @phone_number = current_archived_intake.phone_number
+        ArchivedIntakeEmailVerificationCodeJob.perform_later(
+          email_address: @email_address,
+          locale: I18n.locale
+        )
+      when "email"
+        @email_address = current_archived_intake.email_address
+        ArchivedIntakeEmailVerificationCodeJob.perform_later(
+          email_address: @email_address,
+          locale: I18n.locale
+        )
+      end
     end
 
     def update
@@ -15,17 +24,26 @@ module ArchivedIntakes
       @email_address = current_archived_intake.email_address
 
       if @form.valid?
-        create_state_file_access_log("correct_email_code")
-        create_state_file_access_log("issued_ssn_challenge")
+        case current_intake.contact_preference
+        when "text"
+          #TODO: Some kind of logging here
+        when "email"
+          #TODO: Some kind of logging here
+        end
         current_archived_intake.reset_failed_attempts!
         session[:code_verified] = true
         redirect_to state_file_archived_intakes_edit_identification_number_path
       else
-        create_state_file_access_log("incorrect_email_code")
+        case current_intake.contact_preference
+        when "text"
+          #TODO: Some kind of logging here
+        when "email"
+          #TODO: Some kind of logging here
+        end
         current_archived_intake.increment_failed_attempts
         if current_archived_intake.access_locked?
-          create_state_file_access_log("client_lockout_begin")
-          redirect_to state_file_archived_intakes_verification_error_path
+          #TODO: Some kind of logging here
+          redirect_to knock_out_path
           return
         end
         render :edit
