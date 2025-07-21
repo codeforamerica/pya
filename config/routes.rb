@@ -17,9 +17,12 @@ Rails.application.routes.draw do
     patch "year_select", to: "year_select#update"
     get "email_address/show", to: "email_address#edit", as: "edit_email_address"
     patch "email_address", to: "email_address#update"
+    get "knock_out", to: "pages#knock_out"
     get "phone_number/show", to: "phone_number#edit", as: "edit_phone_number"
     patch "phone_number", to: "phone_number#update"
     get "contact_preference/show", to: "contact_preference#show"
     patch "contact_preference", to: "contact_preference#update"
+
+    devise_for :state_file_archived_intakes
   end
 end

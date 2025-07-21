@@ -66,6 +66,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_18_064459) do
     t.string "mailing_zip"
     t.string "state_code"
     t.integer "tax_year"
+    t.string "contact_preference"
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.integer "contact_preference", default: 0, null: false
   end
