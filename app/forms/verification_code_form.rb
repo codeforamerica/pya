@@ -21,4 +21,3 @@ class VerificationCodeForm < Form
     valid_code.present?
   end
 end
-

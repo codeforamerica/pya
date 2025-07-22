@@ -33,9 +33,9 @@ class VerificationCodeController < BaseController
     if @form.valid?
       case current_archived_intake.contact_preference
       when "text"
-        #TODO: Some kind of logging here
+        # TODO: Some kind of logging here
       when "email"
-        #TODO: Some kind of logging here
+        # TODO: Some kind of logging here
       end
       current_archived_intake.reset_failed_attempts!
       session[:code_verified] = true
@@ -43,13 +43,13 @@ class VerificationCodeController < BaseController
     else
       case current_archived_intake.contact_preference
       when "text"
-        #TODO: Some kind of logging here
+        # TODO: Some kind of logging here
       when "email"
-        #TODO: Some kind of logging here
+        # TODO: Some kind of logging here
       end
       current_archived_intake.increment_failed_attempts
       if current_archived_intake.access_locked?
-        #TODO: Some kind of logging here
+        # TODO: Some kind of logging here
         redirect_to knock_out_path
         return
       end
@@ -63,4 +63,3 @@ class VerificationCodeController < BaseController
     params.require(:verification_code_form).permit(:verification_code)
   end
 end
-
