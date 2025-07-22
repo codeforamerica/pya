@@ -107,6 +107,15 @@ describe BaseController, type: :controller do
         expect(controller).not_to receive(:redirect_to)
         controller.is_intake_locked
       end
+        expect(@new_intake.phone_number).to eq('9998887777')
+        expect(@new_intake.email_address).to be_nil
+      end
+    end
+
+    context 'when neither phone_number nor email_address is set' do
+      it 'returns nil' do
+        expect(controller.current_archived_intake).to be_nil
+      end
     end
   end
 end

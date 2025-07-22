@@ -30,6 +30,8 @@ class StateFileArchivedIntake < ApplicationRecord
 
   enum :contact_preference, { unfilled: 0, email: 1, text: 2 }, prefix: :contact_preference
 
+  enum :contact_preference, { unfilled: 0, email: 1, text: 2 }, prefix: :contact_preference
+
   def full_address
     address_parts = [ mailing_street, mailing_apartment, mailing_city, mailing_state, mailing_zip ]
     address_parts.compact_blank.join(", ")
