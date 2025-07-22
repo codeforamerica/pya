@@ -6,7 +6,7 @@
           <%= t("views.verification_code.edit.title_html", contact_info: @contact_info) %>
         <% end %>
 
-        <%= form_with model: @form, url: { action: :update }, local: true, method: :patch, builder: VitaMinFormBuilder do |f| %>
+        <%= form_with model: @form, url: { action: :update }, data: { turbo: false }, local: true, method: :patch, builder: VitaMinFormBuilder do |f| %>
           <h1 class="h2" id="main-question">
             <%= t("views.verification_code.edit.title_html", contact_info: @contact_info) %>
           </h1>
