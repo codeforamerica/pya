@@ -1,0 +1,1 @@
+Rails.application.config.action_view.default_form_with_generates_turbo_data = false
