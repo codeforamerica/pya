@@ -16,11 +16,10 @@ class BaseController < ApplicationController
       existing = StateFileArchivedIntake.find_by("LOWER(email_address) = ?", email)
       existing || StateFileArchivedIntake.create(email_address: email, contact_preference: "email")
     end
-
-    def is_intake_locked
-      if current_archived_intake.nil? || current_archived_intake.access_locked? || current_archived_intake.permanently_locked_at.present?
-        redirect_to knock_out_path
-      end
+  end
+  def is_intake_locked
+    if current_archived_intake.nil? || current_archived_intake.access_locked? || current_archived_intake.permanently_locked_at.present?
+      redirect_to knock_out_path
     end
   end
 end

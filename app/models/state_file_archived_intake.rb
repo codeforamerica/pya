@@ -5,14 +5,17 @@
 #  id                      :bigint           not null, primary key
 #  contact_preference      :integer          default("unfilled"), not null
 #  email_address           :string
+#  failed_attempts         :integer          default(0), not null
 #  fake_address_1          :string
 #  fake_address_2          :string
 #  hashed_ssn              :string
+#  locked_at               :datetime
 #  mailing_apartment       :string
 #  mailing_city            :string
 #  mailing_state           :string
 #  mailing_street          :string
 #  mailing_zip             :string
+#  permanently_locked_at   :datetime
 #  phone_number            :string
 #  state_code              :string
 #  tax_year                :integer
@@ -39,5 +42,9 @@ class StateFileArchivedIntake < ApplicationRecord
   def increment_failed_attempts
     super
     lock_access! if attempts_exceeded? && !access_locked?
+  end
+
+  def contact
+    contact_preference == "text" ? phone_number : email_address
   end
 end

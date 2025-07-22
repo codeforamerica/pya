@@ -7,6 +7,8 @@ en:
         invalid: Please enter a valid email address.
       phone_number:
         invalid: Please enter a valid phone number.
+      verification_code:
+        invalid: Please enter a valid code
   general:
     continue: Continue
     submit: Submit
@@ -19,9 +21,14 @@ en:
     verification_code:
       edit:
         action: Verify code
-        subtitle_html: If you didn’t receive a code, please <a class="open-intercom">chat with us</a>.
-        title_html: We’ve sent your code to <strong>%{contact_info}</strong>
         verification_code_label: Enter the 6-digit code
+        title_html: We’ve sent a code to %{contact_info}
+        email:
+          body_1: Please enter the code emailed to you. If you didn’t receive a code, please check your spam folder.
+          body_2_html: If this is not the email address you used to create your account, please go back and enter the correct email address.  If you still need help, <a class="open-intercom">chat with us</a>.
+        text:
+          body_1: Please enter the code texted to you.
+          body_2_html: If this is not the phone number you used to create your account, please go back and enter the correct phone number.  If you still need help, <a class="open-intercom">chat with us</a>.
     year_select:
       show:
         title: Select the tax year of the return you want to download

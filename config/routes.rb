@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     patch "phone_number", to: "phone_number#update"
     get "contact_preference/show", to: "contact_preference#show"
     patch "contact_preference", to: "contact_preference#update"
-    get "verification_code/edit", to: "verification_code#edit"
+    get "verification_code/edit", to: "verification_code#edit", as: "edit_verification_code"
     patch "verification_code", to: "verification_code#update"
 
     devise_for :state_file_archived_intakes
