@@ -14,7 +14,7 @@ class CreateStateFileArchivedIntakes < ActiveRecord::Migration[8.0]
       t.string :mailing_zip
       t.string :state_code
       t.integer :tax_year
-      t.integer :string
+      t.string :contact_preference
       t.boolean :unsubscribed_from_email, default: false, null: false
     end
   end

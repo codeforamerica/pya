@@ -59,6 +59,7 @@ describe BaseController, type: :controller do
   end
 
   describe '#is_intake_locked' do
+    let!(:archived_intake) { create :state_file_archived_intake }
     before do
       allow(controller).to receive(:current_archived_intake).and_return(archived_intake)
     end
