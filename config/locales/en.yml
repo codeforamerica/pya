@@ -1,4 +1,7 @@
 en:
+  verification_code_mailer:
+    archived_intake_verification_code:
+      subject: Six-Digit Code from FileYourStateTaxes
   errors:
     messages:
       blank: Can't be blank.
