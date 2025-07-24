@@ -1,8 +1,8 @@
 class VerificationCodeController < BaseController
   before_action :is_intake_locked
-  before_action :setup_edit
+  before_action :setup_contact_type
 
-  def setup_edit
+  def setup_contact_type
     @contact_type = current_archived_intake.contact_preference
     @contact_info = current_archived_intake.contact
   end
