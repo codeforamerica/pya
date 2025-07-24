@@ -34,7 +34,7 @@ RSpec.describe PhoneNumberController, type: :controller do
           expect(session[:code_verified]).to be(false)
           expect(session[:phone_number]).to eq(valid_phone_number)
 
-          expect(response).to redirect_to(root_path)
+          expect(response).to redirect_to(edit_verification_code_path)
         end
       end
 
@@ -51,7 +51,7 @@ RSpec.describe PhoneNumberController, type: :controller do
           expect(active_archived_intake.full_address).to eq("")
           expect(active_archived_intake.contact_preference).to eq("text")
 
-          expect(response).to redirect_to(root_path)
+          expect(response).to redirect_to(edit_verification_code_path)
         end
 
         it "resets verification session variables and sets phone number" do
