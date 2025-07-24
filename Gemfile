@@ -5,6 +5,11 @@ gem "rails", "~> 8.0.2"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 gem "pg"
+gem "rails-i18n"
+gem "valid_email2", "~> 4.0.6"
+gem "phony"
+gem "auto_strip_attributes"
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
@@ -28,11 +33,10 @@ gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
 
+gem "aws-sdk-s3", require: false
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
-
-# Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
-gem "kamal", require: false
 
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
@@ -50,11 +54,16 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
   gem "rspec-rails"
+  gem "dotenv", require: "dotenv/load"
+  gem "pry-byebug"
+  gem "rails-controller-testing"
+  gem "factory_bot_rails"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "annotaterb"
 end
 
 group :test do
@@ -64,3 +73,4 @@ group :test do
 end
 
 gem "dartsass-rails", "~> 0.5.1"
+gem "http_accept_language"

@@ -1,0 +1,35 @@
+<style>
+    @font-face {
+        font-family: "Material Icons";
+        font-style: normal;
+        font-weight: normal;
+        src: url("/assets/MaterialIcons-Regular-93e6a975.eot");
+        src: url("/assets/MaterialIcons-Regular-93e6a975.eot?#iefix") format("embedded-opentype"),url("/assets/MaterialIcons-Regular-70a7b453.ttf") format("truetype"),url("/assets/MaterialIcons-Regular-863f766e.woff") format("woff"),url("/assets/MaterialIcons-Regular-16371e96.svg") format("svg")
+    }
+</style>
+<div class="main-header sticky-header">
+  <div class="toolbar">
+    <div class="toolbar__left">
+      <div class="toolbar__item main-header__title">
+        <%= link_to root_path, class: "toolbar__logo-text" do %>
+          <%= image_tag("fyst-logo.svg", alt: "FileYourStateTaxes", title: "FileYourStateTaxes", class_names: "fyst-logo") %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="toolbar__right is-mobile-hidden">
+      <% if I18n.locale != :en %>
+        <%= link_to_english(class: "toolbar__item text--small") %>
+      <% end %>
+      <% if I18n.locale != :es %>
+        <%= link_to_spanish(class: "toolbar__item text--small") %>
+      <% end %>
+
+      <%= link_to t("general.sign_in"), root_path, class: "toolbar__item text--small" %>
+      <a data-component="ClientMenuTrigger" class="client-menu-trigger toolbar__item text--small is-desktop-hidden">Menu</a>
+      <a data-component="ClientMenuCloser" class="client-menu-closer toolbar__item text--small is-desktop-hidden">
+        <%= image_tag "icons/close.svg" %>
+      </a>
+    </div>
+  </div>
+</div>

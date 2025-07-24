@@ -11,6 +11,15 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  root "pages#home"
-  get "first_page" => "pages#first_page"
+  scope "(:locale)", locale: /#{I18n.available_locales.join('|')}/ do
+    root "pages#home"
+    get "year_select",        to: "year_select#show",    as: :year_select
+    patch "year_select", to: "year_select#update"
+    get "email_address/show", to: "email_address#edit", as: "edit_email_address"
+    patch "email_address", to: "email_address#update"
+    get "phone_number/show", to: "phone_number#edit", as: "edit_phone_number"
+    patch "phone_number", to: "phone_number#update"
+    get "contact_preference/show", to: "contact_preference#show"
+    patch "contact_preference", to: "contact_preference#update"
+  end
 end

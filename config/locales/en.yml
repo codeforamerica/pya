@@ -1,31 +1,61 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  errors:
+    messages:
+      blank: Can't be blank.
+    attributes:
+      email_address:
+        invalid: Please enter a valid email address.
+      phone_number:
+        invalid: Please enter a valid phone number.
+  general:
+    continue: Continue
+    submit: Submit
+  views:
+    email_address:
+      edit:
+        title: Enter the email address linked to your account
+        email_address_label: Your email address
+        send_code: Send code
+    year_select:
+      show:
+        title: Select the tax year of the return you want to download
+        subtitle: To keep your information secure, if you need to download both returns, you can download the second one after you finish downloading the first.
+        radio_label: "Select the tax year of the return you want to download:"
+    contact_preference:
+      edit:
+        title: What sign in method did you use to create an account?
+        subtitle: Your sign in method might be different than how you received notifications about your tax return.
+        text_message_option: Sign in with phone number
+        email_option: Sign in with email
+    phone_number:
+      edit:
+        title: Enter the phone number linked to your account
+        phone_number_label: Your phone number
+        numbers_only: Enter numbers only
+    pages:
+      home:
+        skip_to_main_content: "Skip to main content"
+        faq: "FAQ"
+        spanish: "Español"
+        headline: "A free state filing service for taxpayers using IRS Direct File"
+        integration_html: "<strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free</strong>."
+        closed_notice_html: "<strong>We’re closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong>"
+        download_notice_html: "Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong>."
+        sign_in: "Sign in"
+    layouts:
+      header:
+        link_to_main_content: "Skip to main content"
+        spanish: "Español"
+      footer:
+        contact_us: "Contact us"
+        contact_us_url: "mailto:help@fileyourstatetaxes.org"
+        faq: "FAQ"
+        faq_url: "https://www.fileyourstatetaxes.org/en/us/faq"
+        privacy_policy: "Privacy Policy"
+        privacy_policy_url: "https://www.fileyourstatetaxes.org/en/privacy-policy"
+        sms_terms: "SMS Terms"
+        sms_terms_url: "https://www.fileyourstatetaxes.org/en/sms-terms"
+        spanish: "Español"
+        built_by_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with state tax agencies to integrate with IRS Direct File.
+      environment_warning:
+        banner_html: This site is for example purposes only. If you want help with your taxes, go to <a target="_blank" rel="nofollow noopener" href="https://www.fileyourstatetaxes.org">FileYourStateTaxes.org</a>.

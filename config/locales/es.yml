@@ -1,0 +1,29 @@
+es:
+  views:
+    pages:
+      home:
+        skip_to_main_content: "Skip to main content"
+        faq: "FAQ"
+        spanish: "Español"
+        headline: "A free state filing service for taxpayers using IRS Direct File"
+        integration_html: "<strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free</strong>."
+        closed_notice_html: "<strong>We’re closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong>"
+        download_notice_html: "Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong>."
+        sign_in: "Sign in"
+    layouts:
+      header:
+        link_to_main_content: "Skip to main content"
+        spanish: "Español"
+      footer:
+        contact_us: "Contact us"
+        contact_us_url: "mailto:help@fileyourstatetaxes.org"
+        faq: "FAQ"
+        faq_url: "https://www.fileyourstatetaxes.org/es/us/faq"
+        privacy_policy: "Privacy Policy"
+        privacy_policy_url: "https://www.fileyourstatetaxes.org/es/privacy-policy"
+        sms_terms: "SMS Terms"
+        sms_terms_url: "https://www.fileyourstatetaxes.org/es/sms-terms"
+        spanish: "Español"
+        built_by_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with state tax agencies to integrate with IRS Direct File.
+      environment_warning:
+        banner_html: This site is for example purposes only. If you want help with your taxes, go to <a target="_blank" rel="nofollow noopener" href="https://www.fileyourstatetaxes.org">FileYourStateTaxes.org</a>.
