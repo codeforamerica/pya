@@ -23,15 +23,18 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  tests:
+    uses: ./.github/workflows/ci.yml
   deploy:
+    name: deploy
+    needs: ["tests"]
     environment: production
-    name: Deploy to Production
     runs-on: ubuntu-latest
     env:
       ECR_REPOSITORY: pya-production-web
       IMAGE_TAG: ${{ github.sha }}
     steps:
-      - run: echo 'The triggering workflow passed'
+      - run: echo 'Linter and tests passed.'
 
       - run: echo 'Starting the production deploy'
 
