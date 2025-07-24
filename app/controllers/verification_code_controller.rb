@@ -1,11 +1,12 @@
 class VerificationCodeController < BaseController
   before_action :is_intake_locked
-  before_action :setup_contact_type
+  before_action :setup_contact
 
-  def setup_contact_type
+  def setup_contact
     @contact_type = current_archived_intake.contact_preference
     @contact_info = current_archived_intake.contact
   end
+
   def edit
     @form = VerificationCodeForm.new(contact_info: @contact_info)
     case current_archived_intake.contact_preference
@@ -28,7 +29,6 @@ class VerificationCodeController < BaseController
 
   def update
     @form = VerificationCodeForm.new(verification_code_form_params, contact_info: current_archived_intake.contact)
-    @email_address = current_archived_intake.email_address
 
     if @form.valid?
       case current_archived_intake.contact_preference
