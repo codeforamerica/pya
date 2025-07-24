@@ -88,7 +88,7 @@ jobs:
         with:
           text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q99GPBK8> <@U07Q39HFLBG> PYA production deploy ${{ job.status }} :sob:"
           status: ${{ job.status }}
-          fields: message,commit,author,eventName,ref,workflow,job,took
+          fields: message,commit,author,workflow,took
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
@@ -98,6 +98,6 @@ jobs:
         with:
           text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q99GPBK8> <@U07Q39HFLBG> PYA production deploy ${{ job.status }} :sparkles:"
           status: ${{ job.status }}
-          fields: message,commit,author,eventName,ref,workflow,job,took
+          fields: message,commit,author,workflow,took
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
