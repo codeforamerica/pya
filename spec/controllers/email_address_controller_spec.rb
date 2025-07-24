@@ -34,7 +34,7 @@ RSpec.describe EmailAddressController, type: :controller do
           expect(session[:code_verified]).to be(false)
           expect(session[:email_address]).to eq(valid_email_address)
 
-          expect(response).to redirect_to(root_path)
+          expect(response).to redirect_to(edit_verification_code_path)
         end
 
         it "matches email case insensitively" do
@@ -49,9 +49,7 @@ RSpec.describe EmailAddressController, type: :controller do
           expect(active_archived_intake.hashed_ssn).to eq(archived_intake.hashed_ssn)
           expect(active_archived_intake.id).to eq(archived_intake.id)
 
-          expect(response).to redirect_to(
-                                root_path
-                              )
+          expect(response).to redirect_to(edit_verification_code_path)
         end
       end
 
@@ -67,9 +65,7 @@ RSpec.describe EmailAddressController, type: :controller do
           expect(active_archived_intake.hashed_ssn).to eq(nil)
           expect(active_archived_intake.full_address).to eq("")
 
-          expect(response).to redirect_to(
-                                root_path
-                              )
+          expect(response).to redirect_to(edit_verification_code_path)
         end
 
         it "resets verification session variables and sets email" do

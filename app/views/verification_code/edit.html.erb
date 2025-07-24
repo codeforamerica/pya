@@ -1,0 +1,33 @@
+<section class="slab question-layout <%= controller_name.gsub("_", "-") %>-outer">
+  <div class="grid">
+    <div class="grid__item question-wrapper">
+      <div class="grid__item question-wrapper">
+        <% content_for :page_title do %>
+          <%= t("views.verification_code.edit.title_html", contact_info: @contact_info) %>
+        <% end %>
+
+        <%= form_with model: @form, url: { action: :update }, data: { turbo: false }, local: true, method: :patch, builder: VitaMinFormBuilder do |f| %>
+          <h1 class="h2" id="main-question">
+            <%= t("views.verification_code.edit.title_html", contact_info: @contact_info) %>
+          </h1>
+
+          <p><%= t("views.verification_code.edit.#{@contact_type}.body_1") %></p>
+
+          <p><%= t("views.verification_code.edit.#{@contact_type}.body_2_html") %></p>
+
+          <div class="white-group">
+            <%= f.cfa_input_field(
+                  :verification_code,
+                  t("views.verification_code.edit.verification_code_label"),
+                  classes: ["form-width--long"]
+                ) %>
+          </div>
+
+          <button type="submit" class="button button--primary button--wide spacing-below-15">
+            <%= t("views.verification_code.edit.verify") %>
+          </button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

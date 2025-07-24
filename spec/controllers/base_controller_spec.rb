@@ -57,4 +57,56 @@ describe BaseController, type: :controller do
       end
     end
   end
+
+  describe '#is_intake_locked' do
+    let!(:archived_intake) { create :state_file_archived_intake }
+    before do
+      allow(controller).to receive(:current_archived_intake).and_return(archived_intake)
+    end
+
+    context 'when the request is nil' do
+      before do
+        allow(controller).to receive(:current_archived_intake).and_return(nil)
+      end
+
+      it 'redirects to verification error page' do
+        expect(controller).to receive(:redirect_to).with(knock_out_path)
+        controller.is_intake_locked
+      end
+    end
+
+    context 'when the request is locked' do
+      before do
+        allow(archived_intake).to receive(:access_locked?).and_return(true)
+      end
+
+      it 'redirects to verification error page' do
+        expect(controller).to receive(:redirect_to).with(knock_out_path)
+        controller.is_intake_locked
+      end
+    end
+
+    context 'when the archived intake is permanently locked' do
+      before do
+        allow(archived_intake).to receive(:permanently_locked_at).and_return(Time.current)
+      end
+
+      it 'redirects to verification error page' do
+        expect(controller).to receive(:redirect_to).with(knock_out_path)
+        controller.is_intake_locked
+      end
+    end
+
+    context 'when the request is valid and not locked' do
+      before do
+        allow(archived_intake).to receive(:access_locked?).and_return(false)
+        allow(archived_intake).to receive(:permanently_locked_at).and_return(nil)
+      end
+
+      it 'does not redirect' do
+        expect(controller).not_to receive(:redirect_to)
+        controller.is_intake_locked
+      end
+    end
+  end
 end

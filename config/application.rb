@@ -18,6 +18,8 @@ module Pya
 
     config.i18n.default_locale = :en
     config.i18n.available_locales = [ :en, :es ]
+
+    config.allow_magic_verification_code = (Rails.env.development? || ENV["REVIEW_APP"] == "true")
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
