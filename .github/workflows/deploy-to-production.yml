@@ -13,10 +13,6 @@ on:
         description: 'Optional title to replace auto-generated one'
         required: false
         type: string
-      additional_notes:
-        description: 'Optional notes to prepend to auto-generated notes'
-        required: false
-        type: string
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -25,17 +21,87 @@ concurrency:
 jobs:
   tests:
     uses: ./.github/workflows/ci.yml
+  notify:
+    runs-on: ubuntu-latest
+    needs: ["tests"]
+    steps:
+      - run: echo 'Linter and tests passed.'
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        fetch-depth: 0  # fetch full history and tags
+
+      - name: Get latest tag
+        id: get_tag
+        run: |
+          latest=$(git describe --tags --abbrev=0 || echo "v0.0.0")
+          echo "Latest tag is $latest"
+          echo "tag=$latest" >> "$GITHUB_OUTPUT"
+
+      - name: Bump version
+        id: bump
+        run: |
+          version="${{ steps.get_tag.outputs.tag }}"
+          version="${version#v}"
+          IFS='.' read -r major minor patch <<< "$version"
+
+          case "${{ github.event.inputs.release_type }}" in
+            major)
+              major=$((major + 1)); minor=0; patch=0;;
+            minor)
+              minor=$((minor + 1)); patch=0;;
+            patch)
+              patch=$((patch + 1));;
+            *)
+              echo "Invalid release_type"; exit 1;;
+          esac
+
+          new_version="v$major.$minor.$patch"
+          echo "new_tag=$new_version" >> "$GITHUB_OUTPUT"
+          echo "Next tag: $new_version"
+
+      - name: Create and push new tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag ${{ steps.bump.outputs.new_tag }}
+          git push origin ${{ steps.bump.outputs.new_tag }}
+
+      - name: Set up GitHub CLI
+        uses: cli/gh-action@v2
+
+      - name: Create GitHub Release with auto-generated notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TITLE="${{ github.event.inputs.release_title }}"
+          if [ -z "$TITLE" ]; then
+            TITLE="${{ steps.bump.outputs.new_tag }}"
+          fi
+          echo "Using release title: $TITLE"
+          gh release create ${{ steps.bump.outputs.new_tag }} --title "$TITLE" --generate-notes
+
+      - name: Notify Slack
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "text": ":rocket: A new release *${{ steps.bump.outputs.new_tag }}* has been published!\n\
+                 Tag: `${{ steps.bump.outputs.new_tag }}`\n\
+                 <https://github.com/${{ github.repository }}/releases/tag/${{ steps.bump.outputs.new_tag }}|View on GitHub>\n\
+                 :gear: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Action Logs>"
+            }
   deploy:
     name: deploy
-    needs: ["tests"]
+    needs: ["notify"]
     environment: production
     runs-on: ubuntu-latest
     env:
       ECR_REPOSITORY: pya-production-web
       IMAGE_TAG: ${{ github.sha }}
     steps:
-      - run: echo 'Linter and tests passed.'
-
       - run: echo 'Starting the production deploy'
 
       - name: Check out code
@@ -87,16 +153,6 @@ jobs:
         if: failure()
         with:
           text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q99GPBK8> <@U07Q39HFLBG> PYA production deploy ${{ job.status }} :sob:"
-          status: ${{ job.status }}
-          fields: message,commit,author,workflow,took
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
-      - name: Notify deploy success on Slack
-        uses: 8398a7/action-slack@v3
-        if: failure()
-        with:
-          text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q99GPBK8> <@U07Q39HFLBG> PYA production deploy ${{ job.status }} :sparkles:"
           status: ${{ job.status }}
           fields: message,commit,author,workflow,took
         env:
