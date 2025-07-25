@@ -17,11 +17,11 @@ class VerificationCodeController < BaseController
       #   locale: I18n.locale
       # )
     when "email"
-      # @email_address = current_archived_intake.email_address
-      # ArchivedIntakeEmailVerificationCodeJob.perform_later(
-      #   email_address: @email_address,
-      #   locale: I18n.locale
-      # )
+      @email_address = current_archived_intake.email_address
+      ArchivedIntakeEmailVerificationCodeJob.perform_later(
+        email_address: @email_address,
+        locale: I18n.locale
+      )
     else
       redirect_to root_path
     end

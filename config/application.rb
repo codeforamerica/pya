@@ -27,5 +27,14 @@ module Pya
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    #
+    config.email_url =
+      if Rails.env.production?
+        "https://www.fileyourstatetaxes.org"
+      elsif Rails.env.development?
+        "https://demo.fileyourstatetaxes.org"
+      else
+        "http://localhost:3000"
+      end
   end
 end
