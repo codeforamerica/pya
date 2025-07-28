@@ -52,6 +52,8 @@ class EmailAccessToken < ApplicationRecord
   end
 
   def valid_email_address
-    ValidEmail2::Address.new(email_address).valid?
+    unless email_address.present? && ValidEmail2::Address.new(email_address.strip).valid?
+      errors.add(:email_address, :invalid)
+    end
   end
 end
