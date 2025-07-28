@@ -7,7 +7,7 @@ class TwilioService
     @messaging_service_sid = ENV['TWILIO_MESSAGING_SERVICE']
   end
 
-  def send_sms(to:, body:)
+  def send_message(to:, body:)
     @client.messages.create(
       messaging_service_sid: @messaging_service_sid,
       to: to,
