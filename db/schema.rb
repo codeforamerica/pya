@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_18_064460) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_28_155732) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -71,6 +71,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_18_064460) do
     t.integer "failed_attempts", default: 0, null: false
     t.datetime "locked_at"
     t.datetime "permanently_locked_at"
+  end
+
+  create_table "text_message_access_tokens", force: :cascade do |t|
+    t.string "sms_phone_number", null: false
+    t.string "verification_code", null: false
+    t.datetime "expires_at", null: false
+    t.boolean "used", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["expires_at"], name: "index_text_message_access_tokens_on_expires_at"
+    t.index ["sms_phone_number"], name: "index_text_message_access_tokens_on_sms_phone_number"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

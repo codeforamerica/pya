@@ -5,9 +5,11 @@
 #  id                      :bigint           not null, primary key
 #  contact_preference      :integer          default("unfilled"), not null
 #  email_address           :string
+#  failed_attempts         :integer          default(0), not null
 #  fake_address_1          :string
 #  fake_address_2          :string
 #  hashed_ssn              :string
+#  locked_at               :datetime
 #  mailing_apartment       :string
 #  mailing_city            :string
 #  mailing_state           :string
