@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe VerificationCodeForm do
   let(:params) do
     {
-      verification_code: "123456",
+      verification_code: "123456"
     }
   end
   let(:form) {
@@ -15,7 +15,6 @@ RSpec.describe VerificationCodeForm do
 
   describe "#valid?" do
     context "when the verification code is present and valid" do
-
       it "returns true" do
         allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info)
                                             .with("test@example.com", "123456")
@@ -43,7 +42,7 @@ RSpec.describe VerificationCodeForm do
     context "when the verification code is blank" do
       let(:params) {
         {
-          verification_code: "",
+          verification_code: ""
         }
       }
       it "adds an error and returns false" do

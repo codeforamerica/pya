@@ -21,4 +21,3 @@ FactoryBot.define do
     token { "randomly generated encrypted token" }
   end
 end
-

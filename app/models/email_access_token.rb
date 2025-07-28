@@ -19,7 +19,7 @@
 class EmailAccessToken < ApplicationRecord
   validates_presence_of :token
   validates_presence_of :email_address
-  validates :token_type, inclusion: %w(link verification_code)
+  validates :token_type, inclusion: %w[link verification_code]
   validate :valid_email_address
   after_create :logging
   before_create :ensure_token_limit
@@ -30,17 +30,17 @@ class EmailAccessToken < ApplicationRecord
 
   def self.generate!(email_address:, client_id: nil)
     raw_verification_code, hashed_verification_code = VerificationCodeService.generate(email_address)
-    [raw_verification_code, create!(
+    [ raw_verification_code, create!(
       email_address: email_address,
       token_type: "verification_code",
       token: Devise.token_generator.digest(self.class, :token, hashed_verification_code)
-    )]
+    ) ]
   end
 
   private
 
   def logging
-    #TODO: Add logging here
+    # TODO: Add logging here
   end
 
   def ensure_token_limit

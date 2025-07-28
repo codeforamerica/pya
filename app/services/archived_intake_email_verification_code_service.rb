@@ -1,5 +1,5 @@
 class ArchivedIntakeEmailVerificationCodeService
-  def initialize(email_address: , locale: :en)
+  def initialize(email_address:, locale: :en)
     @email_address = email_address
     @locale = locale
   end

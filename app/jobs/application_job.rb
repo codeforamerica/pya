@@ -1,5 +1,4 @@
 class ApplicationJob < ActiveJob::Base
-
   PRIORITY_HIGH = 10
   PRIORITY_MEDIUM = 50
   PRIORITY_LOW = 100
