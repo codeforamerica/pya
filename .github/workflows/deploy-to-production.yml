@@ -90,15 +90,18 @@ jobs:
             --repo ${{ github.repository }} --json body -q .body)
 
           ESCAPED_NOTES=$(jq -Rn --arg notes "$RAW_NOTES" '$notes')
+          ESCAPED_NOTES=$(jq -Rs '.' <<< "$RAW_NOTES")  # raw string literal, properly escaped
 
           PAYLOAD=$(jq -n \
             --arg tag "${{ steps.bump.outputs.new_tag }}" \
             --arg repo "${{ github.repository }}" \
             --arg notes "$ESCAPED_NOTES" \
             --arg logs_url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
-            '{
-              text: ":rocket: A new release *\($tag)* is starting!\nTag: `\($tag)`\n<https://github.com/\($repo)/releases/tag/\($tag)|View on GitHub>\n:page_facing_up: *Release Notes:*\n\($notes)\n:gear: <\($logs_url)|View Action Logs>"
-            }'
+            '
+            {
+              text: ":rocket: A new release *\($tag)* is starting!\nTag: `\($tag)`\n<https://github.com/\($repo)/releases/tag/\($tag)|View on GitHub>\n:page_facing_up: *Release Notes:*\n" + $notes + "\n:gear: <\($logs_url)|View Action Logs>"
+            }
+            '
           )
 
           echo "payload=$PAYLOAD" >> $GITHUB_OUTPUT
