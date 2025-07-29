@@ -92,6 +92,8 @@ jobs:
                  <https://github.com/${{ github.repository }}/releases/tag/${{ steps.bump.outputs.new_tag }}|View on GitHub>\n\
                  :gear: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Action Logs>"
             }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Notify tag_and_notify failure on Slack
         uses: 8398a7/action-slack@v3
