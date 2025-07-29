@@ -76,3 +76,4 @@ end
 
 gem "dartsass-rails", "~> 0.5.1"
 gem "http_accept_language"
+gem "twilio-ruby"

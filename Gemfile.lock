@@ -168,6 +168,10 @@ GEM
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
+    faraday (2.13.4)
+      faraday-net_http (>= 2.0, < 3.5)
+      json
+      logger
     faraday-multipart (1.1.1)
       multipart-post (~> 2.0)
     faraday-net_http (3.4.1)
@@ -227,6 +231,8 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (2.13.0)
+    jwt (2.10.2)
+      base64
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     logger (1.7.0)
@@ -473,6 +479,10 @@ GEM
     turbo-rails (2.0.16)
       actionpack (>= 7.1.0)
       railties (>= 7.1.0)
+    twilio-ruby (7.7.0)
+      faraday (>= 0.9, < 3.0)
+      jwt (>= 1.5, < 3.0)
+      nokogiri (>= 1.6, < 2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (3.1.4)
@@ -547,6 +557,7 @@ DEPENDENCIES
   stimulus-rails
   thruster
   turbo-rails
+  twilio-ruby
   tzinfo-data
   valid_email2 (~> 4.0.6)
   web-console
