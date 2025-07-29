@@ -35,7 +35,7 @@ describe TextMessageVerificationCodeService do
 
     before do
       allow(TwilioService).to receive(:new).and_return(twilio_service)
-      allow(TextMessageAccessToken).to receive(:generate!).and_return([verification_code, access_token])
+      allow(TextMessageAccessToken).to receive(:generate!).and_return([ verification_code, access_token ])
       allow(twilio_service).to receive(:send_message)
     end
 
