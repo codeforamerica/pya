@@ -5,14 +5,11 @@
 #  id            :bigint           not null, primary key
 #  email_address :citext           not null
 #  token         :string           not null
-#  token_type    :string           default("link")
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  client_id     :bigint
 #
 # Indexes
 #
-#  index_email_access_tokens_on_client_id      (client_id)
 #  index_email_access_tokens_on_email_address  (email_address)
 #  index_email_access_tokens_on_token          (token)
 #
@@ -90,7 +87,6 @@ describe EmailAccessToken do
       expect(response[1]).to eq object
       expect(object.token).to eq Devise.token_generator.digest(described_class, :token, hashed_verification_code)
       expect(object.email_address).to eq email_address
-      expect(object.token_type).to eq "verification_code"
     end
   end
 

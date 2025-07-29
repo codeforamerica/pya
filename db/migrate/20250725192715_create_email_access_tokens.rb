@@ -5,7 +5,6 @@ class CreateEmailAccessTokens < ActiveRecord::Migration[8.0]
     create_table :email_access_tokens do |t|
       t.citext :email_address, null: false
       t.string :token, null: false
-      t.string :token_type, default: "link"
 
       t.timestamps
     end

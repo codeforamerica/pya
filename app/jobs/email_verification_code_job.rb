@@ -6,6 +6,6 @@ class EmailVerificationCodeJob < ApplicationJob
   end
 
   def perform(email_address:, locale:)
-    ArchivedIntakeEmailVerificationCodeService.request_code(email_address: email_address, locale: locale)
+    EmailVerificationCodeService.request_code(email_address: email_address, locale: locale)
   end
 end

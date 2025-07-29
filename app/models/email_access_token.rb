@@ -5,21 +5,17 @@
 #  id            :bigint           not null, primary key
 #  email_address :citext           not null
 #  token         :string           not null
-#  token_type    :string           default("link")
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  client_id     :bigint
 #
 # Indexes
 #
-#  index_email_access_tokens_on_client_id      (client_id)
 #  index_email_access_tokens_on_email_address  (email_address)
 #  index_email_access_tokens_on_token          (token)
 #
 class EmailAccessToken < ApplicationRecord
   validates_presence_of :token
   validates_presence_of :email_address
-  validates :token_type, inclusion: %w[link verification_code]
   validate :valid_email_address
   after_create :logging
   before_create :ensure_token_limit
@@ -32,7 +28,6 @@ class EmailAccessToken < ApplicationRecord
     raw_verification_code, hashed_verification_code = VerificationCodeService.generate(email_address)
     [ raw_verification_code, create!(
       email_address: email_address,
-      token_type: "verification_code",
       token: Devise.token_generator.digest(self.class, :token, hashed_verification_code)
     ) ]
   end

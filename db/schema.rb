@@ -46,7 +46,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_28_195718) do
   create_table "email_access_tokens", force: :cascade do |t|
     t.citext "email_address", null: false
     t.string "token", null: false
-    t.string "token_type", default: "link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_email_access_tokens_on_email_address"
