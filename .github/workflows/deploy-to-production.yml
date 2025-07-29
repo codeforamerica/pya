@@ -97,11 +97,9 @@ jobs:
             --arg repo "${{ github.repository }}" \
             --arg notes "$ESCAPED_NOTES" \
             --arg logs_url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
-            '
-            {
+            '{
               text: ":rocket: A new release *\($tag)* is starting!\nTag: `\($tag)`\n<https://github.com/\($repo)/releases/tag/\($tag)|View on GitHub>\n:page_facing_up: *Release Notes:*\n" + $notes + "\n:gear: <\($logs_url)|View Action Logs>"
-            }
-            '
+            }'
           )
 
           echo "payload=$PAYLOAD" >> $GITHUB_OUTPUT
