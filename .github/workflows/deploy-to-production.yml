@@ -81,31 +81,33 @@ jobs:
           echo "Using release title: $TITLE"
           gh release create ${{ steps.bump.outputs.new_tag }} --title "$TITLE" --generate-notes
 
-      - name: Generate release notes
-        id: release_notes
+      - name: Build Slack payload for release notes
+        id: slack_payload
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          notes=$(gh release --repo ${{ github.repository }} \
-            view ${{ steps.bump.outputs.new_tag }} --json body -q ".body" || echo "")
-          if [ -z "$notes" ]; then
-            notes=$(gh release \
-              --repo ${{ github.repository }} \
-              view --generate-notes \
-              ${{ steps.bump.outputs.new_tag }} --json body -q ".body" || echo "No release notes found.")
-          fi
-          echo "RELEASE_NOTES<<EOF" >> $GITHUB_OUTPUT
-          echo "$notes" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          RAW_NOTES=$(gh release view ${{ steps.bump.outputs.new_tag }} \
+            --repo ${{ github.repository }} --json body -q .body)
+
+          ESCAPED_NOTES=$(jq -Rn --arg notes "$RAW_NOTES" '$notes')
+
+          PAYLOAD=$(jq -n \
+            --arg tag "${{ steps.bump.outputs.new_tag }}" \
+            --arg repo "${{ github.repository }}" \
+            --arg notes "$ESCAPED_NOTES" \
+            --arg logs_url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            '{
+              text: ":rocket: A new release *\($tag)* is starting!\nTag: `\($tag)`\n<https://github.com/\($repo)/releases/tag/\($tag)|View on GitHub>\n:page_facing_up: *Release Notes:*\n\($notes)\n:gear: <\($logs_url)|View Action Logs>"
+            }'
+          )
+
+          echo "payload=$PAYLOAD" >> $GITHUB_OUTPUT
 
       - name: Notify Slack
         uses: slackapi/slack-github-action@v1.24.0
         if: success()
         with:
-          payload: |
-            {
-              "text": ":rocket: A new release *${{ steps.bump.outputs.new_tag }}* is starting!\nTag: `${{ steps.bump.outputs.new_tag }}`\n<https://github.com/${{ github.repository }}/releases/tag/${{ steps.bump.outputs.new_tag }}|View on GitHub>\n:page_facing_up: *Release Notes:*\n${{ steps.release_notes.outputs.RELEASE_NOTES }}\n:gear: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Action Logs>"
-            }
+          payload: ${{ steps.slack_payload.outputs.payload }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.TAX_ENG_SLACK_URL }}
 
@@ -185,10 +187,9 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Notify deploy success on Slack
-        uses: 8398a7/action-slack@v3
+        uses: slackapi/slack-github-action@v1.24.0
         if: success()
         with:
           text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q39HFLBG> PYA production deploy ${{ job.status }} :sparkles: Please monitor infrastructure deploy: https://github.com/codeforamerica/tax-benefits-backend/actions/workflows/deploy.yaml"
-          status: ${{ job.status }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.TAX_ENG_SLACK_URL }}
