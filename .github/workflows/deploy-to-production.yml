@@ -24,8 +24,15 @@ jobs:
   tag_and_notify:
     runs-on: ubuntu-latest
     needs: ["tests"]
+
     steps:
       - run: echo 'Linter and tests passed.'
+
+      - name: Check branch is main
+        if: github.ref != 'refs/heads/main'
+        run: |
+          echo "This workflow can only be run on main branch."
+          exit 1
 
       - name: Checkout
         uses: actions/checkout@v4
