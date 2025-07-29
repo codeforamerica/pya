@@ -12,7 +12,7 @@ class TextMessageVerificationCodeService
       body: I18n.t("text_message.verification_code",
                    locale: @locale,
                    verification_code: verification_code
-      ).strip,
+      ).strip
     }.compact
     twilio_response = TwilioService.send_message(**message_arguments)
     VerificationTextMessage.create!(
