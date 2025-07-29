@@ -29,7 +29,6 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v4
-        fetch-depth: 0  # fetch full history and tags
 
       - name: Get latest tag
         id: get_tag
