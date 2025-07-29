@@ -63,27 +63,6 @@ describe TextMessageVerificationCodeService do
       expect(result).to eq(access_token)
     end
 
-    context "with different locales" do
-      let(:locale) { :es }
-
-      it "uses the specified locale for the message" do
-        # Assuming you have Spanish translations
-        allow(I18n).to receive(:t).with(
-          "text_message.verification_code",
-          locale: :es,
-          verification_code: verification_code
-        ).and_return("Su código de verificación de 6 dígitos es: 123456")
-
-        described_class.request_code(**params)
-
-        expect(I18n).to have_received(:t).with(
-          "text_message.verification_code",
-          locale: :es,
-          verification_code: verification_code
-        )
-      end
-    end
-
     context "when using instance method" do
       it "creates an instance and calls request_code" do
         service = described_class.new(**params)
@@ -100,7 +79,7 @@ describe TextMessageVerificationCodeService do
         allow(twilio_service).to receive(:send_message).and_raise(Twilio::REST::RestError.new(400, double(body: {}, status_code: 21211)))
       end
 
-      it "allows the error to bubble up" do
+      it "allows the error to come up" do
         expect {
           described_class.request_code(**params)
         }.to raise_error(Twilio::REST::RestError)

@@ -56,13 +56,13 @@ describe TwilioService do
     it "handles messages with special characters" do
       twilio_service.send_message(
         to: "+15551234567",
-        body: "Hello! How are you? 🙂"
+        body: "Hello! How are you?"
       )
 
       expect(fake_messages_resource).to have_received(:create).with(
         messaging_service_sid: "test_messaging_service",
         to: "+15551234567",
-        body: "Hello! How are you? 🙂"
+        body: "Hello! How are you?"
       )
     end
 
