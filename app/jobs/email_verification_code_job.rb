@@ -1,4 +1,4 @@
-class ArchivedIntakeEmailVerificationCodeJob < ApplicationJob
+class EmailVerificationCodeJob < ApplicationJob
   retry_on Mailgun::CommunicationError
 
   def priority

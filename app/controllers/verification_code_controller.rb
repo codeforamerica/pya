@@ -11,14 +11,14 @@ class VerificationCodeController < BaseController
     @form = VerificationCodeForm.new(contact_info: @contact_info)
     case current_archived_intake.contact_preference
     when "text"
-      # @phone_number = current_archived_intake.phone_number
-      # ArchivedIntakeTextVerificationCodeJob.perform_later(
-      #   phone_number: @phone_number,
-      #   locale: I18n.locale
-      # )
+      @phone_number = current_archived_intake.phone_number
+      RequestVerificationCodeTextMessageJob.perform_later(
+        phone_number: @phone_number,
+        locale: I18n.locale
+      )
     when "email"
       @email_address = current_archived_intake.email_address
-      ArchivedIntakeEmailVerificationCodeJob.perform_later(
+      EmailVerificationCodeJob.perform_later(
         email_address: @email_address,
         locale: I18n.locale
       )
