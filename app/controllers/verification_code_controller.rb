@@ -8,7 +8,7 @@ class VerificationCodeController < BaseController
   end
 
   def edit
-    @form = VerificationCodeForm.new(contact_info: @contact_info)
+    @form = VerificationCodeForm.new(contact_info: @contact_info, contact_preference: current_archived_intake.contact_preference)
     case current_archived_intake.contact_preference
     when "text"
       @phone_number = current_archived_intake.phone_number
@@ -28,7 +28,7 @@ class VerificationCodeController < BaseController
   end
 
   def update
-    @form = VerificationCodeForm.new(verification_code_form_params, contact_info: current_archived_intake.contact)
+    @form = VerificationCodeForm.new(verification_code_form_params, contact_info: current_archived_intake.contact, contact_preference: current_archived_intake.contact_preference)
 
     if @form.valid?
       case current_archived_intake.contact_preference
@@ -47,12 +47,12 @@ class VerificationCodeController < BaseController
       when "email"
         # TODO: Some kind of logging here
       end
-      current_archived_intake.increment_failed_attempts
-      if current_archived_intake.access_locked?
-        # TODO: Some kind of logging here
-        redirect_to knock_out_path
-        return
-      end
+      # # current_archived_intake.increment_failed_attempts
+      # if current_archived_intake.access_locked?
+      #   # TODO: Some kind of logging here
+      #   redirect_to knock_out_path
+      #   return
+      # end
       render :edit
     end
   end
