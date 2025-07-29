@@ -70,6 +70,23 @@ jobs:
           git tag ${{ steps.bump.outputs.new_tag }}
           git push origin ${{ steps.bump.outputs.new_tag }}
 
+      - name: Generate release notes
+        id: release_notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          notes=$(gh release --repo ${{ github.repository }} \
+            view ${{ steps.bump.outputs.new_tag }} --json body -q ".body" || echo "")
+          if [ -z "$notes" ]; then
+            notes=$(gh release \
+              --repo ${{ github.repository }} \
+              view --generate-notes \
+              ${{ steps.bump.outputs.new_tag }} --json body -q ".body" || echo "No release notes found.")
+          fi
+          echo "RELEASE_NOTES<<EOF" >> $GITHUB_OUTPUT
+          echo "$notes" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Create GitHub Release with auto-generated notes
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -87,7 +104,7 @@ jobs:
         with:
           payload: |
             {
-              "text": ":rocket: A new release *${{ steps.bump.outputs.new_tag }}* is starting!\nTag: `${{ steps.bump.outputs.new_tag }}`\n<https://github.com/${{ github.repository }}/releases/tag/${{ steps.bump.outputs.new_tag }}|View on GitHub>\n:gear: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Action Logs>"
+              "text": ":rocket: A new release *${{ steps.bump.outputs.new_tag }}* is starting!\nTag: `${{ steps.bump.outputs.new_tag }}`\n<https://github.com/${{ github.repository }}/releases/tag/${{ steps.bump.outputs.new_tag }}|View on GitHub>\n:page_facing_up: *Release Notes:*\n${{ steps.release_notes.outputs.RELEASE_NOTES }}\n:gear: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Action Logs>"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.TAX_ENG_SLACK_URL }}
