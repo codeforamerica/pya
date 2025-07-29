@@ -1,8 +1,7 @@
 class TextMessageVerificationCodeService
-  def initialize(phone_number:, locale: :en, visitor_id:)
+  def initialize(phone_number:, locale: :en)
     @phone_number = phone_number
     @locale = locale
-    @visitor_id = visitor_id
   end
 
   def request_code

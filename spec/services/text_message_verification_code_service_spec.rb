@@ -4,12 +4,10 @@ describe TextMessageVerificationCodeService do
   let(:twilio_service) { instance_double TwilioService }
   let(:phone_number) { "+18324651680" }
   let(:locale) { :en }
-  let(:visitor_id) { "visitor_id_1" }
   let(:params) do
     {
       phone_number: phone_number,
-      locale: locale,
-      visitor_id: visitor_id
+      locale: locale
     }
   end
 
@@ -19,11 +17,10 @@ describe TextMessageVerificationCodeService do
 
       expect(service.instance_variable_get(:@phone_number)).to eq(phone_number)
       expect(service.instance_variable_get(:@locale)).to eq(locale)
-      expect(service.instance_variable_get(:@visitor_id)).to eq(visitor_id)
     end
 
     it "defaults locale to :en" do
-      service = described_class.new(phone_number: phone_number, visitor_id: visitor_id)
+      service = described_class.new(phone_number: phone_number)
 
       expect(service.instance_variable_get(:@locale)).to eq(:en)
     end
