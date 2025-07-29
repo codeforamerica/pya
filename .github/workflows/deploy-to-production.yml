@@ -28,12 +28,12 @@ jobs:
     steps:
       - run: echo 'Linter and tests passed.'
 
-#      - name: Check branch is main
-#        if: github.ref != 'refs/heads/main'
-#        run: |
-#          echo "This workflow can only be run on main branch."
-#          exit 1
-#
+      - name: Check branch is main # Un-comment if you want to test out github action changes on not-main branch
+        if: github.ref != 'refs/heads/main'
+        run: |
+          echo "This workflow can only be run on main branch."
+          exit 1
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -126,7 +126,7 @@ jobs:
 
       - name: Notify tag_and_notify failure on Slack
         uses: 8398a7/action-slack@v3
-        if: failure()
+        if: failure() # && github.ref == 'refs/heads/main' <-- if you want to not alert channel while you work on this
         with:
           text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q39HFLBG> PYA production deploy tag_and_notify ${{ job.status }} :sob:"
           status: ${{ job.status }}
