@@ -39,6 +39,9 @@ jobs:
         with:
           fetch-depth: 0  # fetch full history and tags
 
+      - name: Fetch tags explicitly
+        run: git fetch --tags
+
       - name: Get latest tag
         id: get_tag
         run: |
