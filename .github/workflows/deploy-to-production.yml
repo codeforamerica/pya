@@ -207,6 +207,8 @@ jobs:
         if: success()
         with:
           payload: |
-            "text":"<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q39HFLBG> PYA production deploy ${{ job.status }} :sparkles: Please monitor infrastructure deploy: https://github.com/codeforamerica/tax-benefits-backend/actions/workflows/deploy.yaml"
+            {
+              "text": "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q39HFLBG> PYA production deploy ${{ job.status }} :sparkles: Please monitor infrastructure deploy: https://github.com/codeforamerica/tax-benefits-backend/actions/workflows/deploy.yaml"
+            }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.TAX_ENG_SLACK_URL }}
