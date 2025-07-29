@@ -96,7 +96,7 @@ jobs:
         uses: 8398a7/action-slack@v3
         if: failure()
         with:
-          text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q99GPBK8> <@U07Q39HFLBG> PYA production deploy tag_and_notify ${{ job.status }} :sob:"
+          text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q39HFLBG> PYA production deploy tag_and_notify ${{ job.status }} :sob:"
           status: ${{ job.status }}
           fields: message,commit,author,workflow,took
         env:
@@ -161,7 +161,7 @@ jobs:
         uses: 8398a7/action-slack@v3
         if: failure()
         with:
-          text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q99GPBK8> <@U07Q39HFLBG> PYA production deploy ${{ job.status }} :sob:"
+          text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q39HFLBG> PYA production deploy ${{ job.status }} :sob:"
           status: ${{ job.status }}
           fields: message,commit,author,workflow,took
         env:
@@ -171,7 +171,7 @@ jobs:
         uses: 8398a7/action-slack@v3
         if: success()
         with:
-          text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q99GPBK8> <@U07Q39HFLBG> PYA production deploy ${{ job.status }} :sparkles:"
+          text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q39HFLBG> PYA production deploy ${{ job.status }} :sparkles: Please monitor infrastructure deploy: https://github.com/codeforamerica/tax-benefits-backend/actions/workflows/deploy.yaml"
           status: ${{ job.status }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.TAX_ENG_SLACK_URL }}
