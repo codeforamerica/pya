@@ -13,7 +13,7 @@ en:
     continue: Continue
     submit: Submit
   text_message:
-    verification_code: "Your 6-digit FileYourStateTaxes verification code is: %{verification_code}. This code will expire after 10 minutes".
+    verification_code: "Your 6-digit FileYourStateTaxes verification code is: %{verification_code}. This code will expire after 10 minutes"
   views:
     email_address:
       edit:

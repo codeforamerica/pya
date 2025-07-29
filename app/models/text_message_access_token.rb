@@ -5,18 +5,15 @@
 #  id               :bigint           not null, primary key
 #  sms_phone_number :string           not null
 #  token            :string           not null
-#  token_type       :string           default("link")
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
 # Indexes
 #
-#  index_text_message_access_tokens_on_sms_phone_number  (sms_phone_number)
-#  index_text_message_access_tokens_on_token             (token)
+#  index_text_message_access_tokens_on_token  (token)
 #
 class TextMessageAccessToken < ApplicationRecord
   validates_presence_of :token
-  validates :token_type, inclusion: %w[link verification_code]
   validates :sms_phone_number, e164_phone: true
 
   before_create :ensure_token_limit
@@ -30,7 +27,6 @@ class TextMessageAccessToken < ApplicationRecord
     raw_verification_code, hashed_verification_code = VerificationCodeService.generate(sms_phone_number)
     [ raw_verification_code, create!(
       sms_phone_number: sms_phone_number,
-      token_type: "verification_code",
       token: Devise.token_generator.digest(self.class, :token, hashed_verification_code),
     ) ]
   end

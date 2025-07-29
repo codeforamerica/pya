@@ -14,12 +14,8 @@ class TextMessageVerificationCodeService
                    verification_code: verification_code
       ).strip
     }.compact
-    twilio_response = TwilioService.send_message(**message_arguments)
-    VerificationTextMessage.create!(
-      text_message_access_token: access_token,
-      visitor_id: @visitor_id,
-      twilio_sid: twilio_response&.sid
-    )
+    TwilioService.new.send_message(**message_arguments)
+    access_token
   end
 
   private
