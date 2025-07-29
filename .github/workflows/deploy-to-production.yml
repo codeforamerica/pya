@@ -98,6 +98,23 @@ jobs:
           echo "Using release title: $TITLE"
           gh release create ${{ steps.bump.outputs.new_tag }} --title "$TITLE" --generate-notes
 
+      - name: Generate release notes
+        id: release_notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          notes=$(gh release --repo ${{ github.repository }} \
+            view ${{ steps.bump.outputs.new_tag }} --json body -q ".body" || echo "")
+          if [ -z "$notes" ]; then
+            notes=$(gh release \
+              --repo ${{ github.repository }} \
+              view --generate-notes \
+              ${{ steps.bump.outputs.new_tag }} --json body -q ".body" || echo "No release notes found.")
+          fi
+          echo "RELEASE_NOTES<<EOF" >> $GITHUB_OUTPUT
+          echo "$notes" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Notify Slack
         uses: slackapi/slack-github-action@v1.24.0
         if: success()
