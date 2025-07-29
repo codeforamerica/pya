@@ -70,6 +70,23 @@ jobs:
           git tag ${{ steps.bump.outputs.new_tag }}
           git push origin ${{ steps.bump.outputs.new_tag }}
 
+      - name: Generate release notes
+        id: release_notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          notes=$(gh release --repo ${{ github.repository }} \
+            view ${{ steps.bump.outputs.new_tag }} --json body -q ".body" || echo "")
+          if [ -z "$notes" ]; then
+            notes=$(gh release \
+              --repo ${{ github.repository }} \
+              view --generate-notes \
+              ${{ steps.bump.outputs.new_tag }} --json body -q ".body" || echo "No release notes found.")
+          fi
+          echo "RELEASE_NOTES<<EOF" >> $GITHUB_OUTPUT
+          echo "$notes" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Create GitHub Release with auto-generated notes
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
