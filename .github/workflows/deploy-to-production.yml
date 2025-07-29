@@ -70,6 +70,17 @@ jobs:
           git tag ${{ steps.bump.outputs.new_tag }}
           git push origin ${{ steps.bump.outputs.new_tag }}
 
+      - name: Create GitHub Release with auto-generated notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TITLE="${{ github.event.inputs.release_title }}"
+          if [ -z "$TITLE" ]; then
+            TITLE="${{ steps.bump.outputs.new_tag }}"
+          fi
+          echo "Using release title: $TITLE"
+          gh release create ${{ steps.bump.outputs.new_tag }} --title "$TITLE" --generate-notes
+
       - name: Generate release notes
         id: release_notes
         env:
@@ -86,17 +97,6 @@ jobs:
           echo "RELEASE_NOTES<<EOF" >> $GITHUB_OUTPUT
           echo "$notes" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-
-      - name: Create GitHub Release with auto-generated notes
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          TITLE="${{ github.event.inputs.release_title }}"
-          if [ -z "$TITLE" ]; then
-            TITLE="${{ steps.bump.outputs.new_tag }}"
-          fi
-          echo "Using release title: $TITLE"
-          gh release create ${{ steps.bump.outputs.new_tag }} --title "$TITLE" --generate-notes
 
       - name: Notify Slack
         uses: slackapi/slack-github-action@v1.24.0
