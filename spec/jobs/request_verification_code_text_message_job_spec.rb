@@ -16,5 +16,3 @@ RSpec.describe RequestVerificationCodeTextMessageJob, type: :job do
     end
   end
 end
-
-

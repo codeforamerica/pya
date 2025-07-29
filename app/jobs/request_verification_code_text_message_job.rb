@@ -1,4 +1,4 @@
-class RequestVerificationCodeTextMessageJob < ApplicationJob 
+class RequestVerificationCodeTextMessageJob < ApplicationJob
   def perform(phone_number:, locale:)
     TextMessageVerificationCodeService.request_code(
       phone_number: phone_number,
