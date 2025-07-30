@@ -31,7 +31,7 @@ module Pya
     config.email_url =
       if Rails.env.production?
         "https://www.fileyourstatetaxes.org"
-      elsif Rails.env.development?
+      elsif Rails.env.development? || Rails.env.staging?
         "https://demo.fileyourstatetaxes.org"
       else
         "http://localhost:3000"

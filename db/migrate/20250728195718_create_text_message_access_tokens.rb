@@ -7,5 +7,6 @@ class CreateTextMessageAccessTokens < ActiveRecord::Migration[8.0]
     end
 
     add_index :text_message_access_tokens, :token
+    add_index :text_message_access_tokens, :sms_phone_number
   end
 end

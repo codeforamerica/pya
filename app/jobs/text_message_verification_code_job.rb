@@ -1,4 +1,4 @@
-class RequestVerificationCodeTextMessageJob < ApplicationJob
+class TextMessageVerificationCodeJob < ApplicationJob
   def perform(phone_number:, locale:)
     TextMessageVerificationCodeService.request_code(
       phone_number: phone_number,
@@ -7,6 +7,6 @@ class RequestVerificationCodeTextMessageJob < ApplicationJob
   end
 
   def priority
-    PRIORITY_HIGH
+    PRIORITY_HIGH - 1 # Subtracting one to push to the top of the queue
   end
 end
