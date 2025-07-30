@@ -12,7 +12,7 @@ class VerificationCodeController < BaseController
     case current_archived_intake.contact_preference
     when "text"
       @phone_number = current_archived_intake.phone_number
-      RequestVerificationCodeTextMessageJob.perform_later(
+      TextMessageVerificationCodeJob.perform_later(
         phone_number: @phone_number,
         locale: I18n.locale
       )

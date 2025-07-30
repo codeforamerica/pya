@@ -29,10 +29,10 @@ module Pya
     # config.eager_load_paths << Rails.root.join("extras")
     #
     config.email_url =
-      if Rails.env.production?
-        "https://www.fileyourstatetaxes.org"
-      elsif Rails.env.development? || Rails.env.staging?
+      if ENV["REVIEW_APP"] == "true"
         "https://demo.fileyourstatetaxes.org"
+      elsif Rails.env.production?
+        "https://www.fileyourstatetaxes.org"
       else
         "http://localhost:3000"
       end

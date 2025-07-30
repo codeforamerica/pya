@@ -2,7 +2,9 @@ require "rails_helper"
 
 RSpec.describe VerificationCodeController, type: :controller do
   let(:email_address) { "test@example.com" }
-  let!(:archived_intake) { create(:state_file_archived_intake, email_address: email_address, contact_preference: "email") }
+  let!(:archived_intake) { create(:state_file_archived_intake, email_address: email_address, contact_preference: contact_preference, phone_number: phone_number) }
+  let(:contact_preference) { "email" }
+  let(:phone_number) { nil }
   let(:valid_verification_code) { "123456" }
   let(:invalid_verification_code) { "654321" }
 
@@ -18,18 +20,37 @@ RSpec.describe VerificationCodeController, type: :controller do
       before do
         allow(archived_intake).to receive(:access_locked?).and_return(false)
       end
+      context "when contact preference is email" do
+        let(:contact_preference) { "email" }
+        it "renders the edit template with a new VerificationCodeForm and queues a job" do
+          expect {
+            get :edit
+          }.to have_enqueued_job(EmailVerificationCodeJob).with(
+            email_address: email_address,
+            locale: :en
+          )
 
-      it "renders the edit template with a new VerificationCodeForm and queues a job" do
-        expect {
-          get :edit
-        }.to have_enqueued_job(EmailVerificationCodeJob).with(
-          email_address: email_address,
-          locale: :en
-        )
+          expect(assigns(:form)).to be_a(VerificationCodeForm)
+          expect(assigns(:email_address)).to eq(email_address)
+          expect(response).to render_template(:edit)
+        end
+      end
 
-        expect(assigns(:form)).to be_a(VerificationCodeForm)
-        expect(assigns(:email_address)).to eq(email_address)
-        expect(response).to render_template(:edit)
+      context "when contact preference is text message" do
+        let(:contact_preference) { "text" }
+        let(:phone_number) { "5038675309" }
+        it "renders the edit template with a new VerificationCodeForm and queues a job" do
+          expect {
+            get :edit
+          }.to have_enqueued_job(TextMessageVerificationCodeJob).with(
+            phone_number: phone_number,
+            locale: :en
+          )
+
+          expect(assigns(:form)).to be_a(VerificationCodeForm)
+          expect(assigns(:phone_number)).to eq(phone_number)
+          expect(response).to render_template(:edit)
+        end
       end
     end
   end
