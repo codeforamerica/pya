@@ -47,4 +47,62 @@ class StateFileArchivedIntake < ApplicationRecord
   def contact
     contact_preference == "text" ? phone_number : email_address
   end
+
+  private
+
+  # this is here because we don't want people to get new fake addresses if they refresh the page or return with a new session
+  def populate_fake_addresses
+    self.fake_address_1, self.fake_address_2 = fetch_random_addresses
+  end
+
+  def fetch_random_addresses
+    if hashed_ssn.present?
+      if Rails.env.development? || Rails.env.test?
+        file_path = Rails.root.join('app', 'lib', 'challenge_addresses', 'test_addresses.csv')
+      else
+        bucket = select_bucket
+
+        file_key = Rails.env.production? ? "#{state_code.downcase}_addresses.csv" : 'non_prod_addresses.csv'
+
+        file_path = File.join(Rails.root, "tmp", File.basename(file_key))
+
+        download_file_from_s3(bucket, file_key, file_path) unless File.exist?(file_path)
+      end
+      addresses = CSV.read(file_path, headers: false).flatten
+      addresses.sample(2)
+    end
+  end
+
+  def download_file_from_s3(bucket, file_key, file_path)
+    s3_client = Aws::S3::Client.new(region: 'us-east-1', credentials: s3_credentials)
+    s3_client.get_object(
+      response_target: file_path,
+      bucket: bucket,
+      key: file_key
+    )
+  end
+
+  def s3_credentials
+    if ENV["AWS_ACCESS_KEY_ID"].present?
+      Aws::Credentials.new(ENV["AWS_ACCESS_KEY_ID"], ENV["AWS_SECRET_ACCESS_KEY"])
+    else
+      Aws::Credentials.new(
+        Rails.application.credentials.dig(:aws, :access_key_id),
+        Rails.application.credentials.dig(:aws, :secret_access_key)
+      )
+    end
+  end
+
+  def select_bucket
+    case Rails.env
+    when 'production'
+      'vita-min-prod-docs'
+    when 'staging'
+      'vita-min-staging-docs'
+    when 'demo'
+      'vita-min-demo-docs'
+    when 'heroku'
+      'vita-min-heroku-docs'
+    end
+  end
 end
