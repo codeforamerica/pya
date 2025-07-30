@@ -12,16 +12,16 @@ class IdentificationNumberController < BaseController
     @form = IdentificationNumberForm.new(current_archived_intake, identification_number_form_params)
 
     if @form.valid?
-      #TODO: Add logging
+      # TODO: Add logging
       current_archived_intake.reset_failed_attempts!
       session[:ssn_verified] = true
       redirect_to root_path
     else
-      #TODO: Add logging
+      # TODO: Add logging
       # create_state_file_access_log("incorrect_ssn_challenge")
       current_archived_intake.increment_failed_attempts
       if current_archived_intake.access_locked?
-        #TODO: Add logging
+        # TODO: Add logging
         # create_state_file_access_log("client_lockout_begin")
         redirect_to knock_out_path
         return
@@ -36,7 +36,7 @@ class IdentificationNumberController < BaseController
 
   def confirm_code_verification
     unless session[:code_verified]
-      #TODO: Add logging
+      # TODO: Add logging
       redirect_to root_path
     end
   end

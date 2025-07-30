@@ -5,7 +5,7 @@ RSpec.describe IdentificationNumberController, type: :controller do
   let(:invalid_ssn) { "212345678" }
   let(:intake_request_email) { "ohhithere@gmail.com" }
   let(:hashed_ssn) { SsnHashingService.hash(intake_ssn) }
-  let!(:archived_intake) { create(:state_file_archived_intake, hashed_ssn: hashed_ssn, email_address: intake_request_email, failed_attempts: 0 ) }
+  let!(:archived_intake) { create(:state_file_archived_intake, hashed_ssn: hashed_ssn, email_address: intake_request_email, failed_attempts: 0) }
 
   before do
     session[:code_verified] = true
@@ -33,9 +33,9 @@ RSpec.describe IdentificationNumberController, type: :controller do
 
   describe "PATCH #update" do
     context "with a valid ssn" do
-      it "creates an access log and redirects to the mailing address validation page" do
+      it "redirects to the mailing address validation page" do
         post :update, params: {
-          identification_number_form: { ssn: intake_ssn}
+          identification_number_form: { ssn: intake_ssn }
         }
         expect(assigns(:form)).to be_valid
 
@@ -43,14 +43,15 @@ RSpec.describe IdentificationNumberController, type: :controller do
 
         expect(archived_intake.reload.failed_attempts).to eq(0)
 
-        expect(response).to redirect_to(knock_out_path)
+        expect(response).to redirect_to(root_path)
+        # TODO: update to mailing address page
       end
 
       it "resets failed attempts to zero even if one failed attempt has already been made" do
         archived_intake.update!(failed_attempts: 1)
 
         post :update, params: {
-          state_file_archived_intakes_identification_number_form: { ssn: intake_ssn}
+          identification_number_form: { ssn: intake_ssn }
         }
 
         expect(assigns(:form)).to be_valid
@@ -63,7 +64,8 @@ RSpec.describe IdentificationNumberController, type: :controller do
         allow_any_instance_of(VerificationCodeForm).to receive(:valid?).and_return(false)
       end
 
-      it "creates a failure access log, increments failed_attempts, and re-renders edit on first failed attempt" do
+      it "increments failed_attempts, and re-renders edit on first failed attempt" do
+        post :update, params: { identification_number_form: { ssn: invalid_ssn } }
         expect(archived_intake.reload.failed_attempts).to eq(1)
         expect(response).to render_template(:edit)
       end
@@ -71,16 +73,12 @@ RSpec.describe IdentificationNumberController, type: :controller do
       it "locks the account and redirects to root path after multiple failed attempts" do
         archived_intake.update!(failed_attempts: 1)
 
-        expect {
-          post :update, params: { state_file_archived_intakes_identification_number_form: { ssn: invalid_ssn } }
-        }.to change(StateFileArchivedIntakeAccessLog, :count).by(2)
+        post :update, params: { identification_number_form: { ssn: invalid_ssn } }
 
-        log = StateFileArchivedIntakeAccessLog.last
-        expect(log.event_type).to eq("client_lockout_begin")
 
         expect(archived_intake.reload.failed_attempts).to eq(2)
         expect(archived_intake.reload.access_locked?).to be_truthy
-        expect(response).to redirect_to(state_file_archived_intakes_verification_error_path)
+        expect(response).to redirect_to(knock_out_path)
       end
     end
   end

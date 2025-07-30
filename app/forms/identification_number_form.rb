@@ -28,4 +28,3 @@ class IdentificationNumberForm < Form
     ssn.remove(/\D/)
   end
 end
-
