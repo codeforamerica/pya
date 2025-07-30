@@ -108,7 +108,7 @@ jobs:
             --arg logs_url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
            '{
              text: (
-               ":rocket: A new release *\($tag)* is starting!\nTag: `\($tag)`\n<https://github.com/\($repo)/releases/tag/\($tag)|View on GitHub>\n:page_facing_up: *Release Notes:*\n"
+               ":rocket: A new PYA release *\($tag)* is starting!\nTag: `\($tag)`\n<https://github.com/\($repo)/releases/tag/\($tag)|View on GitHub>\n:page_facing_up: *Release Notes:*\n"
                + $notes
                + "\n:gear: <\($logs_url)|View Action Logs>"
              )
@@ -208,7 +208,7 @@ jobs:
         with:
           payload: |
             {
-              "text": "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q39HFLBG> PYA production deploy ${{ job.status }} :sparkles: Please monitor infrastructure deploy: https://github.com/codeforamerica/tax-benefits-backend/actions/workflows/deploy.yaml"
+              "text": ":mega: :sparkles: PYA production deploy ${{ job.status }} :sparkles: Please monitor infrastructure deploy: https://github.com/codeforamerica/tax-benefits-backend/actions/workflows/deploy.yaml\n<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q39HFLBG>"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.TAX_ENG_SLACK_URL }}
