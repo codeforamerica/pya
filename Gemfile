@@ -10,6 +10,7 @@ gem "valid_email2", "~> 4.0.6"
 gem "phony"
 gem "auto_strip_attributes"
 gem "devise"
+gem "mailgun-ruby"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
@@ -75,3 +76,4 @@ end
 
 gem "dartsass-rails", "~> 0.5.1"
 gem "http_accept_language"
+gem "twilio-ruby"

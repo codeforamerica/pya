@@ -8,28 +8,27 @@ class VerificationCodeController < BaseController
   end
 
   def edit
-    @form = VerificationCodeForm.new(contact_info: @contact_info)
+    @form = VerificationCodeForm.new(contact_info: @contact_info, contact_preference: current_archived_intake.contact_preference)
     case current_archived_intake.contact_preference
     when "text"
-      # @phone_number = current_archived_intake.phone_number
-      # ArchivedIntakeTextVerificationCodeJob.perform_later(
-      #   phone_number: @phone_number,
-      #   locale: I18n.locale
-      # )
+      @phone_number = current_archived_intake.phone_number
+      TextMessageVerificationCodeJob.perform_later(
+        phone_number: @phone_number,
+        locale: I18n.locale
+      )
     when "email"
-      # @email_address = current_archived_intake.email_address
-      # ArchivedIntakeEmailVerificationCodeJob.perform_later(
-      #   email_address: @email_address,
-      #   locale: I18n.locale
-      # )
+      @email_address = current_archived_intake.email_address
+      EmailVerificationCodeJob.perform_later(
+        email_address: @email_address,
+        locale: I18n.locale
+      )
     else
       redirect_to root_path
     end
   end
 
   def update
-    @form = VerificationCodeForm.new(verification_code_form_params, contact_info: current_archived_intake.contact)
-
+    @form = VerificationCodeForm.new(verification_code_form_params, contact_info: current_archived_intake.contact, contact_preference: current_archived_intake.contact_preference)
     if @form.valid?
       case current_archived_intake.contact_preference
       when "text"
