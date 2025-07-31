@@ -1,4 +1,20 @@
 en:
+  mailers:
+    archived_intake_verification_code:
+      body_html: |
+        <p>Hello!</p>
+        <p>Your six-digit verification code for %{service_name} is: <strong> %{verification_code}.</strong> This code will expire after 30 minutes.</p>
+        <p>Did you receive this code without signing up? Email us at <a href="mailto:help@%{service_name_lower}.org">help@%{service_name_lower}.org</a></p>
+        <p>Your tax team at %{service_name}.org</p>
+      body_text: |
+        Hello!
+
+        Your six-digit verification code for %{service_name} is: %{verification_code}. This code will expire after 30 minutes.
+
+        Did you receive this code without signing up? Email us at help@%{service_name_lower}.org226226
+
+        Your tax team at %{service_name}.org
+      subject: Six-Digit Code from FileYourStateTaxes
   errors:
     messages:
       blank: Can't be blank.
@@ -12,6 +28,8 @@ en:
   general:
     continue: Continue
     submit: Submit
+  text_message:
+    verification_code: "Your 6-digit FileYourStateTaxes verification code is: %{verification_code}. This code will expire after 10 minutes"
   views:
     mailing_address_validation:
       edit:
