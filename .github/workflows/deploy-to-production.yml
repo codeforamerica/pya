@@ -6,7 +6,7 @@ on:
       release_type:
         description: 'Part of version to increment (major, minor, patch)'
         required: true
-        default: 'patch'
+        default: 'minor'
         type: choice
         options: [patch, minor, major]
       release_title:
