@@ -13,6 +13,11 @@ en:
     continue: Continue
     submit: Submit
   views:
+    mailing_address_validation:
+      edit:
+        identity_safe: To keep your identity safe, we need to confirm the address on your 2023 tax return.
+        radio_button_title: 'Select the mailing address for your 2023 tax return:'
+        title: Confirm your address to access your tax return
     identification_number:
       edit:
         error_message: Please enter the correct SSN/ITIN

@@ -15,7 +15,7 @@ class IdentificationNumberController < BaseController
       # TODO: Add logging
       current_archived_intake.reset_failed_attempts!
       session[:ssn_verified] = true
-      redirect_to root_path
+      redirect_to edit_mailing_address_validation_path
     else
       # TODO: Add logging
       # create_state_file_access_log("incorrect_ssn_challenge")
