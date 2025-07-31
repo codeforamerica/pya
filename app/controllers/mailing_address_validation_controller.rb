@@ -1,4 +1,4 @@
-require 'csv'
+require "csv"
 
 class MailingAddressValidationController < BaseController
   before_action :is_intake_locked

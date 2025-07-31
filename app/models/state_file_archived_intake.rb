@@ -50,7 +50,7 @@ class StateFileArchivedIntake < ApplicationRecord
 
 
   def fake_addresses
-    [fake_address_1, fake_address_2]
+    [ fake_address_1, fake_address_2 ]
   end
 
   def address_challenge_set
@@ -67,11 +67,11 @@ class StateFileArchivedIntake < ApplicationRecord
   def fetch_random_addresses
     if hashed_ssn.present?
       if Rails.env.development? || Rails.env.test?
-        file_path = Rails.root.join('app', 'lib', 'challenge_addresses', 'test_addresses.csv')
+        file_path = Rails.root.join("app", "lib", "challenge_addresses", "test_addresses.csv")
       else
         bucket = select_bucket
 
-        file_key = Rails.env.production? ? "#{state_code.downcase}_addresses.csv" : 'non_prod_addresses.csv'
+        file_key = Rails.env.production? ? "#{state_code.downcase}_addresses.csv" : "non_prod_addresses.csv"
 
         file_path = File.join(Rails.root, "tmp", File.basename(file_key))
 
@@ -83,7 +83,7 @@ class StateFileArchivedIntake < ApplicationRecord
   end
 
   def download_file_from_s3(bucket, file_key, file_path)
-    s3_client = Aws::S3::Client.new(region: 'us-east-1', credentials: s3_credentials)
+    s3_client = Aws::S3::Client.new(region: "us-east-1", credentials: s3_credentials)
     s3_client.get_object(
       response_target: file_path,
       bucket: bucket,
@@ -104,14 +104,14 @@ class StateFileArchivedIntake < ApplicationRecord
 
   def select_bucket
     case Rails.env
-    when 'production'
-      'vita-min-prod-docs'
-    when 'staging'
-      'vita-min-staging-docs'
-    when 'demo'
-      'vita-min-demo-docs'
-    when 'heroku'
-      'vita-min-heroku-docs'
+    when "production"
+      "vita-min-prod-docs"
+    when "staging"
+      "vita-min-staging-docs"
+    when "demo"
+      "vita-min-demo-docs"
+    when "heroku"
+      "vita-min-heroku-docs"
     end
   end
 end
