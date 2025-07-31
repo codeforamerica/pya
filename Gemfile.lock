@@ -164,10 +164,6 @@ GEM
     factory_bot_rails (6.5.0)
       factory_bot (~> 6.5)
       railties (>= 6.1.0)
-    faraday (2.13.3)
-      faraday-net_http (>= 2.0, < 3.5)
-      json
-      logger
     faraday (2.13.4)
       faraday-net_http (>= 2.0, < 3.5)
       json
@@ -490,8 +486,8 @@ GEM
     unicode-emoji (4.0.4)
     uri (1.0.3)
     useragent (0.16.11)
-    valid_email2 (4.0.6)
-      activemodel (>= 3.2)
+    valid_email2 (7.0.13)
+      activemodel (>= 6.0)
       mail (~> 2.5)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -559,7 +555,7 @@ DEPENDENCIES
   turbo-rails
   twilio-ruby
   tzinfo-data
-  valid_email2 (~> 4.0.6)
+  valid_email2 (~> 7.0.13)
   web-console
 
 BUNDLED WITH
