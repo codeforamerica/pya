@@ -5,9 +5,9 @@ class TextMessageVerificationCodeJob < ApplicationJob
       locale: locale
     )
 
-    logger.info "[TextMessageVerificationCodeJob] Successfully completed for: #{phone_number}"
+    Rails.logger.info "[TextMessageVerificationCodeJob] Successfully completed for: #{phone_number}"
   rescue => e
-    logger.error "[TextMessageVerificationCodeJob] Failed for: #{phone_number} — Error: #{e.class} - #{e.message}"
+    Rails.logger.error "[TextMessageVerificationCodeJob] Failed for: #{phone_number} — Error: #{e.class} - #{e.message}"
     raise
   end
 
