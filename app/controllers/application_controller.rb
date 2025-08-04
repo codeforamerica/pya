@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   around_action :switch_locale
 
   def self.default_url_options
-    { locale: I18n.locale }.merge(super)
+    {locale: I18n.locale}.merge(super)
   end
 
   private

@@ -11,7 +11,7 @@
 def find_or_create_state_file_archived_intake(attributes)
   check_required_attributes(attributes)
 
-  finder_columns = [ :hashed_ssn, :state_code, :tax_year ]
+  finder_columns = [:hashed_ssn, :state_code, :tax_year]
   finder_attributes = attributes.slice(*finder_columns)
   archived_intake = StateFileArchivedIntake.find_by(finder_attributes) || StateFileArchivedIntake.new(attributes)
   return archived_intake if archived_intake.persisted?
@@ -24,11 +24,11 @@ def find_or_create_state_file_archived_intake(attributes)
 end
 
 def check_required_attributes(attributes)
-  required_columns = [ :hashed_ssn, :state_code, :contact_preference, :tax_year, :mailing_street, :mailing_city, :mailing_state, :mailing_zip ]
+  required_columns = [:hashed_ssn, :state_code, :contact_preference, :tax_year, :mailing_street, :mailing_city, :mailing_state, :mailing_zip]
   finder_attributes = attributes.slice(*required_columns)
 
   if finder_attributes.blank?
-    raise "Seeder must provide at least one of (#{finder_attributes.join(', ')}) when making an archived intake"
+    raise "Seeder must provide at least one of (#{finder_attributes.join(", ")}) when making an archived intake"
   end
 
   required_columns.each do |column|
@@ -119,9 +119,9 @@ end
 if ENV["REVIEW_APP"] == "true" || Rails.env.development?
   # 2023 and 2024 AZ Clients (same address, contact)
   az_repeat_data = [
-    [ "Apt 2B", "Munchkinville", "123 Yellow Brick Rd", "85034" ],
-    [ nil, "Munchkinville", "15 West Tower Blvd", "85035" ],
-    [ nil, "Winkie County", "50 Feather Estates", "85033", true ]
+    ["Apt 2B", "Munchkinville", "123 Yellow Brick Rd", "85034"],
+    [nil, "Munchkinville", "15 West Tower Blvd", "85035"],
+    [nil, "Winkie County", "50 Feather Estates", "85033", true]
   ]
   az_repeat_data.each_with_index do |data, i|
     changed_contact = data[4]
@@ -143,15 +143,15 @@ if ENV["REVIEW_APP"] == "true" || Rails.env.development?
       mailing_city: data[1],
       mailing_street: data[2],
       mailing_zip: data[3],
-      contact_preference: i % 2 == 0 ? "text" : "email", # changed from email 2023 -> text in 2024
+      contact_preference: (i % 2 == 0) ? "text" : "email", # changed from email 2023 -> text in 2024
       tax_year: 2024
     )
   end
 
   # 2023 Only AZ Clients
   az_2023_only_data = [
-    [ "Bldg 5", "Munchkinville", "15 Maypole St", "85040" ],
-    [ "Blythe Lab", "Thropp City", "5123 Blink St", "85003" ]
+    ["Bldg 5", "Munchkinville", "15 Maypole St", "85040"],
+    ["Blythe Lab", "Thropp City", "5123 Blink St", "85003"]
   ]
   az_2023_only_data.each_with_index do |data, i|
     find_or_create_az_archived_intake(
@@ -181,10 +181,10 @@ if ENV["REVIEW_APP"] == "true" || Rails.env.development?
 
   # 2023 Only NY Clients
   ny_2023_data = [
-    [ nil, "Liverpool", "1 Liberty Ave", "13090" ],
-    [ "APT 1", "Saratoga Springs", "20 Liberty Street", "12866" ],
-    [ "Bldg A", "Brooklyn", "1 Liberty St", "11225" ],
-    [ "Unit 2", "Bronx", "10 Libert Lane", "10461" ]
+    [nil, "Liverpool", "1 Liberty Ave", "13090"],
+    ["APT 1", "Saratoga Springs", "20 Liberty Street", "12866"],
+    ["Bldg A", "Brooklyn", "1 Liberty St", "11225"],
+    ["Unit 2", "Bronx", "10 Libert Lane", "10461"]
   ]
   ny_2023_data.each_with_index do |data, i|
     find_or_create_ny_archived_intake(
@@ -201,10 +201,10 @@ if ENV["REVIEW_APP"] == "true" || Rails.env.development?
 
   # 2024 Only MD Clients
   md_2024_data = [
-      [ nil, "Rockville", "1 Crabb Ave", "20850" ],
-      [ "APT 1", "Riva", "20 Fish Street", "21035" ],
-      [ "Bldg A", "Bethesda", "1 Fish St", "20814" ],
-      [ "Unit 2", "Brunswick", "10 Sea Lion Lane", "21716" ]
+    [nil, "Rockville", "1 Crabb Ave", "20850"],
+    ["APT 1", "Riva", "20 Fish Street", "21035"],
+    ["Bldg A", "Bethesda", "1 Fish St", "20814"],
+    ["Unit 2", "Brunswick", "10 Sea Lion Lane", "21716"]
   ]
   md_2024_data.each_with_index do |data, i|
     find_or_create_md_archived_intake(
@@ -215,16 +215,16 @@ if ENV["REVIEW_APP"] == "true" || Rails.env.development?
       mailing_city: data[1],
       mailing_street: data[2],
       mailing_zip: data[3],
-      contact_preference: i % 2 == 0 ? "email" : "text",
+      contact_preference: (i % 2 == 0) ? "email" : "text",
       tax_year: 2024
     )
   end
 
   id_2024_data = [
-    [ nil, "McCall", "1 Potato Ave", "83638" ],
-    [ "APT 1", "Mackay", "20 Russet Street", "83251" ],
-    [ "Bldg A", "Boise", "1 Potato Sack Way", "83638" ],
-    [ "Unit 2", "Ammon", "10 Tater Tot Lane", "83406" ]
+    [nil, "McCall", "1 Potato Ave", "83638"],
+    ["APT 1", "Mackay", "20 Russet Street", "83251"],
+    ["Bldg A", "Boise", "1 Potato Sack Way", "83638"],
+    ["Unit 2", "Ammon", "10 Tater Tot Lane", "83406"]
   ]
   id_2024_data.each_with_index do |data, i|
     find_or_create_id_archived_intake(
@@ -235,16 +235,16 @@ if ENV["REVIEW_APP"] == "true" || Rails.env.development?
       mailing_city: data[1],
       mailing_street: data[2],
       mailing_zip: data[3],
-      contact_preference: i % 2 == 0 ? "email" : "text",
+      contact_preference: (i % 2 == 0) ? "email" : "text",
       tax_year: 2024
     )
   end
 
   nc_2024_data = [
-    [ nil, "Garner", "1 Mt Ridge Ave", "27529" ],
-    [ "APT 1", "Durham", "20 Mountain Ct", "27710" ],
-    [ "Bldg A", "Wilmington", "1 Smoky Mountain St", "28409" ],
-    [ "Unit 2", "Cary", "7 Mountain Lane", "27511" ]
+    [nil, "Garner", "1 Mt Ridge Ave", "27529"],
+    ["APT 1", "Durham", "20 Mountain Ct", "27710"],
+    ["Bldg A", "Wilmington", "1 Smoky Mountain St", "28409"],
+    ["Unit 2", "Cary", "7 Mountain Lane", "27511"]
   ]
   nc_2024_data.each_with_index do |data, i|
     find_or_create_nc_archived_intake(
@@ -255,16 +255,16 @@ if ENV["REVIEW_APP"] == "true" || Rails.env.development?
       mailing_city: data[1],
       mailing_street: data[2],
       mailing_zip: data[3],
-      contact_preference: i % 2 == 0 ? "email" : "text",
+      contact_preference: (i % 2 == 0) ? "email" : "text",
       tax_year: 2024
     )
   end
 
   nj_2024_data = [
-    [ nil, "Adelphia", "324 Boardwalk St", "07710" ],
-    [ "APT 1", "Atlantic City", "20 Boardwalk Street", "08404" ],
-    [ "Bldg A", "Jersey City", "1 Boardwalk St", "07303" ],
-    [ "Unit 2", "Mullica Hill", "10 Boardwalk Lane", "08062" ]
+    [nil, "Adelphia", "324 Boardwalk St", "07710"],
+    ["APT 1", "Atlantic City", "20 Boardwalk Street", "08404"],
+    ["Bldg A", "Jersey City", "1 Boardwalk St", "07303"],
+    ["Unit 2", "Mullica Hill", "10 Boardwalk Lane", "08062"]
   ]
   nj_2024_data.each_with_index do |data, i|
     find_or_create_nj_archived_intake(
@@ -275,7 +275,7 @@ if ENV["REVIEW_APP"] == "true" || Rails.env.development?
       mailing_city: data[1],
       mailing_street: data[2],
       mailing_zip: data[3],
-      contact_preference: i % 2 == 0 ? "email" : "text",
+      contact_preference: (i % 2 == 0) ? "email" : "text",
       tax_year: 2024
     )
   end
