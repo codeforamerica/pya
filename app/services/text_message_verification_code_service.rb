@@ -28,7 +28,7 @@ class TextMessageVerificationCodeService
     raise
   end
 
-  private
+  private_class_method
 
   def self.request_code(**args)
     new(**args).request_code

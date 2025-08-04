@@ -4,7 +4,7 @@ class PhoneParser
     valid ? e164(phony_normalized) : raw_phone_number&.to_s
   end
 
-  private
+  private_class_method
 
   def self.phony_normalize_or_error(raw_phone_number)
     return [false, nil] if raw_phone_number.nil?
