@@ -4,6 +4,11 @@ class TextMessageVerificationCodeJob < ApplicationJob
       phone_number: phone_number,
       locale: locale
     )
+
+    logger.info "[TextMessageVerificationCodeJob] Successfully completed for: #{phone_number}"
+  rescue => e
+    logger.error "[TextMessageVerificationCodeJob] Failed for: #{phone_number} — Error: #{e.class} - #{e.message}"
+    raise
   end
 
   def priority
