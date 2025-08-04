@@ -7,9 +7,9 @@ class EmailVerificationCodeJob < ApplicationJob
       locale: locale
     )
 
-    logger.info "[EmailVerificationCodeJob] Successfully completed for: #{email_address}"
+    Rails.logger.info "[EmailVerificationCodeJob] Successfully completed for: #{email_address}"
   rescue => e
-    logger.error "[EmailVerificationCodeJob] Failed for: #{email_address} — Error: #{e.class} - #{e.message}"
+    Rails.logger.error "[EmailVerificationCodeJob] Failed for: #{email_address} — Error: #{e.class} - #{e.message}"
     raise
   end
 
