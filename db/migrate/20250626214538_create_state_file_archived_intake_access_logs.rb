@@ -4,7 +4,7 @@ class CreateStateFileArchivedIntakeAccessLogs < ActiveRecord::Migration[8.0]
       t.timestamps
       t.jsonb "details", default: "{}"
       t.integer "event_type"
-      t.belongs_to 'state_file_archived_intakes', foreign_key: true
+      t.belongs_to "state_file_archived_intakes", foreign_key: true
     end
   end
 end

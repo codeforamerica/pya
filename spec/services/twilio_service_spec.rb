@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe TwilioService do
   let(:twilio_service) { TwilioService.new }
@@ -67,7 +67,7 @@ describe TwilioService do
     end
 
     context "when Twilio returns an error" do
-      let(:error_response) { double(body: { message: "Invalid phone number" }, status_code: 21211) }
+      let(:error_response) { double(body: {message: "Invalid phone number"}, status_code: 21211) }
       let(:twilio_error) { Twilio::REST::RestError.new(400, error_response) }
 
       before do

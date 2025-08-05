@@ -60,7 +60,7 @@ FactoryBot.define do
           mailing_street: intake&.direct_file_data&.mailing_street,
           mailing_zip: intake&.direct_file_data&.mailing_zip,
           tax_year: archiver&.tax_year,
-          state_code: archiver&.state_code,
+          state_code: archiver&.state_code
         )
         archived_intake.submission_pdf.attach(intake&.submission_pdf&.blob)
         archived_intake.save!

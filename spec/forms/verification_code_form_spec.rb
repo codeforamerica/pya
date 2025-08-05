@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe VerificationCodeForm do
   let(:params) do
@@ -9,10 +9,10 @@ RSpec.describe VerificationCodeForm do
   let(:contact_preference) { "email" }
   let(:contact_info) { "test@example.com" }
   let(:form) {
-   VerificationCodeForm.new(
+    VerificationCodeForm.new(
       params,
       contact_info: contact_info,
-      contact_preference: contact_preference,
+      contact_preference: contact_preference
     )
   }
 
@@ -21,8 +21,8 @@ RSpec.describe VerificationCodeForm do
       context "when the verification code is present and valid" do
         it "returns true" do
           allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info)
-                                              .with("test@example.com", "123456")
-                                              .and_return("hashed_code")
+            .with("test@example.com", "123456")
+            .and_return("hashed_code")
 
           allow(EmailAccessToken).to receive_message_chain(:lookup, :exists?).and_return(true)
 
@@ -33,8 +33,8 @@ RSpec.describe VerificationCodeForm do
       context "when the verification code is present but invalid" do
         it "adds an error and returns false" do
           allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info)
-                                              .with("test@example.com", "123456")
-                                              .and_return("hashed_code")
+            .with("test@example.com", "123456")
+            .and_return("hashed_code")
 
           allow(EmailAccessToken).to receive_message_chain(:lookup, :exists?).and_return(false)
 
@@ -43,7 +43,7 @@ RSpec.describe VerificationCodeForm do
         end
       end
 
-        context "when the verification code is blank" do
+      context "when the verification code is blank" do
         let(:params) {
           {
             verification_code: ""
@@ -61,7 +61,7 @@ RSpec.describe VerificationCodeForm do
         end
         context "with the magic code" do
           it "is valid" do
-            form = described_class.new({ verification_code: "000000" })
+            form = described_class.new({verification_code: "000000"})
             expect(form).to be_valid
           end
         end
@@ -74,8 +74,8 @@ RSpec.describe VerificationCodeForm do
       context "when the verification code is present and valid" do
         it "returns true" do
           allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info)
-                                              .with("+14153334444", "123456")
-                                              .and_return("hashed_code")
+            .with("+14153334444", "123456")
+            .and_return("hashed_code")
 
           allow(TextMessageAccessToken).to receive_message_chain(:lookup, :exists?).and_return(true)
 
@@ -86,8 +86,8 @@ RSpec.describe VerificationCodeForm do
       context "when the verification code is present but invalid" do
         it "adds an error and returns false" do
           allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info)
-                                              .with("+14153334444", "123456")
-                                              .and_return("hashed_code")
+            .with("+14153334444", "123456")
+            .and_return("hashed_code")
 
           allow(TextMessageAccessToken).to receive_message_chain(:lookup, :exists?).and_return(false)
 

@@ -6,7 +6,7 @@ module FormAttributes
     class_attribute :attribute_names
 
     def initialize(*args, **kwargs)
-      super(*args, **kwargs)
+      super
 
       default_attrs = self.class.scoped_defaults.values.reduce(&:merge)
 
@@ -35,11 +35,11 @@ module FormAttributes
 
       attr_accessor(*attribute_strings)
 
-      auto_strip_attributes *attribute_strings, virtual: true
+      auto_strip_attributes(*attribute_strings, virtual: true)
     end
 
     def before_validation_squish(*attributes)
-      auto_strip_attributes *attributes, virtual: true, squish: true
+      auto_strip_attributes(*attributes, virtual: true, squish: true)
     end
 
     def scoped_defaults
@@ -60,9 +60,8 @@ module FormAttributes
   end
 
   def attributes_for(model)
-    self.class.scoped_attributes[model].reduce({}) do |hash, attribute_name|
+    self.class.scoped_attributes[model].each_with_object({}) do |attribute_name, hash|
       hash[attribute_name] = send(attribute_name)
-      hash
     end
   end
 end

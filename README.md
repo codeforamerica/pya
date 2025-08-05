@@ -150,4 +150,10 @@ You can also utilize AWS Query Editor or `aws rds-data` commands to directly acc
 
 - Your `AWS_PROFILE` should match the environment (Prior Year Access - Prod vs Non-Prod) you're trying to query
 - You can grab the `resource-arn` from AWS console > Aurora and RDS > Databases > pya-<environment>-web > Configuration > Amazon Resource Name (ARN).
-- `secret-arn` could be found in the AWS Secrets Manager (starts with `rds!cluster` -- grab the ARN)
+- `secret-arn` could be found in the AWS Secrets Manager (starts with `rds!cluster` -- grab the ARN
+
+---
+
+## Running the Linter
+
+To run the linter locally, run the following command: `bundle exec standardrb --fix`. If you forget to do this, the linter will run when a branch pushed up. To ignore the linter, here is a [guide](https://github.com/standardrb/standard?tab=readme-ov-file#ignoring-errors).
