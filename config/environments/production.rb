@@ -67,6 +67,7 @@ Rails.application.configure do
   #   authentication: :plain
   # }
   #
+  FROM_EMAIL = "hello@mg-demo.getyourrefund-testing.org"
   config.action_mailer.delivery_method = :mailgun
   config.action_mailer.mailgun_settings = {
     api_key: ENV["MAILGUN_API_KEY"],
