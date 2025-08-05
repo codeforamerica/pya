@@ -6,11 +6,6 @@ class EmailVerificationCodeJob < ApplicationJob
       email_address: email_address,
       locale: locale
     )
-
-    Rails.logger.info "[EmailVerificationCodeJob] Successfully completed for: #{email_address}"
-  rescue => e
-    Rails.logger.error "[EmailVerificationCodeJob] Failed for: #{email_address} — Error: #{e.class} - #{e.message}"
-    raise
   end
 
   def priority

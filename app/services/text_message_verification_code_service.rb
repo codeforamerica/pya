@@ -5,8 +5,6 @@ class TextMessageVerificationCodeService
   end
 
   def request_code
-    Rails.logger.info "[TextMessageVerificationCodeService] Generating verification code for: #{@phone_number}"
-
     verification_code, access_token = TextMessageAccessToken.generate!(sms_phone_number: @phone_number)
 
     message_arguments = {
@@ -16,16 +14,9 @@ class TextMessageVerificationCodeService
         verification_code: verification_code).strip
     }.compact
 
-    Rails.logger.info "[TextMessageVerificationCodeService] Sending SMS to: #{@phone_number} with body: #{message_arguments[:body]}"
-
     TwilioService.new.send_message(**message_arguments)
 
-    Rails.logger.info "[TextMessageVerificationCodeService] SMS sent successfully to: #{@phone_number}"
-
     access_token
-  rescue => e
-    Rails.logger.error "[TextMessageVerificationCodeService] Failed to send SMS to: #{@phone_number} — #{e.class}: #{e.message}"
-    raise
   end
 
   private_class_method
