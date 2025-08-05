@@ -3,7 +3,7 @@ class VerificationCodeMailer < ApplicationMailer
     @locale = locale
     @service_name = "FileYourStateTaxes"
     @service_name_lower = "fileyourstatetaxes"
-    @url = [ Rails.configuration.email_url, locale ].compact.join("/")
+    @url = [Rails.configuration.email_url, locale].compact.join("/")
     @verification_code = verification_code
     attachments.inline["logo.png"] = File.read(Rails.root.join("app/assets/images/FYST_email_logo.png"))
     @subject = I18n.t("mailers.archived_intake_verification_code.subject")

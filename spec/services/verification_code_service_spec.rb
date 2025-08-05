@@ -8,7 +8,7 @@ describe VerificationCodeService do
     end
 
     it "generates a 6-digit random code and its digest" do
-      expect(described_class.generate("example@example.com")).to eq([ "000004", "hashed_verification_code" ])
+      expect(described_class.generate("example@example.com")).to eq(["000004", "hashed_verification_code"])
     end
   end
 

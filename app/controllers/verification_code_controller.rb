@@ -30,22 +30,26 @@ class VerificationCodeController < BaseController
   def update
     @form = VerificationCodeForm.new(verification_code_form_params, contact_info: current_archived_intake.contact, contact_preference: current_archived_intake.contact_preference)
     if @form.valid?
+      # standard:disable Style/IdenticalConditionalBranches
       case current_archived_intake.contact_preference
       when "text"
         # TODO: Some kind of logging here
       when "email"
         # TODO: Some kind of logging here
       end
+      # standard:enable Style/IdenticalConditionalBranches
       current_archived_intake.reset_failed_attempts!
       session[:code_verified] = true
       redirect_to root_path
     else
+      # standard:disable Style/IdenticalConditionalBranches
       case current_archived_intake.contact_preference
       when "text"
         # TODO: Some kind of logging here
       when "email"
         # TODO: Some kind of logging here
       end
+      # standard:enable Style/IdenticalConditionalBranches
       current_archived_intake.increment_failed_attempts
       if current_archived_intake.access_locked?
         # TODO: Some kind of logging here

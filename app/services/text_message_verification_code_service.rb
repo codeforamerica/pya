@@ -10,9 +10,8 @@ class TextMessageVerificationCodeService
     message_arguments = {
       to: @phone_number,
       body: I18n.t("text_message.verification_code",
-                   locale: @locale,
-                   verification_code: verification_code
-      ).strip
+        locale: @locale,
+        verification_code: verification_code).strip
     }.compact
 
 
@@ -21,7 +20,7 @@ class TextMessageVerificationCodeService
     access_token
   end
 
-  private
+  private_class_method
 
   def self.request_code(**args)
     new(**args).request_code

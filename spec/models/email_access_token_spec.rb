@@ -29,7 +29,7 @@ describe EmailAccessToken do
       it "is valid with all required fields" do
         access_token = described_class.new(
           token: "a8sd7hf98a7sdhf8a",
-          email_address: "someone@example.com",
+          email_address: "someone@example.com"
         )
         expect(access_token).to be_valid
       end
@@ -76,7 +76,7 @@ describe EmailAccessToken do
     let(:verification_code) { "123456" }
     let(:hashed_verification_code) { "a_hashed_verification_code" }
     before do
-      allow(VerificationCodeService).to receive(:generate).and_return [ verification_code, hashed_verification_code ]
+      allow(VerificationCodeService).to receive(:generate).and_return [verification_code, hashed_verification_code]
     end
 
     it "creates an instance of the class, persisting the hashed code and returns the hashed and raw token" do
@@ -95,7 +95,7 @@ describe EmailAccessToken do
     let!(:fresh_token) { create :email_access_token, created_at: 5.minutes.ago, token: Devise.token_generator.digest(EmailAccessToken, :token, "raw_token") }
 
     it "returns codes that have not expired" do
-      expect(described_class.lookup("raw_token")).to match_array([ fresh_token ])
+      expect(described_class.lookup("raw_token")).to match_array([fresh_token])
     end
   end
 end
