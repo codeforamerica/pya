@@ -11,6 +11,15 @@ class VerificationCodeMailer < ApplicationMailer
       api_key: ENV["MAILGUN_API_KEY"],
       domain: ENV["MAILGUN_DOMAIN"]
     }
-    mail(to: to, subject: @subject, from: "hello@mg-demo.getyourrefund-testing.org", delivery_method_options: delivery_method)
+    mail(
+      to: to,
+      subject: @subject,
+      from: "hello@mg-demo.getyourrefund-testing.org",
+      delivery_method: :mailgun,
+      delivery_method_options: {
+        api_key: ENV["MAILGUN_API_KEY"],
+        domain: ENV["MAILGUN_DOMAIN"]
+      }
+    )
   end
 end

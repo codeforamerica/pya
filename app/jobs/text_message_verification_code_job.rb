@@ -4,11 +4,6 @@ class TextMessageVerificationCodeJob < ApplicationJob
       phone_number: phone_number,
       locale: locale
     )
-
-    Rails.logger.info "[TextMessageVerificationCodeJob] Successfully completed for: #{phone_number}"
-  rescue => e
-    Rails.logger.error "[TextMessageVerificationCodeJob] Failed for: #{phone_number} — Error: #{e.class} - #{e.message}"
-    raise
   end
 
   def priority
