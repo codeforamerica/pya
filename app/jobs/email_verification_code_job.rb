@@ -6,8 +6,6 @@ class EmailVerificationCodeJob < ApplicationJob
       email_address: email_address,
       locale: locale
     )
-  rescue
-    raise
   end
 
   def priority
