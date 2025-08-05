@@ -6,7 +6,7 @@ class EmailVerificationCodeJob < ApplicationJob
       email_address: email_address,
       locale: locale
     )
-  rescue => e
+  rescue
     raise
   end
 

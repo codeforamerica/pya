@@ -7,7 +7,6 @@ class EmailVerificationCodeService
   def request_code
     verification_code, = EmailAccessToken.generate!(email_address: @email_address)
 
-
     VerificationCodeMailer.archived_intake_verification_code(
       to: @email_address,
       verification_code: verification_code,

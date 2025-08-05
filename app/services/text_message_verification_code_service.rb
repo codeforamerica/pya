@@ -14,7 +14,6 @@ class TextMessageVerificationCodeService
         verification_code: verification_code).strip
     }.compact
 
-
     TwilioService.new.send_message(**message_arguments)
 
     access_token
