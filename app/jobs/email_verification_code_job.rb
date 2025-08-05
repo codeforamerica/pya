@@ -14,6 +14,3 @@ class EmailVerificationCodeJob < ApplicationJob
     PRIORITY_HIGH - 1 # Subtracting one to push to the top of the queue
   end
 end
-
-
-# EmailVerificationCodeService.request_code(email_address: "d.proebstel@gmail.com", locale: ":en")
