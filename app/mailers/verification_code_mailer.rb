@@ -7,7 +7,8 @@ class VerificationCodeMailer < ApplicationMailer
     @verification_code = verification_code
     attachments.inline["logo.png"] = File.read(Rails.root.join("app/assets/images/FYST_email_logo.png"))
     @subject = I18n.t("mailers.archived_intake_verification_code.subject")
-    @from = ENV["EMAIL_FROM"]
+    domain = ENV['MAILGUN_DOMAIN'] || 'localhost'
+    @from = "hello@#{domain}"
     mail(
       to: to,
       subject: @subject,
