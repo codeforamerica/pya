@@ -14,11 +14,11 @@ class VerificationCodeForm < Form
     hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(@contact_info, verification_code)
     valid_code = case contact_preference
     when "text"
-                   TextMessageAccessToken.lookup(hashed_verification_code).exists?
+      TextMessageAccessToken.lookup(hashed_verification_code).exists?
     when "email"
-                   EmailAccessToken.lookup(hashed_verification_code).exists?
+      EmailAccessToken.lookup(hashed_verification_code).exists?
     else
-                   false
+      false
     end
 
     errors.add(:verification_code, I18n.t("errors.attributes.verification_code.invalid")) unless valid_code

@@ -21,7 +21,7 @@ RSpec.describe EmailAddressController, type: :controller do
         # TODO update this test with logging and the proper redirects https://codeforamerica.atlassian.net/browse/FYST-2088
         it "creates a request, updates the session and redirects to the root path" do
           post :update, params: {
-            email_address_form: { email_address: valid_email_address }
+            email_address_form: {email_address: valid_email_address}
           }
           expect(assigns(:form)).to be_valid
           active_archived_intake = controller.send(:current_archived_intake)
@@ -39,7 +39,7 @@ RSpec.describe EmailAddressController, type: :controller do
 
         it "matches email case insensitively" do
           post :update, params: {
-            email_address_form: { email_address: mixed_case_email_address }
+            email_address_form: {email_address: mixed_case_email_address}
           }
 
           expect(assigns(:form)).to be_valid
@@ -56,7 +56,7 @@ RSpec.describe EmailAddressController, type: :controller do
       context "and an archived intake does not exist with the email address" do
         it "creates an access log, creates a new archived intake without a ssn or address, and redirects to the verification code page" do
           post :update, params: {
-            email_address_form: { email_address: valid_email_address }
+            email_address_form: {email_address: valid_email_address}
           }
           expect(assigns(:form)).to be_valid
 
@@ -70,7 +70,7 @@ RSpec.describe EmailAddressController, type: :controller do
 
         it "resets verification session variables and sets email" do
           post :update, params: {
-            email_address_form: { email_address: valid_email_address }
+            email_address_form: {email_address: valid_email_address}
           }
 
           expect(assigns(:form)).to be_valid
@@ -87,7 +87,7 @@ RSpec.describe EmailAddressController, type: :controller do
     context "when the form is invalid" do
       it "renders the edit template" do
         post :update, params: {
-          email_address_form: { email_address: invalid_email_address }
+          email_address_form: {email_address: invalid_email_address}
         }
 
         expect(assigns(:form)).not_to be_valid

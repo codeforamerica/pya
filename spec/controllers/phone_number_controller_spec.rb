@@ -20,7 +20,7 @@ RSpec.describe PhoneNumberController, type: :controller do
         # TODO update this test with logging and the proper redirects https://codeforamerica.atlassian.net/browse/FYST-2088
         it "creates a request, updates the session and redirects to the root path" do
           post :update, params: {
-            phone_number_form: { phone_number: valid_phone_number }
+            phone_number_form: {phone_number: valid_phone_number}
           }
           expect(assigns(:form)).to be_valid
           active_archived_intake = controller.send(:current_archived_intake)
@@ -41,7 +41,7 @@ RSpec.describe PhoneNumberController, type: :controller do
       context "and an archived intake does not exist with the phone number" do
         it "creates a new archived intake without a ssn or address, and redirects to the verification code page" do
           post :update, params: {
-            phone_number_form: { phone_number: valid_phone_number }
+            phone_number_form: {phone_number: valid_phone_number}
           }
           expect(assigns(:form)).to be_valid
 
@@ -56,7 +56,7 @@ RSpec.describe PhoneNumberController, type: :controller do
 
         it "resets verification session variables and sets phone number" do
           post :update, params: {
-            phone_number_form: { phone_number: valid_phone_number }
+            phone_number_form: {phone_number: valid_phone_number}
           }
 
           expect(assigns(:form)).to be_valid
@@ -73,7 +73,7 @@ RSpec.describe PhoneNumberController, type: :controller do
     context "when the form is invalid" do
       it "renders the edit template" do
         post :update, params: {
-          phone_number_form: { phone_number: invalid_phone_number }
+          phone_number_form: {phone_number: invalid_phone_number}
         }
 
         expect(assigns(:form)).not_to be_valid

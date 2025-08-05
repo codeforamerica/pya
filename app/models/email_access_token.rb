@@ -26,10 +26,10 @@ class EmailAccessToken < ApplicationRecord
 
   def self.generate!(email_address:, client_id: nil)
     raw_verification_code, hashed_verification_code = VerificationCodeService.generate(email_address)
-    [ raw_verification_code, create!(
+    [raw_verification_code, create!(
       email_address: email_address,
       token: Devise.token_generator.digest(self.class, :token, hashed_verification_code)
-    ) ]
+    )]
   end
 
   private

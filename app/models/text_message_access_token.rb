@@ -25,10 +25,10 @@ class TextMessageAccessToken < ApplicationRecord
 
   def self.generate!(sms_phone_number:)
     raw_verification_code, hashed_verification_code = VerificationCodeService.generate(sms_phone_number)
-    [ raw_verification_code, create!(
+    [raw_verification_code, create!(
       sms_phone_number: sms_phone_number,
-      token: Devise.token_generator.digest(self.class, :token, hashed_verification_code),
-    ) ]
+      token: Devise.token_generator.digest(self.class, :token, hashed_verification_code)
+    )]
   end
 
   def logging

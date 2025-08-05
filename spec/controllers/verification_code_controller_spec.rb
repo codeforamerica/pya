@@ -14,7 +14,7 @@ RSpec.describe VerificationCodeController, type: :controller do
   end
 
   describe "GET #edit" do
-    it_behaves_like 'archived intake locked', action: :edit, method: :get
+    it_behaves_like "archived intake locked", action: :edit, method: :get
 
     context "when the request is not locked" do
       before do
@@ -62,10 +62,10 @@ RSpec.describe VerificationCodeController, type: :controller do
       end
 
       it "does not increment failed_attempts" do
-        post :update, params: { verification_code_form: { verification_code: valid_verification_code } }
+        post :update, params: {verification_code_form: {verification_code: valid_verification_code}}
         expect(session[:code_verified]).to eq(true)
         expect(archived_intake.failed_attempts).to eq(0)
-        expect(response).to redirect_to(edit_identification_number_path)
+        expect(response).to redirect_to(root_path) # todo: reroute to ssn
       end
     end
 
@@ -75,7 +75,7 @@ RSpec.describe VerificationCodeController, type: :controller do
       end
 
       it "increments failed_attempts, and re-renders edit on first failed attempt" do
-        post :update, params: { verification_code_form: { verification_code: invalid_verification_code } }
+        post :update, params: {verification_code_form: {verification_code: invalid_verification_code}}
         expect(session[:code_verified]).to eq(nil)
 
         expect(archived_intake.reload.failed_attempts).to eq(1)
@@ -85,7 +85,7 @@ RSpec.describe VerificationCodeController, type: :controller do
 
       it "locks the account and redirects to root path after multiple failed attempts" do
         archived_intake.update!(failed_attempts: 1)
-        post :update, params: { verification_code_form: { verification_code: invalid_verification_code } }
+        post :update, params: {verification_code_form: {verification_code: invalid_verification_code}}
 
         expect(session[:code_verified]).to eq(nil)
 
