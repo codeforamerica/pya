@@ -24,7 +24,7 @@ en:
       phone_number:
         invalid: Please enter a valid phone number.
       verification_code:
-        invalid: Please enter a valid code
+        invalid: Incorrect verification code. After 2 failed attempts, accounts are locked.
   general:
     continue: Continue
     submit: Submit
