@@ -77,6 +77,7 @@ en:
         az_dor: Arizona Department of Revenue
         locked_due_to: This account has been locked due to too many failed login attempts.
         one_hour: Please try again in 1 hour.
+        id_form: Idaho Form STC-06
         ny_dor: NY State Tax Department
         md_form: Maryland Form 129
         nc_dor: North Carolina Department of Revenue
