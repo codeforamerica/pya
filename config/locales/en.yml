@@ -31,6 +31,17 @@ en:
   text_message:
     verification_code: "Your 6-digit FileYourStateTaxes verification code is: %{verification_code}. This code will expire after 10 minutes"
   views:
+    mailing_address_validation:
+      edit:
+        identity_safe: To keep your identity safe, we need to confirm the address on your 2023 tax return.
+        radio_button_title: 'Select the mailing address for your 2023 tax return:'
+        title: Confirm your address to access your tax return
+    identification_number:
+      edit:
+        error_message: Please enter the correct SSN/ITIN
+        help_text: To keep your identity safe, we need to confirm your social security number.
+        ssn_label: Social Security Number or ITIN
+        title: We found your account! Please confirm your identity
     email_address:
       edit:
         title: Enter the email address linked to your account
