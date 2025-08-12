@@ -1,0 +1,23 @@
+<% content_for :page_title, t("views.public_pages.page_not_found.title") %>
+<div class="main-content-inner">
+  <section class="slab">
+    <div class="grid">
+      <div class="grid__item width-three-fourths">
+        <div class="main-content-inner">
+          <h1 class="offboarding--title">
+            <%= content_for(:page_title) %>
+          </h1>
+
+          <div class="offboarding--help-text">
+            <p>
+              <%=t("views.public_pages.page_not_found.let_us_know_html", :email_link => mail_to("help@fileyourstatetaxes.org")) %>
+            </p>
+          </div>
+          <div class="buttons--vertical-stack">
+            <%= link_to t("general.return_home"), root_path, class: "button button--primary button--wide text--centered" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

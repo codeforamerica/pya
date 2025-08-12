@@ -27,6 +27,7 @@ en:
         invalid: Please enter a valid code
   general:
     continue: Continue
+    return_home: Return to home
     submit: Submit
   text_message:
     verification_code: "Your 6-digit FileYourStateTaxes verification code is: %{verification_code}. This code will expire after 10 minutes"
@@ -84,6 +85,14 @@ en:
         return_to_home: Return to Homepage
         also_visit_html: You can also visit your state’s tax agency website to request your %{year} tax return. For more information, click on the links below or visit our <a href='https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return'>FAQ page</a>.
         title: Sorry, we were not able to verify your account
+    public_pages:
+      internal_server_error:
+        body: It looks like there was a server error. We've been notified of the issue and will work to fix it!
+        contact_html: If you’re running into trouble, we’re here for you. You can reach us using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
+        title: Oops, we're sorry, but something went wrong.
+      page_not_found:
+        let_us_know_html: If you followed a link here, please let us know using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
+        title: Oops, we're sorry, but the page you're looking for can't be found.
     layouts:
       header:
         link_to_main_content: "Skip to main content"
