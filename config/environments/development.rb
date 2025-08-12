@@ -7,7 +7,7 @@ Rails.application.configure do
   config.enable_reloading = true
 
   # Use pya routes to render server error pages.
-  config.exceptions_app = self.routes
+  config.exceptions_app = routes
 
   # Do not eager load code on boot.
   config.eager_load = true
