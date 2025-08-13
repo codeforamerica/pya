@@ -11,6 +11,8 @@ gem "phony"
 gem "auto_strip_attributes"
 gem "devise"
 gem "mailgun-ruby"
+gem 'aws-sdk-s3'
+gem "csv", "~> 3.3"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
@@ -35,7 +37,6 @@ gem "tzinfo-data", platforms: %i[windows jruby]
 gem "solid_cache"
 gem "solid_cable"
 
-gem "aws-sdk-s3", require: false
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
