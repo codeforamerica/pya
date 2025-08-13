@@ -39,7 +39,7 @@ class VerificationCodeController < BaseController
       end
       current_archived_intake.reset_failed_attempts!
       session[:code_verified] = true
-      redirect_to root_path
+      redirect_to edit_identification_number_path
     else
       case current_archived_intake.contact_preference
       when "text"

@@ -15,7 +15,7 @@ en:
   views:
     identification_number:
       edit:
-        error_message: Please enter the correct SSN/ITIN
+        error_message: Please enter a valid social security number or ITIN.
         help_text: To keep your identity safe, we need to confirm your social security number.
         ssn_label: Social Security Number or ITIN
         title: We found your account! Please confirm your identity
