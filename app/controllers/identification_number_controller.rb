@@ -1,4 +1,3 @@
-
 class IdentificationNumberController < BaseController
   before_action :confirm_code_verification
   before_action :is_intake_locked
