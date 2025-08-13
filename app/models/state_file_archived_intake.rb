@@ -48,13 +48,12 @@ class StateFileArchivedIntake < ApplicationRecord
     (contact_preference == "text") ? phone_number : email_address
   end
 
-
   def fake_addresses
-    [ fake_address_1, fake_address_2 ]
+    [fake_address_1, fake_address_2]
   end
 
   def address_challenge_set
-    (fake_addresses.push(full_address)).shuffle
+    fake_addresses.push(full_address).shuffle
   end
 
   private

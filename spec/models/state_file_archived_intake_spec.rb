@@ -21,7 +21,7 @@
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe StateFileArchivedIntake, type: :model do
   describe "#increment_failed_attempts" do
@@ -36,7 +36,7 @@ RSpec.describe StateFileArchivedIntake, type: :model do
   end
 
   describe "#fetch_random_addresses" do
-    let!(:state_file_archived_intake) { create(:state_file_archived_intake)}
+    let!(:state_file_archived_intake) { create(:state_file_archived_intake) }
 
     before do
       allow(Aws::S3::Client).to receive(:new).and_return(
@@ -137,7 +137,6 @@ RSpec.describe StateFileArchivedIntake, type: :model do
     let(:state_file_archived_intake) { build(:state_file_archived_intake, hashed_ssn: nil) }
 
     context "when state_file_archived_intake hashed ssn is nil" do
-
       it "does not populate fake_address_1 and fake_address_2" do
         state_file_archived_intake.save
 

@@ -8,7 +8,7 @@ RSpec.describe IdentificationNumberForm do
     build(:state_file_archived_intake, hashed_ssn: hashed_ssn)
   }
 
-  let(:form) { described_class.new(state_file_archived_intake, { ssn: input_ssn }) }
+  let(:form) { described_class.new(state_file_archived_intake, {ssn: input_ssn}) }
 
   describe "validations" do
     context "with an input that does not look like an ssn" do

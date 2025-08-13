@@ -14,7 +14,7 @@ RSpec.describe MailingAddressValidationController, type: :controller do
   end
 
   describe "GET #edit" do
-    it_behaves_like 'archived intake locked', action: :edit, method: :get
+    it_behaves_like "archived intake locked", action: :edit, method: :get
 
     context "when the request is locked" do
       before do
@@ -56,7 +56,7 @@ RSpec.describe MailingAddressValidationController, type: :controller do
     context "with a valid chosen address" do
       it "redirects to root path" do
         post :update, params: {
-          mailing_address_validation_form: { selected_address: archived_intake.full_address, addresses: archived_intake.address_challenge_set }
+          mailing_address_validation_form: {selected_address: archived_intake.full_address, addresses: archived_intake.address_challenge_set}
         }
         expect(assigns(:form)).to be_valid
         expect(session[:mailing_verified]).to eq(true)
@@ -68,7 +68,7 @@ RSpec.describe MailingAddressValidationController, type: :controller do
     context "with an invalid chosen address" do
       it "creates an access log, locks the request, and redirects to the verification error path" do
         post :update, params: {
-          mailing_address_validation_form: { selected_address: archived_intake.fake_address_1, addresses: archived_intake.address_challenge_set }
+          mailing_address_validation_form: {selected_address: archived_intake.fake_address_1, addresses: archived_intake.address_challenge_set}
         }
         expect(assigns(:form)).not_to be_valid
 

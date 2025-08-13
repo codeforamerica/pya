@@ -11,7 +11,7 @@ gem "phony"
 gem "auto_strip_attributes"
 gem "devise"
 gem "mailgun-ruby"
-gem 'aws-sdk-s3'
+gem "aws-sdk-s3"
 gem "csv", "~> 3.3"
 
 # Use the Puma web server [https://github.com/puma/puma]
@@ -36,7 +36,6 @@ gem "tzinfo-data", platforms: %i[windows jruby]
 # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
 gem "solid_cache"
 gem "solid_cable"
-
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
