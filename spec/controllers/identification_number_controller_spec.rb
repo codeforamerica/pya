@@ -14,7 +14,7 @@ RSpec.describe IdentificationNumberController, type: :controller do
   end
 
   describe "GET #edit" do
-    it_behaves_like 'archived intake locked', action: :edit, method: :get
+    it_behaves_like "archived intake locked", action: :edit, method: :get
 
     it "renders the edit template with a new IdentificationNumberForm" do
       get :edit
@@ -35,7 +35,7 @@ RSpec.describe IdentificationNumberController, type: :controller do
     context "with a valid ssn" do
       it "redirects to the mailing address validation page" do
         post :update, params: {
-          identification_number_form: { ssn: intake_ssn }
+          identification_number_form: {ssn: intake_ssn}
         }
         expect(assigns(:form)).to be_valid
 
@@ -51,7 +51,7 @@ RSpec.describe IdentificationNumberController, type: :controller do
         archived_intake.update!(failed_attempts: 1)
 
         post :update, params: {
-          identification_number_form: { ssn: intake_ssn }
+          identification_number_form: {ssn: intake_ssn}
         }
 
         expect(assigns(:form)).to be_valid
@@ -65,7 +65,7 @@ RSpec.describe IdentificationNumberController, type: :controller do
       end
 
       it "increments failed_attempts, and re-renders edit on first failed attempt" do
-        post :update, params: { identification_number_form: { ssn: invalid_ssn } }
+        post :update, params: {identification_number_form: {ssn: invalid_ssn}}
         expect(archived_intake.reload.failed_attempts).to eq(1)
         expect(response).to render_template(:edit)
       end
@@ -73,8 +73,7 @@ RSpec.describe IdentificationNumberController, type: :controller do
       it "locks the account and redirects to root path after multiple failed attempts" do
         archived_intake.update!(failed_attempts: 1)
 
-        post :update, params: { identification_number_form: { ssn: invalid_ssn } }
-
+        post :update, params: {identification_number_form: {ssn: invalid_ssn}}
 
         expect(archived_intake.reload.failed_attempts).to eq(2)
         expect(archived_intake.reload.access_locked?).to be_truthy
