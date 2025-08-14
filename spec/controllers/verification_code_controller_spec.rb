@@ -65,7 +65,7 @@ RSpec.describe VerificationCodeController, type: :controller do
         post :update, params: {verification_code_form: {verification_code: valid_verification_code}}
         expect(session[:code_verified]).to eq(true)
         expect(archived_intake.failed_attempts).to eq(0)
-        expect(response).to redirect_to(root_path) # todo: reroute to ssn
+        expect(response).to redirect_to(edit_identification_number_path)
       end
     end
 
