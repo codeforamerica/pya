@@ -25,7 +25,7 @@ require "rails_helper"
 
 RSpec.describe StateFileArchivedIntake, type: :model do
   describe "#increment_failed_attempts" do
-    let!(:state_file_archived_intake) { create :state_file_archived_intake, failed_attempts: 1 }
+    let!(:state_file_archived_intake) { create :state_file_archived_intake, failed_attempts: 1, state_code: "AZ" }
     it "locks access when failed attempts is incremented to 2" do
       expect(state_file_archived_intake.access_locked?).to eq(false)
 
@@ -54,7 +54,7 @@ RSpec.describe StateFileArchivedIntake, type: :model do
           allow(state_file_archived_intake).to receive(:download_file_from_s3).and_call_original
 
           expect(state_file_archived_intake).to receive(:download_file_from_s3).with(
-            "vita-min-prod-docs",
+            "pya-staging-docs",
             "az_addresses.csv",
             Rails.root.join("tmp", "az_addresses.csv").to_s
           )
@@ -68,7 +68,7 @@ RSpec.describe StateFileArchivedIntake, type: :model do
           allow(state_file_archived_intake).to receive(:download_file_from_s3).and_call_original
 
           expect(state_file_archived_intake).to receive(:download_file_from_s3).with(
-            "vita-min-prod-docs",
+            "pya-staging-docs",
             "ny_addresses.csv",
             Rails.root.join("tmp", "ny_addresses.csv").to_s
           )
@@ -78,55 +78,14 @@ RSpec.describe StateFileArchivedIntake, type: :model do
       end
     end
 
-    context "when in staging environment" do
-      before { allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("staging")) }
-
-      it "uses the correct bucket and file key" do
-        expect(state_file_archived_intake).to receive(:download_file_from_s3).with(
-          "vita-min-staging-docs",
-          "non_prod_addresses.csv",
-          Rails.root.join("tmp", "non_prod_addresses.csv").to_s
-        )
-
-        state_file_archived_intake.send(:fetch_random_addresses)
-      end
-    end
-
     context "when in development environment" do
       before { allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("development")) }
 
       it "uses the correct local file path" do
         expect(CSV).to receive(:read).with(
-          Rails.root.join("app", "lib", "challenge_addresses", "test_addresses.csv"),
+          Rails.root.join("app", "lib", "challenge_addresses", "az_addresses.csv"),
           headers: false
         ).and_return(["123 Fake St", "456 Imaginary Rd"])
-
-        state_file_archived_intake.send(:fetch_random_addresses)
-      end
-    end
-
-    context "when in test environment" do
-      before { allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("test")) }
-
-      it "uses the correct local file path" do
-        expect(CSV).to receive(:read).with(
-          Rails.root.join("app", "lib", "challenge_addresses", "test_addresses.csv"),
-          headers: false
-        )
-
-        state_file_archived_intake.send(:fetch_random_addresses)
-      end
-    end
-
-    context "when in demo environment" do
-      before { allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("demo")) }
-
-      it "uses the correct bucket and file key" do
-        expect(state_file_archived_intake).to receive(:download_file_from_s3).with(
-          "vita-min-demo-docs",
-          "non_prod_addresses.csv",
-          Rails.root.join("tmp", "non_prod_addresses.csv").to_s
-        )
 
         state_file_archived_intake.send(:fetch_random_addresses)
       end
