@@ -30,7 +30,7 @@ class IdentificationNumberController < BaseController
   end
 
   def identification_number_form_params
-    params.require(:identification_number_form).permit(:ssn)
+    params.expect(identification_number_form: [:ssn])
   end
 
   def confirm_code_verification
