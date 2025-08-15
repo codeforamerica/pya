@@ -31,6 +31,13 @@ en:
   text_message:
     verification_code: "Your 6-digit FileYourStateTaxes verification code is: %{verification_code}. This code will expire after 10 minutes"
   views:
+    pdf:
+      index:
+        title: Your account has been successfully verified!
+        subtitle: To access your %{year} %{state} Tax return, click the link below.
+        another_return: If you have another year’s return you would like to download, you will have to sign back in with the contact method you used to create that account.
+        download_button: Download %{year} Return
+        another_return_button: Download another return
     mailing_address_validation:
       edit:
         identity_safe: To keep your identity safe, we need to confirm the address on your 2023 tax return.
