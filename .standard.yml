@@ -1,0 +1,2 @@
+ignore:
+  - 'app/models/state_file_archived_intake.rb'
