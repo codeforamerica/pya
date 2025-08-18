@@ -35,7 +35,7 @@ jobs:
           exit 1
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0  # fetch full history and tags
 
@@ -123,6 +123,7 @@ jobs:
         uses: slackapi/slack-github-action@v2.1.1
         if: success()
         with:
+          webhook-type: webhook-trigger
           payload: ${{ steps.slack_payload.outputs.payload }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.TAX_ENG_SLACK_URL }}
@@ -149,7 +150,7 @@ jobs:
       - run: echo 'Starting the production deploy'
 
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -206,6 +207,7 @@ jobs:
         uses: slackapi/slack-github-action@v2.1.1
         if: success()
         with:
+          webhook-type: webhook-trigger
           payload: |
             {
               "text": ":mega: :sparkles: PYA production deploy ${{ job.status }} :sparkles: Please monitor infrastructure deploy: https://github.com/codeforamerica/tax-benefits-backend/actions/workflows/deploy.yaml\n<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q39HFLBG>"

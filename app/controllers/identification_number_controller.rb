@@ -11,7 +11,7 @@ class IdentificationNumberController < BaseController
     @form = IdentificationNumberForm.new(current_archived_intake, identification_number_form_params)
 
     if @form.valid?
-      # TODO: Add logging
+      # TODO: Add logging https://codeforamerica.atlassian.net/browse/FYST-2088
       current_archived_intake.reset_failed_attempts!
       session[:ssn_verified] = true
       redirect_to edit_mailing_address_validation_path
@@ -30,7 +30,7 @@ class IdentificationNumberController < BaseController
   end
 
   def identification_number_form_params
-    params.require(:identification_number_form).permit(:ssn)
+    params.expect(identification_number_form: [:ssn])
   end
 
   def confirm_code_verification
