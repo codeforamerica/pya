@@ -7,7 +7,7 @@ class PdfController < BaseController
 
   before_action do
     if Rails.env.development? || Rails.env.test?
-      ActiveStorage::Current.url_options = { protocol: request.protocol, host: request.host, port: request.port }
+      ActiveStorage::Current.url_options = {protocol: request.protocol, host: request.host, port: request.port}
     end
   end
 
@@ -18,7 +18,7 @@ class PdfController < BaseController
   end
 
   def log_and_redirect
-    #TODO Add logging here
+    # TODO Add logging here
     pdf_url = current_archived_intake.submission_pdf.url(expires_in: pdf_expiration_time, disposition: "inline")
     redirect_to pdf_url, allow_other_host: true
   end

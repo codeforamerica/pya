@@ -16,7 +16,7 @@ RSpec.describe PdfController, type: :controller do
   end
 
   describe "GET #index" do
-    it_behaves_like 'archived intake locked', action: :index, method: :get
+    it_behaves_like "archived intake locked", action: :index, method: :get
 
     context "by default" do
       it "renders" do
