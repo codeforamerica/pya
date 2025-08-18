@@ -24,6 +24,6 @@ class PhoneNumberController < BaseController
   private
 
   def phone_number_form_params
-    params.require(:phone_number_form).permit(:phone_number)
+    params.expect(phone_number_form: [:phone_number])
   end
 end

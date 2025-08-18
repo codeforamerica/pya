@@ -63,6 +63,6 @@ class VerificationCodeController < BaseController
   private
 
   def verification_code_form_params
-    params.require(:verification_code_form).permit(:verification_code)
+    params.expect(verification_code_form: [:verification_code])
   end
 end
