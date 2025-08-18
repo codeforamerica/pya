@@ -1,2 +1,3 @@
 ignore:
-  - 'app/models/state_file_archived_intake.rb'
+  - 'app/models/state_file_archived_intake.rb':
+      - Style/IdenticalConditionalBranches

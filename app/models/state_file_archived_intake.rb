@@ -91,7 +91,7 @@ class StateFileArchivedIntake < ApplicationRecord
     )
   end
 
-  #TODO: https://codeforamerica.atlassian.net/browse/FYST-2232 change this to look at prod s3 bucket
+  # TODO: https://codeforamerica.atlassian.net/browse/FYST-2232 change this to look at prod s3 bucket
   def select_bucket
     case Rails.env
     when "development"
