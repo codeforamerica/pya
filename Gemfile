@@ -11,6 +11,7 @@ gem "phony"
 gem "auto_strip_attributes"
 gem "devise"
 gem "mailgun-ruby"
+gem "aws-sdk-cloudwatchlogs", "~> 1.76"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
