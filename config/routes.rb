@@ -29,7 +29,6 @@ Rails.application.routes.draw do
     get "mailing_address_validation/edit", to: "mailing_address_validation#edit", as: "edit_mailing_address_validation"
     patch "mailing_address_validation", to: "mailing_address_validation#update"
 
-
     devise_for :state_file_archived_intakes
   end
 end
