@@ -40,7 +40,7 @@ class VerificationCodeController < BaseController
       # standard:enable Style/IdenticalConditionalBranches
       current_archived_intake.reset_failed_attempts!
       session[:code_verified] = true
-      redirect_to root_path
+      redirect_to edit_identification_number_path
     else
       # standard:disable Style/IdenticalConditionalBranches
       case current_archived_intake.contact_preference
@@ -63,6 +63,6 @@ class VerificationCodeController < BaseController
   private
 
   def verification_code_form_params
-    params.require(:verification_code_form).permit(:verification_code)
+    params.expect(verification_code_form: [:verification_code])
   end
 end

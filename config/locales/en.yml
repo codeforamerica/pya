@@ -31,6 +31,12 @@ en:
   text_message:
     verification_code: "Your 6-digit FileYourStateTaxes verification code is: %{verification_code}. This code will expire after 10 minutes"
   views:
+    identification_number:
+      edit:
+        error_message: Please enter the correct SSN/ITIN. After 2 failed attempts, your account will be locked.
+        help_text: To keep your identity safe, we need to confirm your social security number.
+        ssn_label: Social Security Number or ITIN
+        title: We found your account! Please confirm your identity
     email_address:
       edit:
         title: Enter the email address linked to your account
