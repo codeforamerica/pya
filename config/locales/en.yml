@@ -38,7 +38,7 @@ en:
         title: Confirm your address to access your tax return
     identification_number:
       edit:
-        error_message: Please enter a valid social security number or ITIN.
+        error_message: Please enter the correct SSN/ITIN. After 2 failed attempts, your account will be locked.
         help_text: To keep your identity safe, we need to confirm your social security number.
         ssn_label: Social Security Number or ITIN
         title: We found your account! Please confirm your identity
