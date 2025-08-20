@@ -61,7 +61,7 @@ RSpec.describe MailingAddressValidationController, type: :controller do
         expect(assigns(:form)).to be_valid
         expect(session[:mailing_verified]).to eq(true)
 
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(pdf_index_path)
       end
     end
 

@@ -1,5 +1,5 @@
 class VerificationCodeController < BaseController
-  before_action :is_intake_locked
+  before_action :is_intake_unavailable
   before_action :setup_contact
 
   def setup_contact

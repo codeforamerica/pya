@@ -1,5 +1,5 @@
 class MailingAddressValidationController < BaseController
-  before_action :is_intake_locked
+  before_action :is_intake_unavailable
   before_action :confirm_code_and_ssn_verification
 
   def edit

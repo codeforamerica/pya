@@ -1,8 +1,8 @@
 class PdfController < BaseController
-  before_action :is_intake_locked
+  before_action :is_intake_unavailable
   before_action :require_contact_preference
-  before_action :require_archived_intake_email_code_verified
-  before_action :require_archived_intake_ssn_verified
+  before_action :require_verification_code_verified
+  before_action :require_ssn_verified
   before_action :require_mailing_address_verified
 
   before_action do
@@ -39,13 +39,13 @@ class PdfController < BaseController
     redirect_to knock_out_path
   end
 
-  def require_archived_intake_email_code_verified
+  def require_verification_code_verified
     return if session[:code_verified].present?
 
     redirect_to knock_out_path
   end
 
-  def require_archived_intake_ssn_verified
+  def require_ssn_verified
     return if session[:ssn_verified].present?
 
     redirect_to knock_out_path
