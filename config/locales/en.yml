@@ -19,6 +19,8 @@ en:
     messages:
       blank: Can't be blank.
     attributes:
+      selected_address:
+        blank: Select a mailing address.
       email_address:
         invalid: Please enter a valid email address.
       phone_number:
@@ -33,8 +35,8 @@ en:
   views:
     mailing_address_validation:
       edit:
-        identity_safe: To keep your identity safe, we need to confirm the address on your 2023 tax return.
-        radio_button_title: 'Select the mailing address for your 2023 tax return:'
+        identity_safe: To keep your identity safe, we need to confirm the address on your %{year} tax return.
+        radio_button_title: 'Select the mailing address for your %{year} tax return:'
         title: Confirm your address to access your tax return
     identification_number:
       edit:
