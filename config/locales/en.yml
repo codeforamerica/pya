@@ -19,6 +19,8 @@ en:
     messages:
       blank: Can't be blank.
     attributes:
+      selected_address:
+        blank: Select a mailing address.
       email_address:
         invalid: Please enter a valid email address.
       phone_number:
@@ -40,12 +42,12 @@ en:
         another_return_button: Download another return
     mailing_address_validation:
       edit:
-        identity_safe: To keep your identity safe, we need to confirm the address on your 2023 tax return.
-        radio_button_title: 'Select the mailing address for your 2023 tax return:'
+        identity_safe: To keep your identity safe, we need to confirm the address on your %{year} tax return.
+        radio_button_title: 'Select the mailing address for your %{year} tax return:'
         title: Confirm your address to access your tax return
     identification_number:
       edit:
-        error_message: Please enter a valid social security number or ITIN.
+        error_message: Please enter the correct SSN/ITIN. After 2 failed attempts, your account will be locked.
         help_text: To keep your identity safe, we need to confirm your social security number.
         ssn_label: Social Security Number or ITIN
         title: We found your account! Please confirm your identity

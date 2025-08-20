@@ -21,4 +21,12 @@ RSpec.describe MailingAddressValidationForm do
       expect(form).to be_valid
     end
   end
+
+  context "when no address is selected" do
+    let(:selected_address) { nil }
+
+    it "is not valid" do
+      expect(form).not_to be_valid
+    end
+  end
 end

@@ -4,6 +4,7 @@ class MailingAddressValidationController < BaseController
 
   def edit
     @addresses = current_archived_intake.address_challenge_set
+    @year = current_archived_intake.tax_year
     @form = MailingAddressValidationForm.new(addresses: @addresses, current_address: current_archived_intake.full_address)
   end
 
@@ -31,6 +32,7 @@ class MailingAddressValidationController < BaseController
   end
 
   def mailing_address_validation_form_params
-    params.fetch(:mailing_address_validation_form, {}).permit(:selected_address)
+    return {} unless params[:mailing_address_validation_form]
+    params.expect(mailing_address_validation_form: [:selected_address])
   end
 end
