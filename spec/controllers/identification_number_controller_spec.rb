@@ -43,8 +43,7 @@ RSpec.describe IdentificationNumberController, type: :controller do
 
         expect(archived_intake.reload.failed_attempts).to eq(0)
 
-        expect(response).to redirect_to(root_path)
-        # TODO: update to mailing address page
+        expect(response).to redirect_to(edit_mailing_address_validation_path)
       end
 
       it "resets failed attempts to zero even if one failed attempt has already been made" do
