@@ -54,7 +54,7 @@ RSpec.describe MailingAddressValidationController, type: :controller do
 
   describe "PATCH #update" do
     context "with a valid chosen address" do
-      it "redirects to root path" do
+      it "redirects to pdf index path" do
         post :update, params: {
           mailing_address_validation_form: {selected_address: archived_intake.full_address, addresses: archived_intake.address_challenge_set}
         }
