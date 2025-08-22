@@ -8,6 +8,10 @@ class VerificationCodeController < BaseController
   end
 
   def edit
+    span = OpenTelemetry::Trace.current_span
+    span.add_event("Went to verification page", attributes: {
+      "state_file_archived_intake_id" => current_archived_intake.id
+    })
     @form = VerificationCodeForm.new(contact_info: @contact_info, contact_preference: current_archived_intake.contact_preference)
     case current_archived_intake.contact_preference
     when "text"
