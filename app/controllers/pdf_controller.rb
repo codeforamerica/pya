@@ -14,11 +14,10 @@ class PdfController < BaseController
   def index
     @state = current_archived_intake.state_name
     @year = session[:year_selected]
-    # create_state_file_access_log("issued_pdf_download_link")
   end
 
   def log_and_redirect
-    # TODO Add logging here
+    # TODO Add logging here https://codeforamerica.atlassian.net/browse/FYST-2088
     pdf_url = current_archived_intake.submission_pdf.url(expires_in: pdf_expiration_time, disposition: "inline")
     redirect_to pdf_url, allow_other_host: true
   end
