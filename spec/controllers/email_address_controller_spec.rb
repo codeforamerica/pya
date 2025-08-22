@@ -16,8 +16,11 @@ RSpec.describe EmailAddressController, type: :controller do
     let(:invalid_email_address) { "" }
 
     context "when the form is valid" do
+      before do
+        session[:year_selected] = "2023"
+      end
       context "and an archived intake exists with an email address" do
-        let!(:archived_intake) { create :state_file_archived_intake, email_address: valid_email_address }
+        let!(:archived_intake) { create :state_file_archived_intake, email_address: valid_email_address, tax_year: 2023 }
         # TODO update this test with logging and the proper redirects https://codeforamerica.atlassian.net/browse/FYST-2088
         it "creates a request, updates the session and redirects to the root path" do
           post :update, params: {

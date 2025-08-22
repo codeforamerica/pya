@@ -15,8 +15,11 @@ RSpec.describe PhoneNumberController, type: :controller do
     let(:invalid_phone_number) { "21122112" }
 
     context "when the form is valid" do
+      before do
+        session[:year_selected] = "2023"
+      end
       context "and an archived intake exists with the phone number" do
-        let!(:archived_intake) { create :state_file_archived_intake, phone_number: valid_phone_number }
+        let!(:archived_intake) { create :state_file_archived_intake, phone_number: valid_phone_number, tax_year: "2023" }
         # TODO update this test with logging and the proper redirects https://codeforamerica.atlassian.net/browse/FYST-2088
         it "creates a request, updates the session and redirects to the root path" do
           post :update, params: {

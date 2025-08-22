@@ -1,6 +1,6 @@
 class IdentificationNumberController < BaseController
   before_action :confirm_code_verification
-  before_action :is_intake_locked
+  before_action :is_intake_unavailable
 
   def edit
     @form = IdentificationNumberForm.new(archived_intake: current_archived_intake)

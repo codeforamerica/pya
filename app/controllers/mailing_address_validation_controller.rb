@@ -1,6 +1,7 @@
 class MailingAddressValidationController < BaseController
-  before_action :is_intake_locked
+  before_action :is_intake_unavailable
   before_action :confirm_code_and_ssn_verification
+
   def edit
     @addresses = current_archived_intake.address_challenge_set
     @year = current_archived_intake.tax_year
@@ -13,7 +14,7 @@ class MailingAddressValidationController < BaseController
     if @form.valid?
       session[:mailing_verified] = true
 
-      redirect_to root_path
+      redirect_to pdf_index_path
     elsif params["mailing_address_validation_form"].present?
       current_archived_intake.update(permanently_locked_at: Time.now)
       redirect_to knock_out_path
