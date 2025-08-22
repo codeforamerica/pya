@@ -1,5 +1,9 @@
 class YearSelectController < ApplicationController
   def show
+    span = OpenTelemetry::Trace.current_span
+    span.add_event("Visited year select page", attributes: {
+      "state_file_archived_intake_id" => current_archived_intake.id
+    })
     @form = YearSelectForm.new
   end
 
