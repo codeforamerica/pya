@@ -47,4 +47,61 @@ class StateFileArchivedIntake < ApplicationRecord
   def contact
     (contact_preference == "text") ? phone_number : email_address
   end
+
+  def fake_addresses
+    [fake_address_1, fake_address_2]
+  end
+
+  def address_challenge_set
+    fake_addresses.push(full_address).shuffle
+  end
+
+  private
+
+  # this is here because we don't want people to get new fake addresses if they refresh the page or return with a new session
+  def populate_fake_addresses
+    self.fake_address_1, self.fake_address_2 = fetch_random_addresses
+  end
+
+  def fetch_random_addresses
+    if hashed_ssn.present?
+      file_key = "#{state_code.downcase}_addresses.csv"
+      if Rails.env.development? || Rails.env.test?
+        file_path = Rails.root.join("app", "lib", "challenge_addresses", file_key)
+      else
+        bucket = select_bucket
+
+        file_key = "#{state_code.downcase}_addresses.csv"
+
+        file_path = File.join(Rails.root, "tmp", File.basename(file_key))
+
+        download_file_from_s3(bucket, file_key, file_path) unless File.exist?(file_path)
+      end
+      addresses = CSV.read(file_path, headers: false).flatten
+      addresses.sample(2)
+    end
+  end
+
+  def download_file_from_s3(bucket, file_key, file_path)
+    s3_client = Aws::S3::Client.new
+    s3_client.get_object(
+      response_target: file_path,
+      bucket: bucket,
+      key: file_key
+    )
+  end
+
+  # TODO: https://codeforamerica.atlassian.net/browse/FYST-2232 change this to look at prod s3 bucket
+  # standard:disable Style/IdenticalConditionalBranches
+  def select_bucket
+    case Rails.env
+    when "development"
+      "pya-staging-docs"
+    when "production"
+      "pya-staging-docs"
+    else
+      "pya-staging-docs"
+    end
+  end
+  # standard:enable Style/IdenticalConditionalBranches
 end

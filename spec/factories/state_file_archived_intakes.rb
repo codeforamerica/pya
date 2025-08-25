@@ -32,7 +32,7 @@ FactoryBot.define do
     mailing_state { "CA" }
     mailing_street { "123 Test Street" }
     mailing_zip { "12345" }
-    state_code { "CA" }
+    state_code { "AZ" }
     tax_year { 2023 }
     submission_pdf { nil }
 

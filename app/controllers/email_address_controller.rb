@@ -24,6 +24,6 @@ class EmailAddressController < BaseController
   private
 
   def email_address_form_params
-    params.require(:email_address_form).permit(:email_address)
+    params.expect(email_address_form: [:email_address])
   end
 end
