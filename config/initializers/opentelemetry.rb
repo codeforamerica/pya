@@ -1,6 +1,6 @@
 # Basic packages for your application
-require "aws-sdk"
-require "faraday"
+require "opentelemetry/sdk"
+require "opentelemetry/instrumentation/all"
 
 # Add imports for OTel components into the application
 require "opentelemetry-api"
