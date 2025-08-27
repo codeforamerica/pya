@@ -37,7 +37,7 @@ class VerificationCodeController < BaseController
     if @form.valid?
       Rails.logger.info(
         event: "successful verification code ",
-        intake_id: archived_intake.id,
+        intake_id: current_archived_intake.id,
         timestamp: Time.now.utc.iso8601
       )
       # standard:disable Style/IdenticalConditionalBranches
