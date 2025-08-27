@@ -7,6 +7,7 @@
     <div class="grid__item question-wrapper">
       <h1 class="h2" id="main-question"><%= @title %></h1>
       <p><%= t('views.pdf.index.subtitle', state: @state, year: @year) %></p>
+      <p><%= t('views.pdf.index.another_return') %></p>
 
       <%= form_with url: pdf_log_and_redirect_path, method: :post, data: { turbo: false }, local: true do %>
         <button type="submit" class="button button--primary button--wide spacing-below-15 button--icon button--icon--centered">

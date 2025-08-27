@@ -1,4 +1,5 @@
 class VerificationCodeController < BaseController
+  prepend_before_action :authenticate_state_file_archived_intake!
   before_action :is_intake_unavailable
   before_action :setup_contact
 

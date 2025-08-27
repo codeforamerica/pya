@@ -13,6 +13,7 @@ RSpec.describe PdfController, type: :controller do
     session[:code_verified] = true
     session[:ssn_verified] = true
     session[:mailing_verified] = true
+    sign_in_archived_intake(archived_intake)
   end
 
   describe "GET #index" do

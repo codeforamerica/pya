@@ -1,5 +1,6 @@
 class BaseController < ApplicationController
   def current_archived_intake
+    return current_state_file_archived_intake if state_file_archived_intake_signed_in?
     # If a user does not have an associated email or phone, we still create an ArchivedIntake
     # so they can go through the flow. This prevents it from being obvious whether
     # an email or phone is linked to an existing intake.

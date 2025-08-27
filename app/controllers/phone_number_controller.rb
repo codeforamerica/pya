@@ -12,7 +12,9 @@ class PhoneNumberController < BaseController
       session[:code_verified] = false
       session[:phone_number] = @form.phone_number
       session[:email_address] = nil
-      current_archived_intake
+
+      intake = current_archived_intake
+      sign_in intake
       # TODO Add some kind of logging here. https://codeforamerica.atlassian.net/browse/FYST-2088
 
       redirect_to edit_verification_code_path

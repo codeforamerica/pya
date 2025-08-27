@@ -11,6 +11,7 @@ RSpec.describe MailingAddressValidationController, type: :controller do
     allow(I18n).to receive(:locale).and_return(:en)
     session[:code_verified] = true
     session[:ssn_verified] = true
+    sign_in_archived_intake(archived_intake)
   end
 
   describe "GET #edit" do

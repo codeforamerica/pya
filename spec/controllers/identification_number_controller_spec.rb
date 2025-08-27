@@ -11,6 +11,7 @@ RSpec.describe IdentificationNumberController, type: :controller do
     session[:code_verified] = true
     allow(controller).to receive(:current_archived_intake).and_return(archived_intake)
     session[:email_address] = "ohhithere@example.com"
+    sign_in_archived_intake(archived_intake)
   end
 
   describe "GET #edit" do

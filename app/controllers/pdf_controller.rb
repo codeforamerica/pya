@@ -1,4 +1,5 @@
 class PdfController < BaseController
+  prepend_before_action :authenticate_state_file_archived_intake!
   before_action :is_intake_unavailable
   before_action :require_contact_preference
   before_action :require_verification_code_verified
@@ -28,7 +29,7 @@ class PdfController < BaseController
     if Rails.env.production?
       24.hours
     else
-      10.minutes
+      1.minutes
     end
   end
 

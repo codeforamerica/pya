@@ -1,4 +1,5 @@
 class MailingAddressValidationController < BaseController
+  prepend_before_action :authenticate_state_file_archived_intake!
   before_action :is_intake_unavailable
   before_action :confirm_code_and_ssn_verification
 
