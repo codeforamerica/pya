@@ -11,7 +11,7 @@ Rails.application.configure do
       msg[:time] = time.utc.iso8601
       msg.to_json << "\n"
     else
-      { time: time.utc.iso8601, message: msg.to_s }.to_json << "\n"
+      {time: time.utc.iso8601, message: msg.to_s}.to_json << "\n"
     end
   end
 
