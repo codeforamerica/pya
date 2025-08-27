@@ -1,8 +1,25 @@
 require "active_support/core_ext/integer/time"
+require "logger"
+require "json"
+require "time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  config.log_formatter = proc do |_, time, _, msg|
+    if msg.is_a?(Hash)
+      msg[:time] = time.utc.iso8601
+      msg.to_json << "\n"
+    else
+      { time: time.utc.iso8601, message: msg.to_s }.to_json << "\n"
+    end
+  end
+
+  config.colorize_logging = false
+
+  logger = Logger.new($stdout)
+  logger.formatter = config.log_formatter
+  config.logger = ActiveSupport::TaggedLogging.new(logger)
   # Make code changes take effect immediately without server restart.
   config.enable_reloading = true
 
