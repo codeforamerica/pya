@@ -35,9 +35,11 @@ class VerificationCodeController < BaseController
     @form = VerificationCodeForm.new(verification_code_form_params, contact_info: current_archived_intake.contact, contact_preference: current_archived_intake.contact_preference)
     span = OpenTelemetry::Trace.current_span
     if @form.valid?
-      span.add_event("Issued SSN challenge", attributes: {
-        "state_file_archived_intake_id" => current_archived_intake.id
-      })
+      Rails.logger.info(
+        event: "successful verification code ",
+        intake_id: archived_intake.id,
+        timestamp: Time.now.utc.iso8601
+      )
       # standard:disable Style/IdenticalConditionalBranches
       case current_archived_intake.contact_preference
       when "text"
