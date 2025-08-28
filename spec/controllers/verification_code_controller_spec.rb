@@ -11,10 +11,12 @@ RSpec.describe VerificationCodeController, type: :controller do
   before do
     allow(controller).to receive(:current_archived_intake).and_return(archived_intake)
     allow(I18n).to receive(:locale).and_return(:en)
+    sign_in_archived_intake(archived_intake)
   end
 
   describe "GET #edit" do
     it_behaves_like "archived intake locked", action: :edit, method: :get
+    it_behaves_like "an authenticated archived intake controller", :get, :edit
 
     context "when the request is not locked" do
       before do
@@ -56,6 +58,7 @@ RSpec.describe VerificationCodeController, type: :controller do
   end
 
   describe "POST #update" do
+    it_behaves_like "an authenticated archived intake controller", :post, :update
     context "with a valid verification code" do
       before do
         allow_any_instance_of(VerificationCodeForm).to receive(:valid?).and_return(true)

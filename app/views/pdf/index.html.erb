@@ -1,0 +1,24 @@
+<% @title = t('views.pdf.index.title') %>
+
+<% content_for :page_title, @title %>
+
+<section class="slab question-layout <%= controller_name.gsub("_", "-") %>-outer">
+  <div class="grid">
+    <div class="grid__item question-wrapper">
+      <h1 class="h2" id="main-question"><%= @title %></h1>
+      <p><%= t('views.pdf.index.subtitle', state: @state, year: @year) %></p>
+      <p><%= t('views.pdf.index.another_return') %></p>
+
+      <%= form_with url: pdf_log_and_redirect_path, method: :post, data: { turbo: false }, local: true do %>
+        <button type="submit" class="button button--primary button--wide spacing-below-15 button--icon button--icon--centered">
+          <%= image_tag("icons/download.svg", alt: "", style: "filter: invert(1); vertical-align: middle;") %>
+          <%= t("views.pdf.index.download_button", year: @year) %>
+        </button>
+      <% end %>
+
+      <%= link_to t("views.pdf.index.another_return_button"), year_select_path, class: "button button--wide spacing-below-15 button--icon button--icon--centered" %>
+
+    </div>
+  </div>
+</section>
+

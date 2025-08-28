@@ -16,10 +16,14 @@ RSpec.describe EmailAddressController, type: :controller do
     let(:invalid_email_address) { "" }
 
     context "when the form is valid" do
+      before do
+        session[:year_selected] = "2023"
+      end
       context "and an archived intake exists with an email address" do
-        let!(:archived_intake) { create :state_file_archived_intake, email_address: valid_email_address }
+        let!(:archived_intake) { create :state_file_archived_intake, email_address: valid_email_address, tax_year: 2023 }
         # TODO update this test with logging and the proper redirects https://codeforamerica.atlassian.net/browse/FYST-2088
-        it "creates a request, updates the session and redirects to the root path" do
+        it "creates a request, updates the session, redirects to the verification code path and calls sign in with the existing intake" do
+          expect(controller).to receive(:sign_in).with(instance_of(StateFileArchivedIntake)).and_call_original
           post :update, params: {
             email_address_form: {email_address: valid_email_address}
           }
@@ -54,7 +58,8 @@ RSpec.describe EmailAddressController, type: :controller do
       end
 
       context "and an archived intake does not exist with the email address" do
-        it "creates an access log, creates a new archived intake without a ssn or address, and redirects to the verification code page" do
+        it "creates an access log, creates a new archived intake without a ssn or address, redirects to the verification code page and calls sign in with the existing intake" do
+          expect(controller).to receive(:sign_in).with(instance_of(StateFileArchivedIntake)).and_call_original
           post :update, params: {
             email_address_form: {email_address: valid_email_address}
           }

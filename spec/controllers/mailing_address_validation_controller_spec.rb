@@ -11,10 +11,12 @@ RSpec.describe MailingAddressValidationController, type: :controller do
     allow(I18n).to receive(:locale).and_return(:en)
     session[:code_verified] = true
     session[:ssn_verified] = true
+    sign_in_archived_intake(archived_intake)
   end
 
   describe "GET #edit" do
     it_behaves_like "archived intake locked", action: :edit, method: :get
+    it_behaves_like "an authenticated archived intake controller", :get, :edit
 
     context "when the request is locked" do
       before do
@@ -53,15 +55,16 @@ RSpec.describe MailingAddressValidationController, type: :controller do
   end
 
   describe "PATCH #update" do
+    it_behaves_like "an authenticated archived intake controller", :patch, :update
     context "with a valid chosen address" do
-      it "redirects to root path" do
+      it "redirects to pdf index path" do
         post :update, params: {
           mailing_address_validation_form: {selected_address: archived_intake.full_address, addresses: archived_intake.address_challenge_set}
         }
         expect(assigns(:form)).to be_valid
         expect(session[:mailing_verified]).to eq(true)
 
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(pdf_index_path)
       end
     end
 
