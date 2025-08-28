@@ -1,7 +1,6 @@
 # Basic packages for your application
 require "opentelemetry/sdk"
 require "opentelemetry/instrumentation/all"
-require "faraday"
 
 # Add imports for OTel components into the application
 require "opentelemetry-api"
