@@ -80,7 +80,7 @@ RSpec.describe VerificationCodeController, type: :controller do
           expect(EventLogger).to receive(:log).with("correct email code", archived_intake.id).ordered
           expect(EventLogger).to receive(:log).with("issued ssn challenge", archived_intake.id).ordered
 
-          post :update, params: { verification_code_form: { verification_code: valid_verification_code } }
+          post :update, params: {verification_code_form: {verification_code: valid_verification_code}}
 
           expect(session[:code_verified]).to eq(true)
           expect(archived_intake.failed_attempts).to eq(0)
@@ -96,7 +96,7 @@ RSpec.describe VerificationCodeController, type: :controller do
           expect(EventLogger).to receive(:log).with("correct text challenge", archived_intake.id).ordered
           expect(EventLogger).to receive(:log).with("issued ssn challenge", archived_intake.id).ordered
 
-          post :update, params: { verification_code_form: { verification_code: valid_verification_code } }
+          post :update, params: {verification_code_form: {verification_code: valid_verification_code}}
 
           expect(session[:code_verified]).to eq(true)
           expect(archived_intake.failed_attempts).to eq(0)
@@ -116,7 +116,7 @@ RSpec.describe VerificationCodeController, type: :controller do
         it "increments failed_attempts and re-renders edit on first failed attempt" do
           expect(EventLogger).to receive(:log).with("incorrect email code", archived_intake.id)
 
-          post :update, params: { verification_code_form: { verification_code: invalid_verification_code } }
+          post :update, params: {verification_code_form: {verification_code: invalid_verification_code}}
 
           expect(session[:code_verified]).to eq(nil)
           expect(archived_intake.reload.failed_attempts).to eq(1)
@@ -130,7 +130,7 @@ RSpec.describe VerificationCodeController, type: :controller do
           expect(EventLogger).to receive(:log).with("incorrect email code", archived_intake.id).ordered
           expect(EventLogger).to receive(:log).with("client lockout begin", archived_intake.id).ordered
 
-          post :update, params: { verification_code_form: { verification_code: invalid_verification_code } }
+          post :update, params: {verification_code_form: {verification_code: invalid_verification_code}}
 
           expect(session[:code_verified]).to eq(nil)
           expect(archived_intake.reload.failed_attempts).to eq(2)
@@ -146,7 +146,7 @@ RSpec.describe VerificationCodeController, type: :controller do
         it "increments failed_attempts and re-renders edit on first failed attempt" do
           expect(EventLogger).to receive(:log).with("incorrect text code", archived_intake.id)
 
-          post :update, params: { verification_code_form: { verification_code: invalid_verification_code } }
+          post :update, params: {verification_code_form: {verification_code: invalid_verification_code}}
 
           expect(session[:code_verified]).to eq(nil)
           expect(archived_intake.reload.failed_attempts).to eq(1)
@@ -160,7 +160,7 @@ RSpec.describe VerificationCodeController, type: :controller do
           expect(EventLogger).to receive(:log).with("incorrect text code", archived_intake.id).ordered
           expect(EventLogger).to receive(:log).with("client lockout begin", archived_intake.id).ordered
 
-          post :update, params: { verification_code_form: { verification_code: invalid_verification_code } }
+          post :update, params: {verification_code_form: {verification_code: invalid_verification_code}}
 
           expect(session[:code_verified]).to eq(nil)
           expect(archived_intake.reload.failed_attempts).to eq(2)

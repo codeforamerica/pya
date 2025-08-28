@@ -46,7 +46,7 @@ RSpec.describe IdentificationNumberController, type: :controller do
         expect(EventLogger).to receive(:log).with("issued mailing address challenge", archived_intake.id).ordered
 
         post :update, params: {
-          identification_number_form: { ssn: intake_ssn }
+          identification_number_form: {ssn: intake_ssn}
         }
 
         expect(assigns(:form)).to be_valid
@@ -62,7 +62,7 @@ RSpec.describe IdentificationNumberController, type: :controller do
         expect(EventLogger).to receive(:log).with("issued mailing address challenge", archived_intake.id).ordered
 
         post :update, params: {
-          identification_number_form: { ssn: intake_ssn }
+          identification_number_form: {ssn: intake_ssn}
         }
 
         expect(assigns(:form)).to be_valid
@@ -74,7 +74,7 @@ RSpec.describe IdentificationNumberController, type: :controller do
       it "increments failed_attempts, logs incorrect attempt, and re-renders edit on first failed attempt" do
         expect(EventLogger).to receive(:log).with("incorrect ssn challenge", archived_intake.id)
 
-        post :update, params: { identification_number_form: { ssn: invalid_ssn } }
+        post :update, params: {identification_number_form: {ssn: invalid_ssn}}
 
         expect(archived_intake.reload.failed_attempts).to eq(1)
         expect(response).to render_template(:edit)
@@ -86,7 +86,7 @@ RSpec.describe IdentificationNumberController, type: :controller do
         expect(EventLogger).to receive(:log).with("incorrect ssn challenge", archived_intake.id).ordered
         expect(EventLogger).to receive(:log).with("client lockout begin", archived_intake.id).ordered
 
-        post :update, params: { identification_number_form: { ssn: invalid_ssn } }
+        post :update, params: {identification_number_form: {ssn: invalid_ssn}}
 
         expect(archived_intake.reload.failed_attempts).to eq(2)
         expect(archived_intake.reload.access_locked?).to be_truthy

@@ -13,7 +13,7 @@ class PdfController < BaseController
   end
 
   def index
-    EventLogger.log("issued pdf download link" , current_archived_intake.id)
+    EventLogger.log("issued pdf download link", current_archived_intake.id)
     @state = current_archived_intake.state_name
     @year = session[:year_selected]
   end

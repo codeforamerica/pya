@@ -61,7 +61,7 @@ RSpec.describe MailingAddressValidationController, type: :controller do
       it "redirects to pdf index path" do
         expect(EventLogger).to receive(:log).with("correct mailing address", archived_intake.id)
         post :update, params: {
-          mailing_address_validation_form: { selected_address: archived_intake.full_address, addresses: archived_intake.address_challenge_set }
+          mailing_address_validation_form: {selected_address: archived_intake.full_address, addresses: archived_intake.address_challenge_set}
         }
         expect(assigns(:form)).to be_valid
         expect(session[:mailing_verified]).to eq(true)
@@ -73,7 +73,7 @@ RSpec.describe MailingAddressValidationController, type: :controller do
       it "locks the request and redirects to the verification error path" do
         expect(EventLogger).to receive(:log).with("incorrect mailing address", archived_intake.id)
         post :update, params: {
-          mailing_address_validation_form: { selected_address: archived_intake.fake_address_1, addresses: archived_intake.address_challenge_set }
+          mailing_address_validation_form: {selected_address: archived_intake.fake_address_1, addresses: archived_intake.address_challenge_set}
         }
         expect(assigns(:form)).not_to be_valid
         expect(session[:mailing_verified]).to eq(nil)
