@@ -16,6 +16,7 @@ RSpec.describe IdentificationNumberController, type: :controller do
 
   describe "GET #edit" do
     it_behaves_like "archived intake locked", action: :edit, method: :get
+    it_behaves_like "an authenticated archived intake controller", :get, :edit
 
     it "renders the edit template with a new IdentificationNumberForm" do
       get :edit
@@ -33,6 +34,7 @@ RSpec.describe IdentificationNumberController, type: :controller do
   end
 
   describe "PATCH #update" do
+    it_behaves_like "an authenticated archived intake controller", :patch, :update
     context "with a valid ssn" do
       it "redirects to the mailing address validation page" do
         post :update, params: {

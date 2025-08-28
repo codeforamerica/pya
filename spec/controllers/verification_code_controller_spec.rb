@@ -16,6 +16,7 @@ RSpec.describe VerificationCodeController, type: :controller do
 
   describe "GET #edit" do
     it_behaves_like "archived intake locked", action: :edit, method: :get
+    it_behaves_like "an authenticated archived intake controller", :get, :edit
 
     context "when the request is not locked" do
       before do
@@ -57,6 +58,7 @@ RSpec.describe VerificationCodeController, type: :controller do
   end
 
   describe "POST #update" do
+    it_behaves_like "an authenticated archived intake controller", :post, :update
     context "with a valid verification code" do
       before do
         allow_any_instance_of(VerificationCodeForm).to receive(:valid?).and_return(true)

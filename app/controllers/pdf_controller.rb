@@ -29,7 +29,7 @@ class PdfController < BaseController
     if Rails.env.production?
       24.hours
     else
-      1.minutes
+      10.minutes
     end
   end
 

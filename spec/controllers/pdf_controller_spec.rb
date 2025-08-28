@@ -18,6 +18,7 @@ RSpec.describe PdfController, type: :controller do
 
   describe "GET #index" do
     it_behaves_like "archived intake locked", action: :index, method: :get
+    it_behaves_like "an authenticated archived intake controller", :get, :index
 
     context "by default" do
       it "renders" do
@@ -37,6 +38,7 @@ RSpec.describe PdfController, type: :controller do
       allow(mock_pdf).to receive(:url).and_return(pdf_url)
     end
 
+    it_behaves_like "an authenticated archived intake controller", :post, :log_and_redirect
     it "logs the access event and redirects to the provided pdf_url" do
       post :log_and_redirect
       expect(response).to redirect_to(pdf_url)

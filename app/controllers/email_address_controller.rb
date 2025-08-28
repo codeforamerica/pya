@@ -13,8 +13,7 @@ class EmailAddressController < BaseController
       session[:email_address] = @form.email_address
       session[:phone_number] = nil
 
-      intake = current_archived_intake
-      sign_in intake
+      sign_in current_archived_intake
       # TODO Add some kind of logging here https://codeforamerica.atlassian.net/browse/FYST-2088
 
       redirect_to edit_verification_code_path

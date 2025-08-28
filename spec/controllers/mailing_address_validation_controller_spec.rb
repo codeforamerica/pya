@@ -16,6 +16,7 @@ RSpec.describe MailingAddressValidationController, type: :controller do
 
   describe "GET #edit" do
     it_behaves_like "archived intake locked", action: :edit, method: :get
+    it_behaves_like "an authenticated archived intake controller", :get, :edit
 
     context "when the request is locked" do
       before do
@@ -54,6 +55,7 @@ RSpec.describe MailingAddressValidationController, type: :controller do
   end
 
   describe "PATCH #update" do
+    it_behaves_like "an authenticated archived intake controller", :patch, :update
     context "with a valid chosen address" do
       it "redirects to pdf index path" do
         post :update, params: {
