@@ -11,6 +11,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  get "/500", to: "public_pages#internal_server_error"
+  get "/422", to: "public_pages#internal_server_error"
+  get "/404", to: "public_pages#page_not_found"
+
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     root "pages#home"
     get "year_select", to: "year_select#show", as: :year_select
