@@ -1,8 +1,3 @@
-# frozen_string_literal: true
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 module EventLogger
   module_function
 

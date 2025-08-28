@@ -33,7 +33,7 @@ class VerificationCodeController < BaseController
 
   def update
     @form = VerificationCodeForm.new(verification_code_form_params, contact_info: current_archived_intake.contact, contact_preference: current_archived_intake.contact_preference)
-    span = OpenTelemetry::Trace.current_span
+    OpenTelemetry::Trace.current_span
     if @form.valid?
       EventLogger.log("Successful Verification Code")
       # standard:disable Style/IdenticalConditionalBranches
