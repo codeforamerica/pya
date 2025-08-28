@@ -505,8 +505,6 @@ GEM
       opentelemetry-helpers-sql-obfuscation
       opentelemetry-instrumentation-base (~> 0.23.0)
       opentelemetry-semantic_conventions (>= 1.8.0)
-    opentelemetry-propagator-xray (0.24.0)
-      opentelemetry-api (~> 1.0)
     opentelemetry-registry (0.4.0)
       opentelemetry-api (~> 1.1)
     opentelemetry-sdk (1.8.1)
@@ -797,7 +795,6 @@ DEPENDENCIES
   mailgun-ruby
   opentelemetry-exporter-otlp (~> 0.30.0)
   opentelemetry-instrumentation-all (~> 0.80.0)
-  opentelemetry-propagator-xray
   opentelemetry-sdk (~> 1.8)
   pg
   phony
