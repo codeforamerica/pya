@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module EventLogger
   module_function
 
