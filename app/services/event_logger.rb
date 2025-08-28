@@ -17,9 +17,8 @@ module EventLogger
     "incorrect mailing address"        => 12,
     "issued pdf download link"         => 13,
     "client pdf download click"        => 14,
-    "pdf download link expired"        => 15,
-    "unauthorized ssn attempt"         => 16,
-    "unauthorized mailing attempt"     => 17
+    "unauthorized ssn attempt"         => 15,
+    "unauthorized mailing attempt"     => 16
   }.freeze
 
   def log(event_name, archived_intake_id)
