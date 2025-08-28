@@ -15,7 +15,6 @@ class PhoneNumberController < BaseController
 
       intake = current_archived_intake
       sign_in intake
-      # TODO Add some kind of logging here. https://codeforamerica.atlassian.net/browse/FYST-2088
 
       redirect_to edit_verification_code_path
     else
