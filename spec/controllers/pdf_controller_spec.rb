@@ -14,6 +14,7 @@ RSpec.describe PdfController, type: :controller do
     session[:ssn_verified] = true
     session[:mailing_verified] = true
     sign_in_archived_intake(archived_intake)
+    allow(EventLogger).to receive(:log)
   end
 
   describe "GET #index" do
@@ -22,6 +23,7 @@ RSpec.describe PdfController, type: :controller do
 
     context "by default" do
       it "renders" do
+        expect(EventLogger).to receive(:log).with("issued pdf download link", archived_intake.id)
         get :index
         expect(assigns(:state)).to eq("New York")
         expect(response).to render_template(:index)
@@ -39,7 +41,9 @@ RSpec.describe PdfController, type: :controller do
     end
 
     it_behaves_like "an authenticated archived intake controller", :post, :log_and_redirect
+
     it "logs the access event and redirects to the provided pdf_url" do
+      expect(EventLogger).to receive(:log).with("client pdf download click", archived_intake.id)
       post :log_and_redirect
       expect(response).to redirect_to(pdf_url)
     end

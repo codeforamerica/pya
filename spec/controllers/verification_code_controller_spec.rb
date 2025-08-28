@@ -12,6 +12,7 @@ RSpec.describe VerificationCodeController, type: :controller do
     allow(controller).to receive(:current_archived_intake).and_return(archived_intake)
     allow(I18n).to receive(:locale).and_return(:en)
     sign_in_archived_intake(archived_intake)
+    allow(EventLogger).to receive(:log)
   end
 
   describe "GET #edit" do
@@ -22,9 +23,13 @@ RSpec.describe VerificationCodeController, type: :controller do
       before do
         allow(archived_intake).to receive(:access_locked?).and_return(false)
       end
+
       context "when contact preference is email" do
         let(:contact_preference) { "email" }
+
         it "renders the edit template with a new VerificationCodeForm and queues a job" do
+          expect(EventLogger).to receive(:log).with("issued email challenge", archived_intake.id)
+
           expect {
             get :edit
           }.to have_enqueued_job(EmailVerificationCodeJob).with(
@@ -41,7 +46,10 @@ RSpec.describe VerificationCodeController, type: :controller do
       context "when contact preference is text message" do
         let(:contact_preference) { "text" }
         let(:phone_number) { "5038675309" }
+
         it "renders the edit template with a new VerificationCodeForm and queues a job" do
+          expect(EventLogger).to receive(:log).with("issued text challenge", archived_intake.id)
+
           expect {
             get :edit
           }.to have_enqueued_job(TextMessageVerificationCodeJob).with(
@@ -59,16 +67,41 @@ RSpec.describe VerificationCodeController, type: :controller do
 
   describe "POST #update" do
     it_behaves_like "an authenticated archived intake controller", :post, :update
+
     context "with a valid verification code" do
       before do
         allow_any_instance_of(VerificationCodeForm).to receive(:valid?).and_return(true)
       end
 
-      it "does not increment failed_attempts" do
-        post :update, params: {verification_code_form: {verification_code: valid_verification_code}}
-        expect(session[:code_verified]).to eq(true)
-        expect(archived_intake.failed_attempts).to eq(0)
-        expect(response).to redirect_to(edit_identification_number_path)
+      context "email preference" do
+        let(:contact_preference) { "email" }
+
+        it "does not increment failed_attempts, logs success, issues ssn challenge, and redirects" do
+          expect(EventLogger).to receive(:log).with("correct email code", archived_intake.id).ordered
+          expect(EventLogger).to receive(:log).with("issued ssn challenge", archived_intake.id).ordered
+
+          post :update, params: {verification_code_form: {verification_code: valid_verification_code}}
+
+          expect(session[:code_verified]).to eq(true)
+          expect(archived_intake.failed_attempts).to eq(0)
+          expect(response).to redirect_to(edit_identification_number_path)
+        end
+      end
+
+      context "text preference" do
+        let(:contact_preference) { "text" }
+        let(:phone_number) { "5038675309" }
+
+        it "does not increment failed_attempts, logs success, issues ssn challenge, and redirects" do
+          expect(EventLogger).to receive(:log).with("correct text challenge", archived_intake.id).ordered
+          expect(EventLogger).to receive(:log).with("issued ssn challenge", archived_intake.id).ordered
+
+          post :update, params: {verification_code_form: {verification_code: valid_verification_code}}
+
+          expect(session[:code_verified]).to eq(true)
+          expect(archived_intake.failed_attempts).to eq(0)
+          expect(response).to redirect_to(edit_identification_number_path)
+        end
       end
     end
 
@@ -77,24 +110,63 @@ RSpec.describe VerificationCodeController, type: :controller do
         allow_any_instance_of(VerificationCodeForm).to receive(:valid?).and_return(false)
       end
 
-      it "increments failed_attempts, and re-renders edit on first failed attempt" do
-        post :update, params: {verification_code_form: {verification_code: invalid_verification_code}}
-        expect(session[:code_verified]).to eq(nil)
+      context "email preference" do
+        let(:contact_preference) { "email" }
 
-        expect(archived_intake.reload.failed_attempts).to eq(1)
-        expect(assigns(:form)).to be_a(VerificationCodeForm)
-        expect(response).to render_template(:edit)
+        it "increments failed_attempts and re-renders edit on first failed attempt" do
+          expect(EventLogger).to receive(:log).with("incorrect email code", archived_intake.id)
+
+          post :update, params: {verification_code_form: {verification_code: invalid_verification_code}}
+
+          expect(session[:code_verified]).to eq(nil)
+          expect(archived_intake.reload.failed_attempts).to eq(1)
+          expect(assigns(:form)).to be_a(VerificationCodeForm)
+          expect(response).to render_template(:edit)
+        end
+
+        it "locks the account, logs lockout begin, and redirects after multiple failed attempts" do
+          archived_intake.update!(failed_attempts: 1)
+
+          expect(EventLogger).to receive(:log).with("incorrect email code", archived_intake.id).ordered
+          expect(EventLogger).to receive(:log).with("client lockout begin", archived_intake.id).ordered
+
+          post :update, params: {verification_code_form: {verification_code: invalid_verification_code}}
+
+          expect(session[:code_verified]).to eq(nil)
+          expect(archived_intake.reload.failed_attempts).to eq(2)
+          expect(archived_intake.reload.access_locked?).to be_truthy
+          expect(response).to redirect_to(knock_out_path)
+        end
       end
 
-      it "locks the account and redirects to root path after multiple failed attempts" do
-        archived_intake.update!(failed_attempts: 1)
-        post :update, params: {verification_code_form: {verification_code: invalid_verification_code}}
+      context "text preference" do
+        let(:contact_preference) { "text" }
+        let(:phone_number) { "5038675309" }
 
-        expect(session[:code_verified]).to eq(nil)
+        it "increments failed_attempts and re-renders edit on first failed attempt" do
+          expect(EventLogger).to receive(:log).with("incorrect text code", archived_intake.id)
 
-        expect(archived_intake.reload.failed_attempts).to eq(2)
-        expect(archived_intake.reload.access_locked?).to be_truthy
-        expect(response).to redirect_to(knock_out_path)
+          post :update, params: {verification_code_form: {verification_code: invalid_verification_code}}
+
+          expect(session[:code_verified]).to eq(nil)
+          expect(archived_intake.reload.failed_attempts).to eq(1)
+          expect(assigns(:form)).to be_a(VerificationCodeForm)
+          expect(response).to render_template(:edit)
+        end
+
+        it "locks the account, logs lockout begin, and redirects after multiple failed attempts" do
+          archived_intake.update!(failed_attempts: 1)
+
+          expect(EventLogger).to receive(:log).with("incorrect text code", archived_intake.id).ordered
+          expect(EventLogger).to receive(:log).with("client lockout begin", archived_intake.id).ordered
+
+          post :update, params: {verification_code_form: {verification_code: invalid_verification_code}}
+
+          expect(session[:code_verified]).to eq(nil)
+          expect(archived_intake.reload.failed_attempts).to eq(2)
+          expect(archived_intake.reload.access_locked?).to be_truthy
+          expect(response).to redirect_to(knock_out_path)
+        end
       end
     end
   end
