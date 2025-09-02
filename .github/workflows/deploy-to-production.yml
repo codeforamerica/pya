@@ -13,7 +13,8 @@ on:
         description: 'Optional title to replace auto-generated one'
         required: false
         type: string
-
+    push:
+      branches: [ main ]
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
