@@ -15,12 +15,11 @@
       <% if I18n.locale != :es %>
         <%= link_to_spanish(class: "toolbar__item text--small") %>
       <% end %>
-
       <%= link_to t("general.sign_in"), root_path, class: "toolbar__item text--small" %>
+    </div>
       <a data-component="ClientMenuTrigger" class="client-menu-trigger toolbar__item text--small is-desktop-hidden">Menu</a>
       <a data-component="ClientMenuCloser" class="client-menu-closer toolbar__item text--small is-desktop-hidden">
         <%= image_tag "icons/close.svg" %>
       </a>
-    </div>
   </div>
 </div>

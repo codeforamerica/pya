@@ -1,6 +1,11 @@
 <div data-component="ClientMenuComponent" class="client-menu" data-target="toggle">
   <div class="container">
     <div>
+
+      <div class="client-menu-item">
+        <%= link_to t("general.faq"), t("views.layouts.footer.faq_url") %>
+      </div>
+
       <% if I18n.locale != :en %>
         <div class="client-menu-item">
           <%= link_to_english %>
