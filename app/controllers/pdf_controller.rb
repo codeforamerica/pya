@@ -13,12 +13,13 @@ class PdfController < BaseController
   end
 
   def index
+    EventLogger.log("issued pdf download link", current_archived_intake.id)
     @state = current_archived_intake.state_name
     @year = session[:year_selected]
   end
 
   def log_and_redirect
-    # TODO Add logging here https://codeforamerica.atlassian.net/browse/FYST-2088
+    EventLogger.log("client pdf download click", current_archived_intake.id)
     pdf_url = current_archived_intake.submission_pdf.url(expires_in: pdf_expiration_time, disposition: "inline")
     redirect_to pdf_url, allow_other_host: true
   end

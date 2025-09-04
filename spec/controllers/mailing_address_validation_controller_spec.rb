@@ -12,6 +12,7 @@ RSpec.describe MailingAddressValidationController, type: :controller do
     session[:code_verified] = true
     session[:ssn_verified] = true
     sign_in_archived_intake(archived_intake)
+    allow(EventLogger).to receive(:log)
   end
 
   describe "GET #edit" do
@@ -31,7 +32,6 @@ RSpec.describe MailingAddressValidationController, type: :controller do
 
       it "renders the edit template with a new MailingAddressValidationForm" do
         get :edit
-
         expect(assigns(:form)).to be_a(MailingAddressValidationForm)
         expect(response).to render_template(:edit)
       end
@@ -41,7 +41,7 @@ RSpec.describe MailingAddressValidationController, type: :controller do
       session[:code_verified] = nil
       session[:ssn_verified] = true
       get :edit
-
+      expect(EventLogger).to have_received(:log).with("unauthorized mailing attempt", archived_intake.id)
       expect(response).to redirect_to(root_path)
     end
 
@@ -49,32 +49,33 @@ RSpec.describe MailingAddressValidationController, type: :controller do
       session[:code_verified] = true
       session[:ssn_verified] = nil
       get :edit
-
+      expect(EventLogger).to have_received(:log).with("unauthorized mailing attempt", archived_intake.id)
       expect(response).to redirect_to(root_path)
     end
   end
 
   describe "PATCH #update" do
     it_behaves_like "an authenticated archived intake controller", :patch, :update
+
     context "with a valid chosen address" do
       it "redirects to pdf index path" do
+        expect(EventLogger).to receive(:log).with("correct mailing address", archived_intake.id)
         post :update, params: {
           mailing_address_validation_form: {selected_address: archived_intake.full_address, addresses: archived_intake.address_challenge_set}
         }
         expect(assigns(:form)).to be_valid
         expect(session[:mailing_verified]).to eq(true)
-
         expect(response).to redirect_to(pdf_index_path)
       end
     end
 
     context "with an invalid chosen address" do
-      it "creates an access log, locks the request, and redirects to the verification error path" do
+      it "locks the request and redirects to the verification error path" do
+        expect(EventLogger).to receive(:log).with("incorrect mailing address", archived_intake.id)
         post :update, params: {
           mailing_address_validation_form: {selected_address: archived_intake.fake_address_1, addresses: archived_intake.address_challenge_set}
         }
         expect(assigns(:form)).not_to be_valid
-
         expect(session[:mailing_verified]).to eq(nil)
         expect(archived_intake.permanently_locked_at).to be_present
         expect(response).to redirect_to(knock_out_path)
@@ -82,10 +83,9 @@ RSpec.describe MailingAddressValidationController, type: :controller do
     end
 
     context "without a chosen address" do
-      it "creates an access log and re-renders the edit template" do
+      it "re-renders the edit template" do
         post :update, params: {}
         expect(assigns(:form)).not_to be_valid
-
         expect(response).to render_template(:edit)
       end
     end

@@ -1,6 +1,9 @@
 require_relative "boot"
 
 require "rails/all"
+require "logger"
+require "json"
+require "time"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -36,5 +39,20 @@ module Pya
       else
         "http://localhost:3000"
       end
+
+    config.log_formatter = proc do |_, time, _, msg|
+      if msg.is_a?(Hash)
+        msg[:time] = time.utc.iso8601
+        msg.to_json << "\n"
+      else
+        {time: time.utc.iso8601, message: msg.to_s}.to_json << "\n"
+      end
+    end
+
+    config.colorize_logging = false
+
+    logger = Logger.new($stdout)
+    logger.formatter = config.log_formatter
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 end
