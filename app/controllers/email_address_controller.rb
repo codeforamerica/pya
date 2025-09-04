@@ -13,9 +13,20 @@ class EmailAddressController < BaseController
       session[:email_address] = @form.email_address
       session[:phone_number] = nil
 
-      intake = current_archived_intake
-      sign_in intake
+      to_log = session.inspect
+      Rails.logger.info(
+        when: "before sign in",
+        session: to_log
+      )
+      sign_in current_archived_intake
 
+      after_log = session.inspect
+      intake_id = current_archived_intake.id
+      Rails.logger.info(
+        when: "after sign in",
+        session: after_log,
+        intake_id: intake_id
+      )
       redirect_to edit_verification_code_path
     else
       render :edit
