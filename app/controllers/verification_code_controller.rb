@@ -72,6 +72,7 @@ class VerificationCodeController < BaseController
       intake_id: intake_id
     )
   end
+
   def verification_code_form_params
     params.expect(verification_code_form: [:verification_code])
   end
