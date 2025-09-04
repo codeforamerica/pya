@@ -1,4 +1,5 @@
 class VerificationCodeController < BaseController
+  prepend_before_action :log_stuff
   prepend_before_action :authenticate_state_file_archived_intake!
   before_action :is_intake_unavailable
   before_action :setup_contact
@@ -62,6 +63,15 @@ class VerificationCodeController < BaseController
 
   private
 
+  def log_stuff
+    after_log = session.inspect
+    intake_id = current_archived_intake.id
+    Rails.logger.info(
+      when: "on verification code page :(",
+      session: after_log,
+      intake_id: intake_id
+    )
+  end
   def verification_code_form_params
     params.expect(verification_code_form: [:verification_code])
   end
