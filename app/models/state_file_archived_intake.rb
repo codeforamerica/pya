@@ -27,7 +27,6 @@ class StateFileArchivedIntake < ApplicationRecord
   has_one_attached :submission_pdf
   has_many :state_file_archived_intake_access_logs, class_name: "StateFileArchivedIntakeAccessLog"
   devise :lockable, unlock_in: 60.minutes, unlock_strategy: :time
-  devise :timeoutable, timeout_in: 10.minutes
   include StateNames
 
   enum :contact_preference, {unfilled: 0, email: 1, text: 2}, prefix: :contact_preference
