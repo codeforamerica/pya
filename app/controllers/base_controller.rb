@@ -1,5 +1,4 @@
 class BaseController < ApplicationController
-
   def find_or_create_statefile_archived_intake
     tax_year = session[:year_selected].to_i
     if session[:phone_number].present?
@@ -13,8 +12,9 @@ class BaseController < ApplicationController
     end
     sign_in intake
   end
+
   def current_archived_intake
-    return current_state_file_archived_intake
+    current_state_file_archived_intake
     # If a user does not have an associated email or phone, we still create an ArchivedIntake
     # so they can go through the flow. This prevents it from being obvious whether
     # an email or phone is linked to an existing intake.
@@ -22,7 +22,7 @@ class BaseController < ApplicationController
     # These intakes are created without an IP address, meaning the user will not
     # be able to pass the identification number controller.
     # return nil if session[:year_selected].nil?
-    tax_year = session[:year_selected].to_i
+    # session[:year_selected].to_i
 
     # if session[:phone_number].present?
     #   phone = session[:phone_number]
