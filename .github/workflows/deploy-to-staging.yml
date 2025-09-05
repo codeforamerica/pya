@@ -42,7 +42,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
-          if aws ecr describe-images --repository-name "${ECR_REPOSITORY}" --image-ids imageTag="${IMAGE_TAG}" >/dev/null 2>&1; then
+          if aws ecr describe-images --repository-name "${env.ECR_REPOSITORY}" --image-ids imageTag="${env.IMAGE_TAG}" >/dev/null 2>&1; then
             :
           else
             docker build -t 300423309117.dkr.ecr.us-east-1.amazonaws.com/pya-staging-web:${{env.IMAGE_TAG}} --platform linux/amd64 .
