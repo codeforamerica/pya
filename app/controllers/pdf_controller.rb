@@ -1,7 +1,6 @@
 class PdfController < BaseController
   prepend_before_action :authenticate_state_file_archived_intake!
   before_action :is_intake_unavailable
-  before_action :require_contact_preference
   before_action :require_verification_code_verified
   before_action :require_ssn_verified
   before_action :require_mailing_address_verified
@@ -13,14 +12,14 @@ class PdfController < BaseController
   end
 
   def index
-    EventLogger.log("issued pdf download link", current_archived_intake.id)
-    @state = current_archived_intake.state_name
+    EventLogger.log("issued pdf download link", current_state_file_archived_intake.id)
+    @state = current_state_file_archived_intake.state_name
     @year = session[:year_selected]
   end
 
   def log_and_redirect
-    EventLogger.log("client pdf download click", current_archived_intake.id)
-    pdf_url = current_archived_intake.submission_pdf.url(expires_in: pdf_expiration_time, disposition: "inline")
+    EventLogger.log("client pdf download click", current_state_file_archived_intake.id)
+    pdf_url = current_state_file_archived_intake.submission_pdf.url(expires_in: pdf_expiration_time, disposition: "inline")
     redirect_to pdf_url, allow_other_host: true
   end
 
@@ -32,12 +31,6 @@ class PdfController < BaseController
     else
       10.minutes
     end
-  end
-
-  def require_contact_preference
-    return if session[:email_address].present? || session[:phone_number].present?
-
-    redirect_to knock_out_path
   end
 
   def require_verification_code_verified
