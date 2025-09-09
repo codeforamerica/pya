@@ -1,8 +1,8 @@
 # frozen_string_literal: true
+
 class CustomFailureApp < Devise::FailureApp
   def redirect_url
-    case
-    when locked_out?
+    if locked_out?
       knock_out_path
     else
       super

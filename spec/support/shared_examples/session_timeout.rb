@@ -1,9 +1,13 @@
-# spec/support/shared_examples/authenticated_controller.rb
 RSpec.shared_examples "an authenticated archived intake controller" do |http_method, action|
   include Devise::Test::ControllerHelpers
 
-  let(:intake) { create(:state_file_archived_intake) }
-  let(:timeout_in) { StateFileArchivedIntake.respond_to?(:timeout_in) ? StateFileArchivedIntake.timeout_in : Devise.timeout_in }
+  let(:intake) do
+    request.env["devise.mapping"] = Devise.mappings[:state_file_archived_intake]
+    create(:state_file_archived_intake)
+  end
+  let(:timeout_in) do
+    StateFileArchivedIntake.respond_to?(:timeout_in) ? StateFileArchivedIntake.timeout_in : Devise.timeout_in
+  end
 
   let(:keys_to_clear) { %i[year_selected ssn_verified mailing_verified code_verified email_address phone_number] }
 
@@ -23,7 +27,7 @@ RSpec.shared_examples "an authenticated archived intake controller" do |http_met
 
     public_send(http_method, action, params: {locale: :en})
 
-    expect(response).to redirect_to(root_path(locale: :en))
+    expect(response).to redirect_to(root_path)
     keys_to_clear.each { |k| expect(session[k]).to be_nil }
     expect(session["warden.user.state_file_archived_intake.key"]).to be_nil
   end
