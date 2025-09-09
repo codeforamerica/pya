@@ -1,5 +1,5 @@
 class BaseController < ApplicationController
-  def find_or_create_state_file_archived_intake(phone_number: nil, email_address: nil)
+  def create_and_login_state_file_archived_intake(phone_number: nil, email_address: nil)
     if session[:year_selected].blank?
       return redirect_to(root_path)
     end

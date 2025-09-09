@@ -11,7 +11,7 @@ class PhoneNumberController < BaseController
       session[:mailing_verified] = false
       session[:code_verified] = false
 
-      find_or_create_state_file_archived_intake(phone_number: @form.phone_number)
+      create_and_login_state_file_archived_intake(phone_number: @form.phone_number)
       return if performed?
 
       redirect_to edit_verification_code_path

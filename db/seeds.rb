@@ -8,7 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-def find_or_create_state_file_archived_intake(attributes)
+def create_and_login_state_file_archived_intake(attributes)
   check_required_attributes(attributes)
 
   finder_columns = [:hashed_ssn, :state_code, :tax_year]
@@ -51,7 +51,7 @@ def check_required_attributes(attributes)
 end
 
 def find_or_create_az_archived_intake(attributes)
-  find_or_create_state_file_archived_intake(
+  create_and_login_state_file_archived_intake(
     attributes.merge(
       state_code: "az",
       mailing_state: "AZ",
@@ -62,7 +62,7 @@ def find_or_create_az_archived_intake(attributes)
 end
 
 def find_or_create_ny_archived_intake(attributes)
-  find_or_create_state_file_archived_intake(
+  create_and_login_state_file_archived_intake(
     attributes.merge(
       state_code: "ny",
       mailing_state: "NY",
@@ -73,7 +73,7 @@ def find_or_create_ny_archived_intake(attributes)
 end
 
 def find_or_create_md_archived_intake(attributes)
-  find_or_create_state_file_archived_intake(
+  create_and_login_state_file_archived_intake(
     attributes.merge(
       state_code: "md",
       mailing_state: "MD",
@@ -84,7 +84,7 @@ def find_or_create_md_archived_intake(attributes)
 end
 
 def find_or_create_id_archived_intake(attributes)
-  find_or_create_state_file_archived_intake(
+  create_and_login_state_file_archived_intake(
     attributes.merge(
       state_code: "id",
       mailing_state: "ID",
@@ -95,7 +95,7 @@ def find_or_create_id_archived_intake(attributes)
 end
 
 def find_or_create_nc_archived_intake(attributes)
-  find_or_create_state_file_archived_intake(
+  create_and_login_state_file_archived_intake(
     attributes.merge(
       state_code: "nc",
       mailing_state: "NC",
@@ -106,7 +106,7 @@ def find_or_create_nc_archived_intake(attributes)
 end
 
 def find_or_create_nj_archived_intake(attributes)
-  find_or_create_state_file_archived_intake(
+  create_and_login_state_file_archived_intake(
     attributes.merge(
       state_code: "nj",
       mailing_state: "NJ",

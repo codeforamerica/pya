@@ -11,7 +11,7 @@ class EmailAddressController < BaseController
       session[:mailing_verified] = false
       session[:code_verified] = false
 
-      find_or_create_state_file_archived_intake(email_address: @form.email_address)
+      create_and_login_state_file_archived_intake(email_address: @form.email_address)
       return if performed?
 
       redirect_to edit_verification_code_path

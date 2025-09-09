@@ -25,23 +25,23 @@ RSpec.describe BaseController, type: :controller do
       tax_year: tax_year)
   end
 
-  describe "#find_or_create_state_file_archived_intake" do
+  describe "#create_and_login_state_file_archived_intake" do
     before { session[:year_selected] = tax_year }
 
     context "when email_address is provided" do
       it "finds the intake by email and signs it in" do
-        controller.find_or_create_state_file_archived_intake(email_address: email_address)
+        controller.create_and_login_state_file_archived_intake(email_address: email_address)
         expect(controller.current_state_file_archived_intake).to eq(email_intake)
       end
 
       it "matches email case-insensitively" do
-        controller.find_or_create_state_file_archived_intake(email_address: "TeSt@ExAmPlE.CoM")
+        controller.create_and_login_state_file_archived_intake(email_address: "TeSt@ExAmPlE.CoM")
         expect(controller.current_state_file_archived_intake).to eq(email_intake)
       end
 
       it "does not match an intake with the same email in a different tax_year" do
         create(:state_file_archived_intake, email_address: email_address, tax_year: tax_year + 1)
-        controller.find_or_create_state_file_archived_intake(email_address: email_address)
+        controller.create_and_login_state_file_archived_intake(email_address: email_address)
         expect(controller.current_state_file_archived_intake).to eq(email_intake)
       end
 
@@ -49,7 +49,7 @@ RSpec.describe BaseController, type: :controller do
         create(:state_file_archived_intake, email_address: "new_email@domain.com", tax_year: tax_year + 1)
 
         expect {
-          controller.find_or_create_state_file_archived_intake(email_address: "new_email@domain.com")
+          controller.create_and_login_state_file_archived_intake(email_address: "new_email@domain.com")
         }.to change { StateFileArchivedIntake.count }.by(1)
 
         new_intake = controller.current_state_file_archived_intake
@@ -60,7 +60,7 @@ RSpec.describe BaseController, type: :controller do
 
       it "creates a new intake if email does not exist" do
         expect {
-          controller.find_or_create_state_file_archived_intake(email_address: "brand_new@domain.com")
+          controller.create_and_login_state_file_archived_intake(email_address: "brand_new@domain.com")
         }.to change { StateFileArchivedIntake.count }.by(1)
 
         new_intake = controller.current_state_file_archived_intake
@@ -71,13 +71,13 @@ RSpec.describe BaseController, type: :controller do
 
     context "when phone_number is provided" do
       it "finds the intake by phone and signs it in" do
-        controller.find_or_create_state_file_archived_intake(phone_number: phone_number)
+        controller.create_and_login_state_file_archived_intake(phone_number: phone_number)
         expect(controller.current_state_file_archived_intake).to eq(phone_intake)
       end
 
       it "does not match an intake with the same phone in a different tax_year" do
         create(:state_file_archived_intake, phone_number: phone_number, tax_year: tax_year + 1)
-        controller.find_or_create_state_file_archived_intake(phone_number: phone_number)
+        controller.create_and_login_state_file_archived_intake(phone_number: phone_number)
         expect(controller.current_state_file_archived_intake).to eq(phone_intake)
       end
 
@@ -85,7 +85,7 @@ RSpec.describe BaseController, type: :controller do
         create(:state_file_archived_intake, phone_number: "9998887777", tax_year: tax_year + 1)
 
         expect {
-          controller.find_or_create_state_file_archived_intake(phone_number: "9998887777")
+          controller.create_and_login_state_file_archived_intake(phone_number: "9998887777")
         }.to change { StateFileArchivedIntake.count }.by(1)
 
         new_intake = controller.current_state_file_archived_intake
@@ -96,7 +96,7 @@ RSpec.describe BaseController, type: :controller do
 
       it "creates a new intake if phone number does not exist" do
         expect {
-          controller.find_or_create_state_file_archived_intake(phone_number: "1112223333")
+          controller.create_and_login_state_file_archived_intake(phone_number: "1112223333")
         }.to change { StateFileArchivedIntake.count }.by(1)
 
         new_intake = controller.current_state_file_archived_intake
@@ -109,7 +109,7 @@ RSpec.describe BaseController, type: :controller do
       it "redirects to root and does not sign in or create" do
         expect(controller).to receive(:redirect_to).with("/")
         expect {
-          controller.find_or_create_state_file_archived_intake
+          controller.create_and_login_state_file_archived_intake
         }.not_to change { StateFileArchivedIntake.count }
         expect(controller.current_state_file_archived_intake).to be_nil
       end
@@ -121,7 +121,7 @@ RSpec.describe BaseController, type: :controller do
       it "redirects to root and does not create" do
         expect(controller).to receive(:redirect_to).with("/")
         expect {
-          controller.find_or_create_state_file_archived_intake(email_address: "y0@ex.com")
+          controller.create_and_login_state_file_archived_intake(email_address: "y0@ex.com")
         }.not_to change { StateFileArchivedIntake.count }
         expect(controller.current_state_file_archived_intake).to be_nil
       end
