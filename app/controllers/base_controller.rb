@@ -14,10 +14,10 @@ class BaseController < ApplicationController
         tax_year: tax_year
       )
     elsif email_address.present?
-      email = email_address.downcase
-      existing = StateFileArchivedIntake.find_by("LOWER(email_address) = ? AND tax_year = ?", email, tax_year)
+      email_downcase = email_address.downcase
+      existing = StateFileArchivedIntake.find_by(email_address: email_downcase, tax_year: tax_year)
       intake = existing || StateFileArchivedIntake.create!(
-        email_address: email,
+        email_address: email_downcase,
         contact_preference: "email",
         tax_year: tax_year
       )
