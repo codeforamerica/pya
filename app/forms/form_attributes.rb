@@ -3,6 +3,7 @@ module FormAttributes
 
   included do
     extend AutoStripAttributes
+
     class_attribute :attribute_names
 
     def initialize(*args, **kwargs)
@@ -12,6 +13,7 @@ module FormAttributes
 
       self.class.scoped_attributes.values.flatten.each do |attribute_string|
         next unless send(attribute_string).blank?
+
         send("#{attribute_string}=", default_attrs&.fetch(attribute_string, nil))
       end
     end
