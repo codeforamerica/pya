@@ -26,6 +26,7 @@
 FactoryBot.define do
   factory :state_file_archived_intake do
     email_address { "geddy_lee@example.com" }
+    contact_preference { "email" }
     hashed_ssn { "hashed_ssn_value" }
     mailing_apartment { "Apt 1" }
     mailing_city { "Test City" }

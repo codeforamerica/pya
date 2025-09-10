@@ -1,169 +1,129 @@
+# spec/controllers/base_controller_spec.rb
 require "rails_helper"
 
-describe BaseController, type: :controller do
-  let(:email_address) { "test@example.com" }
-  let(:phone_number) { "4153334444" }
-  let(:tax_year) { 2023 }
+RSpec.describe BaseController, type: :controller do
+  include Devise::Test::ControllerHelpers
 
   before do
-    session[:year_selected] = tax_year
+    request.env["devise.mapping"] = Devise.mappings[:state_file_archived_intake]
+    allow(controller).to receive(:root_path).and_return("/")
   end
 
-  let!(:email_intake) { create :state_file_archived_intake, email_address: email_address }
-  let!(:phone_intake) { create :state_file_archived_intake, phone_number: phone_number }
+  let(:tax_year) { 2024 }
+  let(:email_address) { "test@example.com" }
+  let(:phone_number) { "5551234567" }
 
-  describe "#current_archived_intake" do
-    context "when session has email_address" do
-      before { session[:email_address] = email_address }
+  let!(:email_intake) do
+    create(:state_file_archived_intake,
+      email_address: email_address,
+      tax_year: tax_year)
+  end
 
-      it "finds the intake by email" do
-        expect(controller.current_archived_intake).to eq(email_intake)
+  let!(:phone_intake) do
+    create(:state_file_archived_intake,
+      phone_number: phone_number,
+      tax_year: tax_year)
+  end
+
+  describe "#create_and_login_state_file_archived_intake" do
+    before { session[:year_selected] = tax_year }
+
+    context "when email_address is provided" do
+      it "finds the intake by email and signs it in" do
+        controller.create_and_login_state_file_archived_intake(email_address: email_address)
+        expect(controller.current_state_file_archived_intake).to eq(email_intake)
       end
 
       it "matches email case-insensitively" do
-        session[:email_address] = "TeSt@ExAmPlE.cOm"
-        expect(controller.current_archived_intake).to eq(email_intake)
+        controller.create_and_login_state_file_archived_intake(email_address: "TeSt@ExAmPlE.CoM")
+        expect(controller.current_state_file_archived_intake).to eq(email_intake)
       end
 
       it "does not match an intake with the same email in a different tax_year" do
-        other_year = tax_year + 1
-        create :state_file_archived_intake, email_address: email_address, tax_year: other_year
-
-        expect(controller.current_archived_intake).to eq(email_intake)
+        create(:state_file_archived_intake, email_address: email_address, tax_year: tax_year + 1)
+        controller.create_and_login_state_file_archived_intake(email_address: email_address)
+        expect(controller.current_state_file_archived_intake).to eq(email_intake)
       end
 
       it "creates a new intake scoped to tax_year if email does not exist for that year" do
-        create :state_file_archived_intake, email_address: "new_email@domain.com", tax_year: tax_year + 1
-
-        session[:email_address] = "new_email@domain.com"
+        create(:state_file_archived_intake, email_address: "new_email@domain.com", tax_year: tax_year + 1)
 
         expect {
-          @new_intake = controller.current_archived_intake
+          controller.create_and_login_state_file_archived_intake(email_address: "new_email@domain.com")
         }.to change { StateFileArchivedIntake.count }.by(1)
 
-        expect(@new_intake.email_address).to eq("new_email@domain.com")
-        expect(@new_intake.phone_number).to be_nil
-        expect(@new_intake.tax_year).to eq(tax_year)
+        new_intake = controller.current_state_file_archived_intake
+        expect(new_intake.email_address).to eq("new_email@domain.com")
+        expect(new_intake.phone_number).to be_nil
+        expect(new_intake.tax_year).to eq(tax_year)
       end
 
       it "creates a new intake if email does not exist" do
-        session[:email_address] = "new_email@domain.com"
-
         expect {
-          @new_intake = controller.current_archived_intake
+          controller.create_and_login_state_file_archived_intake(email_address: "brand_new@domain.com")
         }.to change { StateFileArchivedIntake.count }.by(1)
 
-        expect(@new_intake.email_address).to eq("new_email@domain.com")
-        expect(@new_intake.phone_number).to be_nil
+        new_intake = controller.current_state_file_archived_intake
+        expect(new_intake.email_address).to eq("brand_new@domain.com")
+        expect(new_intake.phone_number).to be_nil
       end
     end
 
-    context "when session has phone_number" do
-      before { session[:phone_number] = phone_number }
-
-      it "finds the intake by phone" do
-        expect(controller.current_archived_intake).to eq(phone_intake)
+    context "when phone_number is provided" do
+      it "finds the intake by phone and signs it in" do
+        controller.create_and_login_state_file_archived_intake(phone_number: phone_number)
+        expect(controller.current_state_file_archived_intake).to eq(phone_intake)
       end
 
       it "does not match an intake with the same phone in a different tax_year" do
-        other_year = tax_year + 1
-        create :state_file_archived_intake, phone_number: phone_number, tax_year: other_year
-
-        expect(controller.current_archived_intake).to eq(phone_intake)
+        create(:state_file_archived_intake, phone_number: phone_number, tax_year: tax_year + 1)
+        controller.create_and_login_state_file_archived_intake(phone_number: phone_number)
+        expect(controller.current_state_file_archived_intake).to eq(phone_intake)
       end
 
       it "creates a new intake scoped to tax_year if phone number does not exist for that year" do
-        create :state_file_archived_intake, phone_number: "9998887777", tax_year: tax_year + 1
-
-        session[:phone_number] = "9998887777"
+        create(:state_file_archived_intake, phone_number: "9998887777", tax_year: tax_year + 1)
 
         expect {
-          @new_intake = controller.current_archived_intake
+          controller.create_and_login_state_file_archived_intake(phone_number: "9998887777")
         }.to change { StateFileArchivedIntake.count }.by(1)
 
-        expect(@new_intake.phone_number).to eq("9998887777")
-        expect(@new_intake.email_address).to be_nil
-        expect(@new_intake.tax_year).to eq(tax_year)
+        new_intake = controller.current_state_file_archived_intake
+        expect(new_intake.phone_number).to eq("9998887777")
+        expect(new_intake.email_address).to be_nil
+        expect(new_intake.tax_year).to eq(tax_year)
       end
 
       it "creates a new intake if phone number does not exist" do
-        session[:phone_number] = "9998887777"
-
         expect {
-          @new_intake = controller.current_archived_intake
+          controller.create_and_login_state_file_archived_intake(phone_number: "1112223333")
         }.to change { StateFileArchivedIntake.count }.by(1)
 
-        expect(@new_intake.phone_number).to eq("9998887777")
-        expect(@new_intake.email_address).to be_nil
+        new_intake = controller.current_state_file_archived_intake
+        expect(new_intake.phone_number).to eq("1112223333")
+        expect(new_intake.email_address).to be_nil
       end
     end
 
-    context "when neither phone_number nor email_address is set" do
-      it "returns nil" do
-        expect(controller.current_archived_intake).to be_nil
+    context "when neither phone_number nor email_address is provided" do
+      it "redirects to root and does not sign in or create" do
+        expect(controller).to receive(:redirect_to).with("/")
+        expect {
+          controller.create_and_login_state_file_archived_intake
+        }.not_to change { StateFileArchivedIntake.count }
+        expect(controller.current_state_file_archived_intake).to be_nil
       end
     end
 
     context "when year_selected is nil" do
-      before { session[:email_address] = email_address }
-      before do
-        session[:year_selected] = nil
-      end
+      before { session[:year_selected] = nil }
 
-      it "returns nil" do
-        expect(controller.current_archived_intake).to be_nil
-      end
-    end
-  end
-
-  describe "#is_intake_unavailable" do
-    let!(:archived_intake) { create :state_file_archived_intake }
-    before do
-      allow(controller).to receive(:current_archived_intake).and_return(archived_intake)
-    end
-
-    context "when the request is nil" do
-      before do
-        allow(controller).to receive(:current_archived_intake).and_return(nil)
-      end
-
-      it "redirects to verification error page" do
-        expect(controller).to receive(:redirect_to).with(knock_out_path)
-        controller.is_intake_unavailable
-      end
-    end
-
-    context "when the request is locked" do
-      before do
-        allow(archived_intake).to receive(:access_locked?).and_return(true)
-      end
-
-      it "redirects to verification error page" do
-        expect(controller).to receive(:redirect_to).with(knock_out_path)
-        controller.is_intake_unavailable
-      end
-    end
-
-    context "when the archived intake is permanently locked" do
-      before do
-        allow(archived_intake).to receive(:permanently_locked_at).and_return(Time.current)
-      end
-
-      it "redirects to verification error page" do
-        expect(controller).to receive(:redirect_to).with(knock_out_path)
-        controller.is_intake_unavailable
-      end
-    end
-
-    context "when the request is valid and not locked" do
-      before do
-        allow(archived_intake).to receive(:access_locked?).and_return(false)
-        allow(archived_intake).to receive(:permanently_locked_at).and_return(nil)
-      end
-
-      it "does not redirect" do
-        expect(controller).not_to receive(:redirect_to)
-        controller.is_intake_unavailable
+      it "redirects to root and does not create" do
+        expect(controller).to receive(:redirect_to).with("/")
+        expect {
+          controller.create_and_login_state_file_archived_intake(email_address: "y0@ex.com")
+        }.not_to change { StateFileArchivedIntake.count }
+        expect(controller.current_state_file_archived_intake).to be_nil
       end
     end
   end

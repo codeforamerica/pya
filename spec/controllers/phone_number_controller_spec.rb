@@ -20,14 +20,13 @@ RSpec.describe PhoneNumberController, type: :controller do
       end
       context "and an archived intake exists with the phone number" do
         let!(:archived_intake) { create :state_file_archived_intake, phone_number: valid_phone_number, tax_year: "2023" }
-        # TODO update this test with logging and the proper redirects https://codeforamerica.atlassian.net/browse/FYST-2088
         it "creates a request, updates the session, redirects to the verification code path and calls sign in with the existing intake" do
           expect(controller).to receive(:sign_in).with(instance_of(StateFileArchivedIntake)).and_call_original
           post :update, params: {
             phone_number_form: {phone_number: valid_phone_number}
           }
           expect(assigns(:form)).to be_valid
-          active_archived_intake = controller.send(:current_archived_intake)
+          active_archived_intake = controller.current_state_file_archived_intake
 
           expect(active_archived_intake.phone_number).to eq(valid_phone_number)
           expect(active_archived_intake.hashed_ssn).to eq(archived_intake.hashed_ssn)
@@ -36,7 +35,6 @@ RSpec.describe PhoneNumberController, type: :controller do
           expect(session[:ssn_verified]).to be(false)
           expect(session[:mailing_verified]).to be(false)
           expect(session[:code_verified]).to be(false)
-          expect(session[:phone_number]).to eq(valid_phone_number)
 
           expect(response).to redirect_to(edit_verification_code_path)
         end
@@ -50,7 +48,7 @@ RSpec.describe PhoneNumberController, type: :controller do
           }
           expect(assigns(:form)).to be_valid
 
-          active_archived_intake = controller.send(:current_archived_intake)
+          active_archived_intake = controller.current_state_file_archived_intake
           expect(active_archived_intake.phone_number).to eq(valid_phone_number)
           expect(active_archived_intake.hashed_ssn).to eq(nil)
           expect(active_archived_intake.full_address).to eq("")
@@ -69,8 +67,6 @@ RSpec.describe PhoneNumberController, type: :controller do
           expect(session[:ssn_verified]).to be(false)
           expect(session[:mailing_verified]).to be(false)
           expect(session[:code_verified]).to be(false)
-
-          expect(session[:phone_number]).to eq(valid_phone_number)
         end
       end
     end

@@ -4,22 +4,22 @@ class MailingAddressValidationController < BaseController
   before_action :confirm_code_and_ssn_verification
 
   def edit
-    @addresses = current_archived_intake.address_challenge_set
-    @year = current_archived_intake.tax_year
-    @form = MailingAddressValidationForm.new(addresses: @addresses, current_address: current_archived_intake.full_address)
+    @addresses = current_state_file_archived_intake.address_challenge_set
+    @year = current_state_file_archived_intake.tax_year
+    @form = MailingAddressValidationForm.new(addresses: @addresses, current_address: current_state_file_archived_intake.full_address)
   end
 
   def update
-    @addresses = current_archived_intake.address_challenge_set
-    @form = MailingAddressValidationForm.new(mailing_address_validation_form_params, addresses: @addresses, current_address: current_archived_intake.full_address)
+    @addresses = current_state_file_archived_intake.address_challenge_set
+    @form = MailingAddressValidationForm.new(mailing_address_validation_form_params, addresses: @addresses, current_address: current_state_file_archived_intake.full_address)
     if @form.valid?
-      EventLogger.log("correct mailing address", current_archived_intake.id)
+      EventLogger.log("correct mailing address", current_state_file_archived_intake.id)
       session[:mailing_verified] = true
 
       redirect_to pdf_index_path
     elsif params["mailing_address_validation_form"].present?
-      EventLogger.log("incorrect mailing address", current_archived_intake.id)
-      current_archived_intake.update(permanently_locked_at: Time.now)
+      EventLogger.log("incorrect mailing address", current_state_file_archived_intake.id)
+      current_state_file_archived_intake.update(permanently_locked_at: Time.now)
       redirect_to knock_out_path
     else
       render :edit
@@ -30,7 +30,7 @@ class MailingAddressValidationController < BaseController
 
   def confirm_code_and_ssn_verification
     unless session[:code_verified] && session[:ssn_verified]
-      EventLogger.log("unauthorized mailing attempt", current_archived_intake&.id)
+      EventLogger.log("unauthorized mailing attempt", current_state_file_archived_intake&.id)
       redirect_to root_path
     end
   end
