@@ -71,7 +71,7 @@ en:
     year_select:
       show:
         title: Select the tax year of the return you want to download
-        subtitle: To keep your information secure, if you need to download both returns, you can download the second one after you finish downloading the first.
+        subtitle: To keep your information secure, if you need to download both returns, you can return to this screen to download the second return after you finish downloading the first.
         radio_label: "Select the tax year of the return you want to download:"
     contact_preference:
       edit:
