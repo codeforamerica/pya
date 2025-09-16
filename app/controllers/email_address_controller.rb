@@ -10,11 +10,9 @@ class EmailAddressController < BaseController
       session[:ssn_verified] = false
       session[:mailing_verified] = false
       session[:code_verified] = false
-      session[:email_address] = @form.email_address
-      session[:phone_number] = nil
 
-      intake = current_archived_intake
-      sign_in intake
+      create_and_login_state_file_archived_intake(email_address: @form.email_address)
+      return if performed?
 
       redirect_to edit_verification_code_path
     else

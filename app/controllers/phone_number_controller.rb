@@ -10,11 +10,9 @@ class PhoneNumberController < BaseController
       session[:ssn_verified] = false
       session[:mailing_verified] = false
       session[:code_verified] = false
-      session[:phone_number] = @form.phone_number
-      session[:email_address] = nil
 
-      intake = current_archived_intake
-      sign_in intake
+      create_and_login_state_file_archived_intake(phone_number: @form.phone_number)
+      return if performed?
 
       redirect_to edit_verification_code_path
     else

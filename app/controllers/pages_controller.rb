@@ -3,6 +3,6 @@ class PagesController < BaseController
   end
 
   def knock_out
-    @intake = current_archived_intake
+    @intake = current_state_file_archived_intake
   end
 end

@@ -1,17 +1,26 @@
 require "rails_helper"
 
 RSpec.describe VerificationCodeController, type: :controller do
+  include Devise::Test::ControllerHelpers
+  include ActiveJob::TestHelper
+
   let(:email_address) { "test@example.com" }
-  let!(:archived_intake) { create(:state_file_archived_intake, email_address: email_address, contact_preference: contact_preference, phone_number: phone_number) }
   let(:contact_preference) { "email" }
   let(:phone_number) { nil }
+  let!(:archived_intake) do
+    create(:state_file_archived_intake,
+      email_address: email_address,
+      contact_preference: contact_preference,
+      phone_number: phone_number)
+  end
+
   let(:valid_verification_code) { "123456" }
   let(:invalid_verification_code) { "654321" }
 
   before do
-    allow(controller).to receive(:current_archived_intake).and_return(archived_intake)
-    allow(I18n).to receive(:locale).and_return(:en)
-    sign_in_archived_intake(archived_intake)
+    request.env["devise.mapping"] = Devise.mappings[:state_file_archived_intake]
+    sign_in archived_intake
+
     allow(EventLogger).to receive(:log)
   end
 
@@ -20,14 +29,12 @@ RSpec.describe VerificationCodeController, type: :controller do
     it_behaves_like "an authenticated archived intake controller", :get, :edit
 
     context "when the request is not locked" do
-      before do
-        allow(archived_intake).to receive(:access_locked?).and_return(false)
-      end
+      before { allow(archived_intake).to receive(:access_locked?).and_return(false) }
 
       context "when contact preference is email" do
         let(:contact_preference) { "email" }
 
-        it "renders the edit template with a new VerificationCodeForm and queues a job" do
+        it "renders :edit with a VerificationCodeForm and enqueues EmailVerificationCodeJob" do
           expect(EventLogger).to receive(:log).with("issued email challenge", archived_intake.id)
 
           expect {
@@ -47,7 +54,7 @@ RSpec.describe VerificationCodeController, type: :controller do
         let(:contact_preference) { "text" }
         let(:phone_number) { "5038675309" }
 
-        it "renders the edit template with a new VerificationCodeForm and queues a job" do
+        it "renders :edit with a VerificationCodeForm and enqueues TextMessageVerificationCodeJob" do
           expect(EventLogger).to receive(:log).with("issued text challenge", archived_intake.id)
 
           expect {
@@ -83,7 +90,7 @@ RSpec.describe VerificationCodeController, type: :controller do
           post :update, params: {verification_code_form: {verification_code: valid_verification_code}}
 
           expect(session[:code_verified]).to eq(true)
-          expect(archived_intake.failed_attempts).to eq(0)
+          expect(archived_intake.reload.failed_attempts).to eq(0)
           expect(response).to redirect_to(edit_identification_number_path)
         end
       end
@@ -99,7 +106,7 @@ RSpec.describe VerificationCodeController, type: :controller do
           post :update, params: {verification_code_form: {verification_code: valid_verification_code}}
 
           expect(session[:code_verified]).to eq(true)
-          expect(archived_intake.failed_attempts).to eq(0)
+          expect(archived_intake.reload.failed_attempts).to eq(0)
           expect(response).to redirect_to(edit_identification_number_path)
         end
       end
@@ -118,7 +125,7 @@ RSpec.describe VerificationCodeController, type: :controller do
 
           post :update, params: {verification_code_form: {verification_code: invalid_verification_code}}
 
-          expect(session[:code_verified]).to eq(nil)
+          expect(session[:code_verified]).to be_nil
           expect(archived_intake.reload.failed_attempts).to eq(1)
           expect(assigns(:form)).to be_a(VerificationCodeForm)
           expect(response).to render_template(:edit)
@@ -132,9 +139,9 @@ RSpec.describe VerificationCodeController, type: :controller do
 
           post :update, params: {verification_code_form: {verification_code: invalid_verification_code}}
 
-          expect(session[:code_verified]).to eq(nil)
+          expect(session[:code_verified]).to be_nil
           expect(archived_intake.reload.failed_attempts).to eq(2)
-          expect(archived_intake.reload.access_locked?).to be_truthy
+          expect(archived_intake.reload.access_locked?).to be(true)
           expect(response).to redirect_to(knock_out_path)
         end
       end
@@ -148,7 +155,7 @@ RSpec.describe VerificationCodeController, type: :controller do
 
           post :update, params: {verification_code_form: {verification_code: invalid_verification_code}}
 
-          expect(session[:code_verified]).to eq(nil)
+          expect(session[:code_verified]).to be_nil
           expect(archived_intake.reload.failed_attempts).to eq(1)
           expect(assigns(:form)).to be_a(VerificationCodeForm)
           expect(response).to render_template(:edit)
@@ -162,9 +169,9 @@ RSpec.describe VerificationCodeController, type: :controller do
 
           post :update, params: {verification_code_form: {verification_code: invalid_verification_code}}
 
-          expect(session[:code_verified]).to eq(nil)
+          expect(session[:code_verified]).to be_nil
           expect(archived_intake.reload.failed_attempts).to eq(2)
-          expect(archived_intake.reload.access_locked?).to be_truthy
+          expect(archived_intake.reload.access_locked?).to be(true)
           expect(response).to redirect_to(knock_out_path)
         end
       end
