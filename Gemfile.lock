@@ -143,6 +143,13 @@ GEM
     dartsass-rails (0.5.1)
       railties (>= 6.0.0)
       sass-embedded (~> 1.63)
+    datadog (2.22.0)
+      datadog-ruby_core_source (~> 3.4, >= 3.4.1)
+      libdatadog (~> 22.0.1.1.0)
+      libddwaf (~> 1.25.1.1.0)
+      logger
+      msgpack
+    datadog-ruby_core_source (3.4.1)
     date (3.4.1)
     debug (1.11.0)
       irb (~> 1.10)
@@ -237,6 +244,19 @@ GEM
     jwt (2.10.2)
       base64
     language_server-protocol (3.17.0.5)
+    libdatadog (22.0.1.1.0)
+    libdatadog (22.0.1.1.0-aarch64-linux)
+    libdatadog (22.0.1.1.0-x86_64-linux)
+    libddwaf (1.25.1.1.0)
+      ffi (~> 1.0)
+    libddwaf (1.25.1.1.0-aarch64-linux)
+      ffi (~> 1.0)
+    libddwaf (1.25.1.1.0-arm64-darwin)
+      ffi (~> 1.0)
+    libddwaf (1.25.1.1.0-x86_64-darwin)
+      ffi (~> 1.0)
+    libddwaf (1.25.1.1.0-x86_64-linux)
+      ffi (~> 1.0)
     lint_roller (1.1.0)
     logger (1.7.0)
     loofah (2.24.1)
@@ -557,6 +577,7 @@ DEPENDENCIES
   cfa-styleguide (= 0.17.1)!
   csv (~> 3.3)
   dartsass-rails (~> 0.5.1)
+  datadog
   debug
   delayed_job_active_record
   delayed_job_web
