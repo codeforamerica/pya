@@ -20,6 +20,7 @@
   <%# Includes all stylesheet files in app/assets/stylesheets %>
   <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags "application" %>
+  <%= Sentry.get_trace_propagation_meta.html_safe %>
 </head>
 
 <body <% if content_for?(:body_class) %>class="<%= yield :body_class %>"<% end %>>
