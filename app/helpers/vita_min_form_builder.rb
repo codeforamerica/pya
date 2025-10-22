@@ -451,7 +451,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     end.join).html_safe
 
     checkbox_container_classes = ["tight-ish-checkboxes"]
-    includes_follow_up = (collection.any? { |item| item[:opens_follow_up_with_id] }) || (checkbox_html.include? "follow-up")
+    includes_follow_up = collection.any? { |item| item[:opens_follow_up_with_id] } || (checkbox_html.include? "follow-up")
     checkbox_container_classes << "question-with-follow-up" if includes_follow_up
 
     fieldset_classes = ["input-group", "form-group#{error_state(object, method)}"]
