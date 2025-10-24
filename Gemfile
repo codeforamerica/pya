@@ -80,3 +80,5 @@ gem "twilio-ruby"
 gem "standard", ">= 1.35.1"
 gem "sentry-ruby"
 gem "sentry-rails"
+
+gem "openssl", ">= 3.3.1"
