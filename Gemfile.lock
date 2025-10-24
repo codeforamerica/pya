@@ -288,6 +288,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.9-x86_64-linux-musl)
       racc (~> 1.4)
+    openssl (3.3.1)
     orm_adapter (0.5.0)
     parallel (1.27.0)
     parser (3.3.8.0)
@@ -573,6 +574,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   mailgun-ruby
+  openssl (>= 3.3.1)
   pg
   phony
   propshaft
