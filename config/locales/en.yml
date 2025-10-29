@@ -26,7 +26,7 @@ en:
       phone_number:
         invalid: Please enter a valid phone number.
       verification_code:
-        invalid: Incorrect verification code. After 2 failed attempts, accounts are locked.
+        invalid: Please enter a valid code. After 2 failed attempts, your account will be locked.
   general:
     continue: Continue
     return_home: Return to home
@@ -76,7 +76,7 @@ en:
     contact_preference:
       edit:
         title: What sign in method did you use to create an account?
-        subtitle: Your sign in method might be different than how you received notifications about your tax return.
+        subtitle: "Note: Your sign in method might be different than how you received notifications about your tax return."
         text_message_option: Sign in with phone number
         email_option: Sign in with email
     phone_number:
