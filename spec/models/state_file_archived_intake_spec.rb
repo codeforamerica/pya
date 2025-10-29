@@ -70,7 +70,7 @@ RSpec.describe StateFileArchivedIntake, type: :model do
           allow(state_file_archived_intake).to receive(:download_file_from_s3).and_call_original
 
           expect(state_file_archived_intake).to receive(:download_file_from_s3).with(
-            "pya-staging-docs",
+            "pya-production-docs",
             "ny_addresses.csv",
             Rails.root.join("tmp", "ny_addresses.csv").to_s
           )
