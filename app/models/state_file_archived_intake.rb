@@ -97,14 +97,12 @@ class StateFileArchivedIntake < ApplicationRecord
     )
   end
 
-  # TODO: https://codeforamerica.atlassian.net/browse/FYST-2232 change this to look at prod s3 bucket
-  # standard:disable Style/IdenticalConditionalBranches
   def select_bucket
     case Rails.env
     when "development"
       "pya-staging-docs"
     when "production"
-      "pya-staging-docs"
+      "pya-production-docs"
     else
       "pya-staging-docs"
     end
