@@ -20,7 +20,7 @@ en:
       blank: Can't be blank.
     attributes:
       selected_address:
-        blank: Select a mailing address.
+        blank: "Please select the correct mailing address for your %{tax_year} tax return."
       email_address:
         invalid: Please enter a valid email address.
       phone_number:
@@ -29,7 +29,7 @@ en:
         invalid: Please enter a valid code. After 2 failed attempts, your account will be locked.
   general:
     continue: Continue
-    return_home: Return to home
+    return_home: Return to homepage
     submit: Submit
   text_message:
     verification_code: "Your 6-digit FileYourStateTaxes verification code is: %{verification_code}. This code will expire after 10 minutes"

@@ -2,25 +2,24 @@ es:
   mailers:
     archived_intake_verification_code:
       body_html: |
-        <p>Hello!</p>
-        <p>Your six-digit verification code for %{service_name} is: <strong> %{verification_code}.</strong> This code will expire after 30 minutes.</p>
-        <p>Did you receive this code without signing up? Email us at <a href="mailto:help@%{service_name_lower}.org">help@%{service_name_lower}.org</a></p>
-        <p>Your tax team at %{service_name}.org</p>
+        <p>¡Hola!</p>
+        <p>Tu código de verificación de seis dígitos para %{service_name} es: <strong>%{verification_code}.</strong> Este código expirará después de 30 minutos.</p>
+        <p>¿Recibiste este código sin registrarte? Envíanos un correo electrónico a <a href="mailto:help@%{service_name_lower}.org">help@%{service_name_lower}.org</a></p>
+        <p>Tu equipo de impuestos en %{service_name}.org</p>
       body_text: |
-        Hello!
+        ¡Hola!
+        Tu código de verificación de seis dígitos para %{service_name} es: %{verification_code}. Este código expirará después de 30 minutos.
 
-        Your six-digit verification code for %{service_name} is: %{verification_code}. This code will expire after 30 minutes.
+        ¿Recibiste este código sin registrarte? Envíanos un correo electrónico a help@%{service_name_lower}.org
 
-        Did you receive this code without signing up? Email us at help@%{service_name_lower}.org226226
-
-        Your tax team at %{service_name}.org
-      subject: Six-Digit Code from FileYourStateTaxes
+        Tu equipo de impuestos en %{service_name}.org
+      subject: Código de verificación de seis dígitos para FileYourStateTaxes
   errors:
     messages:
       blank: Can't be blank.
     attributes:
       selected_address:
-        blank: Select a mailing address.
+        blank: Por favor, selecciona la dirección de correo postal correcta para tu declaración de impuestos %{tax_year}.
       email_address:
         invalid: Por favor, ingresa un correo electrónico válido.
       phone_number:
@@ -29,8 +28,7 @@ es:
         invalid: Por favor ingresa un código válido. Luego de 2 intentos fallidos, tu cuenta quedará bloqueada.
   general:
     continue: Continuar
-    return_home: Return to home
-    submit: Submit
+    return_home: Regresar al inicio
   text_message:
     verification_code: "Your 6-digit FileYourStateTaxes verification code is: %{verification_code}. This code will expire after 10 minutes"
   views:
