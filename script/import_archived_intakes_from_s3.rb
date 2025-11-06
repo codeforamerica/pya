@@ -14,7 +14,6 @@ class ImportArchivedIntakesFromS3 < Thor
       sql_string = read_input(file_path)
 
       Open3.popen3("psql", "-d", connection_string) do |i, o, e, _|
-        say "psql -d #{connection_string}"
         i.puts(sql_string)
         i.close
 
@@ -35,8 +34,10 @@ class ImportArchivedIntakesFromS3 < Thor
     end
 
     def read_input(file_name)
-      if Rails.env.development?
+      if Rails.env.development? && ENV["AWS_ACCESS_KEY_ID"].blank?
         read_from_file(file_name)
+      else
+        read_from_s3(file_name)
       end
     end
 
@@ -44,6 +45,15 @@ class ImportArchivedIntakesFromS3 < Thor
       File.open(file_name, 'r', binmode: true) do |file_obj|
         Zlib.gunzip(file_obj.read)
       end
+    end
+
+    def read_from_s3(file_name)
+      Zlib.gunzip(
+        s3_client.get_object(
+          bucket: 'archived-intakes',
+          key: file_name
+        ).body.read
+      )
     end
 
     def db_connection_string
@@ -60,7 +70,14 @@ class ImportArchivedIntakesFromS3 < Thor
     def source_bucket
     end
 
-    def s3_client = Aws::S3::Client.new(region: 'us-east-1', credentials: s3_credentials)
+    def s3_client
+      Aws::S3::Client.new(
+        region: 'us-east-1',
+        credentials: s3_credentials,
+        force_path_style: true,
+        endpoint: ENV.fetch('LOCALSTACK_ENDPOINT', nil)
+      )
+    end
 
     def s3_credentials
       if ENV["AWS_ACCESS_KEY_ID"].present? # is this for local?
