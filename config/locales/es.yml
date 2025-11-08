@@ -7,15 +7,14 @@ es:
       phone_number:
         invalid: Por favor, ingresa un número de teléfono válido.
       selected_address:
-        blank: Por favor, selecciona la dirección de correo postal correcta para tu
-          declaración de impuestos %{tax_year}.
+        blank: Por favor, selecciona la dirección de correo postal correcta para tu declaración de impuestos %{tax_year}.
       verification_code:
-        invalid: Por favor ingresa un código válido. Luego de 2 intentos fallidos,
-          tu cuenta quedará bloqueada.
+        invalid: Por favor ingresa un código válido. Luego de 2 intentos fallidos, tu cuenta quedará bloqueada.
   general:
     continue: Continuar
     faq: Preguntas frecuentes
     return_home: Regresar al inicio
+    sign_in: Iniciar sesión
   mailers:
     archived_intake_verification_code:
       body_html: |
@@ -35,9 +34,7 @@ es:
     contact_preference:
       edit:
         email_option: Iniciar sesión con correo electrónico
-        subtitle: 'Nota: Es posible que tu método de inicio de sesión sea diferente
-          al método que usaste para recibir notificaciones sobre tu declaración de
-          impuestos.'
+        subtitle: 'Nota: Es posible que tu método de inicio de sesión sea diferente al método que usaste para recibir notificaciones sobre tu declaración de impuestos.'
         text_message_option: Iniciar sesión con número de teléfono
         title: "¿Qué método de inicio de sesión usaste para crear una cuenta?"
     email_address:
@@ -47,22 +44,15 @@ es:
         title: Enter the email address linked to your account
     identification_number:
       edit:
-        error_message: Por favor, ingresa correctamente el Número de Seguro Social
-          (SSN) o Número de Identificación Personal (ITIN). Luego de 2 intentos fallidos,
-          tu cuenta quedará bloqueada.
-        help_text: Para mantener segura tu identidad, necesitamos confirmar tu número
-          de Seguro Social.
-        ssn_label: Número de Seguro Social (SSN) o Número de Identificación Personal
-          (ITIN)
+        error_message: Por favor, ingresa correctamente el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN). Luego de 2 intentos fallidos, tu cuenta quedará bloqueada.
+        help_text: Para mantener segura tu identidad, necesitamos confirmar tu número de Seguro Social.
+        ssn_label: Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
         title: We found your account! Please confirm your identity
     layouts:
       environment_warning:
-        banner_html: This site is for example purposes only. If you want help with
-          your taxes, go to <a target="_blank" rel="nofollow noopener" href="https://www.fileyourstatetaxes.org">FileYourStateTaxes.org</a>.
+        banner_html: This site is for example purposes only. If you want help with your taxes, go to <a target="_blank" rel="nofollow noopener" href="https://www.fileyourstatetaxes.org">FileYourStateTaxes.org</a>.
       footer:
-        built_by_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener
-          nofollow" href="https://www.codeforamerica.org">Code for America</a> in
-          partnership with state tax agencies to integrate with IRS Direct File.
+        built_by_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with state tax agencies to integrate with IRS Direct File.
         contact_us: Contact us
         contact_us_url: mailto:help@fileyourstatetaxes.org
         faq: FAQ
@@ -72,37 +62,23 @@ es:
         sms_terms: SMS Terms
         sms_terms_url: https://www.fileyourstatetaxes.org/en/sms-terms
         spanish: Español
-      header:
-        link_to_main_content: Skip to main content
-        spanish: Español
     mailing_address_validation:
       edit:
-        identity_safe: Para mantener tu identidad segura, necesitamos confirmar la
-          dirección en tu declaración de impuestos de %{year}.
-        radio_button_title: 'Selecciona la dirección de correo postal que usaste para
-          tu declaración de impuestos de %{year}:'
+        identity_safe: Para mantener tu identidad segura, necesitamos confirmar la dirección en tu declaración de impuestos de %{year}.
+        radio_button_title: 'Selecciona la dirección de correo postal que usaste para tu declaración de impuestos de %{year}:'
         title: Confirma tu dirección para acceder a tu declaración de impuestos
     pages:
       home:
-        closed_notice_html: "<strong>We’re closed for the tax season. Unfortunately
-          you can no longer file your state return with us this year.</strong>"
-        download_notice_html: Already filed your state taxes with us? <strong>You
-          can download a copy of your state return until December 31, 2024</strong>.
-        faq: FAQ
+        closed_notice_html: "<strong>We’re closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong>"
+        download_notice_html: Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong>.
         headline: A free state filing service for taxpayers using IRS Direct File
-        integration_html: "<strong>FileYourStateTaxes</strong> integrates with <strong>IRS
-          Direct File</strong> to help you complete your state tax return <strong>for
-          free</strong>."
+        integration_html: "<strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free</strong>."
         sign_in: Sign in
       knock_out:
-        also_visit_html: You can also visit your state’s tax agency website to request
-          your %{year} tax return. For more information, click on the links below
-          or visit our <a href='https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return'>FAQ
-          page</a>.
+        also_visit_html: You can also visit your state’s tax agency website to request your %{year} tax return. For more information, click on the links below or visit our <a href='https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return'>FAQ page</a>.
         az_dor: Departamento de Ingresos de Arizona
         id_form: Idaho Form STC-06
-        locked_due_to: Esta cuenta ha sido bloqueada debido a demasiados intentos
-          fallidos para iniciar sesión.
+        locked_due_to: Esta cuenta ha sido bloqueada debido a demasiados intentos fallidos para iniciar sesión.
         md_form: Maryland Form 129
         nc_dor: North Carolina Department of Revenue
         nj_dot: New Jersey Division of Taxation
@@ -112,13 +88,10 @@ es:
         title: Lo sentimos, no pudimos  verificar tu cuenta
     pdf:
       index:
-        another_return: En caso de que desees descargar la declaración de otro año,
-          debes volver a iniciar sesión con el método de contacto que empleaste para
-          crear esa cuenta.
+        another_return: En caso de que desees descargar la declaración de otro año, debes volver a iniciar sesión con el método de contacto que empleaste para crear esa cuenta.
         another_return_button: Descargar otra declaración
         download_button: Descargar la declaración de %{year}
-        subtitle: Para acceder a tu declaración de impuestos %{year} %{state}, haz
-          clic en el siguiente enlace.
+        subtitle: Para acceder a tu declaración de impuestos %{year} %{state}, haz clic en el siguiente enlace.
         title: "¡Tu cuenta fue verificada exitosamente!"
     phone_number:
       edit:
@@ -127,36 +100,25 @@ es:
         title: Ingresa la dirección de correo electrónico asociada a tu cuenta.
     public_pages:
       internal_server_error:
-        body: It looks like there was a server error. We've been notified of the issue
-          and will work to fix it!
-        contact_html: If you’re running into trouble, we’re here for you. You can
-          reach us using the "Help"/"Chat" button in the bottom right or by sending
-          us an email at %{email_link}.
+        body: It looks like there was a server error. We've been notified of the issue and will work to fix it!
+        contact_html: If you’re running into trouble, we’re here for you. You can reach us using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
         title: Oops, we're sorry, but something went wrong.
       page_not_found:
-        let_us_know_html: If you followed a link here, please let us know using the
-          "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
+        let_us_know_html: If you followed a link here, please let us know using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
         title: Oops, we're sorry, but the page you're looking for can't be found.
     verification_code:
       edit:
         action: Verificar el código
         email:
-          body_1: Ingresa el código enviado a tu correo electrónico. Si no recibiste
-            el código por favor revisa tu carpeta de spam.
-          body_2_html: En caso de que no sea el correo electrónico que usaste para
-            crear tu cuenta, por favor, regresa e ingresa el correo electrónico correcto.
-            Si aún necesitas ayuda, <a class="open-intercom">chatea con nosotros</a>.
+          body_1: Ingresa el código enviado a tu correo electrónico. Si no recibiste el código por favor revisa tu carpeta de spam.
+          body_2_html: En caso de que no sea el correo electrónico que usaste para crear tu cuenta, por favor, regresa e ingresa el correo electrónico correcto. Si aún necesitas ayuda, <a class="open-intercom">chatea con nosotros</a>.
         text:
           body_1: Por favor, ingresa el código enviado por mensaje de texto.
-          body_2_html: En caso de que no sea el número de teléfono que empleaste para
-            crear tu cuenta, por favor, regresa e ingresa el número de teléfono correcto.
-            Si aún necesitas ayuda, <a class="open-intercom">chatea con nosotros</a>.
+          body_2_html: En caso de que no sea el número de teléfono que empleaste para crear tu cuenta, por favor, regresa e ingresa el número de teléfono correcto. Si aún necesitas ayuda, <a class="open-intercom">chatea con nosotros</a>.
         title_html: We’ve sent a code to %{contact_info}
         verification_code_label: Ingresa el código de 6 dígitos
     year_select:
       show:
         radio_label: 'Selecciona el año tributario de la declaración que deseas descargar:'
-        subtitle: Para mantener tu información segura, en caso de que necesites descargar
-          ambas declaraciones, puedes descargar la segunda luego de terminar de descargar
-          la primera.
+        subtitle: Para mantener tu información segura, en caso de que necesites descargar ambas declaraciones, puedes descargar la segunda luego de terminar de descargar la primera.
         title: Selecciona el año tributario de la declaración que deseas descargar
