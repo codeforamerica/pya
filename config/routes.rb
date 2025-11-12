@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     root "pages#home"
     get "year_select", to: "year_select#show", as: :year_select
     patch "year_select", to: "year_select#update"
-    get "email_address/show", to: "email_address#edit", as: "edit_email_address"
+    get "email_address", to: "email_address#edit", as: "edit_email_address"
     patch "email_address", to: "email_address#update"
     get "knock_out", to: "pages#knock_out"
     get "phone_number/show", to: "phone_number#edit", as: "edit_phone_number"
@@ -33,7 +33,7 @@ Rails.application.routes.draw do
     get "mailing_address_validation/edit", to: "mailing_address_validation#edit", as: "edit_mailing_address_validation"
     patch "mailing_address_validation", to: "mailing_address_validation#update"
     post "pdf/log_and_redirect", to: "pdf#log_and_redirect"
-    resources :pdf, only: [:index]
+    resources :pdf, only: [ :index ]
 
     devise_for :state_file_archived_intakes
   end
