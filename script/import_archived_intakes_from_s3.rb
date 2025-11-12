@@ -42,7 +42,7 @@ class ImportArchivedIntakesFromS3 < Thor
     end
 
     def read_from_file(file_name)
-      File.open(file_name, 'r', binmode: true) do |file_obj|
+      File.open(file_name, "r", binmode: true) do |file_obj|
         Zlib.gunzip(file_obj.read)
       end
     end
@@ -50,7 +50,7 @@ class ImportArchivedIntakesFromS3 < Thor
     def read_from_s3(file_name)
       Zlib.gunzip(
         s3_client.get_object(
-          bucket: 'archived-intakes',
+          bucket: "archived-intakes",
           key: file_name
         ).body.read
       )
@@ -72,10 +72,10 @@ class ImportArchivedIntakesFromS3 < Thor
 
     def s3_client
       Aws::S3::Client.new(
-        region: 'us-east-1',
+        region: "us-east-1",
         credentials: s3_credentials,
         force_path_style: true,
-        endpoint: ENV.fetch('LOCALSTACK_ENDPOINT', nil)
+        endpoint: ENV.fetch("LOCALSTACK_ENDPOINT", nil)
       )
     end
 
