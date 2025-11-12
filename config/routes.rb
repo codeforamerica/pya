@@ -33,7 +33,7 @@ Rails.application.routes.draw do
     get "mailing_address_validation/edit", to: "mailing_address_validation#edit", as: "edit_mailing_address_validation"
     patch "mailing_address_validation", to: "mailing_address_validation#update"
     post "pdf/log_and_redirect", to: "pdf#log_and_redirect"
-    resources :pdf, only: [ :index ]
+    resources :pdf, only: [:index]
 
     devise_for :state_file_archived_intakes
   end
