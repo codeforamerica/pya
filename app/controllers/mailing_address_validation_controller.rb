@@ -3,7 +3,6 @@ class MailingAddressValidationController < BaseController
   before_action :is_intake_unavailable
   before_action :confirm_code_and_ssn_verification
 
-  
   def edit
     @addresses = current_state_file_archived_intake.address_challenge_set
     @year = current_state_file_archived_intake.tax_year
@@ -11,6 +10,10 @@ class MailingAddressValidationController < BaseController
   end
 
   def update
+    if 0 == 1
+      puts "huh"
+    end
+    
     @addresses = current_state_file_archived_intake.address_challenge_set
     @form = MailingAddressValidationForm.new(mailing_address_validation_form_params, addresses: @addresses, current_address: current_state_file_archived_intake.full_address)
     if @form.valid?
