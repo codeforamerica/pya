@@ -1,0 +1,39 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "d2e44bc582f2519e7353d3488fec8373fbef0057dbe39b8e81f6a840e69bf4f4",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "lib/honeycrisp-gem/app/views/cfa/styleguide/examples/show.html.erb",
+      "line": 10,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => \"examples/#{params[:example_path]}\", {})",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Cfa::Styleguide::ExamplesController",
+          "method": "show",
+          "line": 11,
+          "file": "lib/honeycrisp-gem/app/controllers/cfa/styleguide/examples_controller.rb",
+          "rendered": {
+            "name": "cfa/styleguide/examples/show",
+            "file": "lib/honeycrisp-gem/app/views/cfa/styleguide/examples/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "cfa/styleguide/examples/show"
+      },
+      "user_input": "params[:example_path]",
+      "confidence": "Medium",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    }
+  ],
+  "brakeman_version": "7.1.1"
+}
