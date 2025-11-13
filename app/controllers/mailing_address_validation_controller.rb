@@ -3,6 +3,7 @@ class MailingAddressValidationController < BaseController
   before_action :is_intake_unavailable
   before_action :confirm_code_and_ssn_verification
 
+  
   def edit
     @addresses = current_state_file_archived_intake.address_challenge_set
     @year = current_state_file_archived_intake.tax_year
