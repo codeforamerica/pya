@@ -50,10 +50,18 @@ class ImportArchivedIntakesFromS3 < Thor
     def read_from_s3(file_name)
       Zlib.gunzip(
         s3_client.get_object(
-          bucket: "archived-intakes",
+          bucket: bucket_name,
           key: file_name
         ).body.read
       )
+    end
+
+    def bucket_name
+      if rails.env.development?
+        "pya-production-submission-pdfs"
+      else
+        "pya-staging-submission-pdfs-import"
+      end
     end
 
     def db_connection_string
@@ -73,9 +81,7 @@ class ImportArchivedIntakesFromS3 < Thor
     def s3_client
       Aws::S3::Client.new(
         region: "us-east-1",
-        credentials: s3_credentials,
-        force_path_style: true,
-        endpoint: ENV.fetch("LOCALSTACK_ENDPOINT", nil)
+        credentials: s3_credentials
       )
     end
 
