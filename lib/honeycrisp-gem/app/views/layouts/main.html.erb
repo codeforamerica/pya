@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Honeycrisp Design System</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= stylesheet_link_tag    'prism', media: 'all' %>
+
+  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'prism' %>
+</head>
+
+<body class="template--<%= content_for(:template_name) if content_for?(:template_name) %>">
+  <div class="page-wrapper">
+    <header class="main-header">
+      <div class="toolbar toolbar--with-sidebar">
+        <h1 class="main-header__title">
+          <%= link_to "Honeycrisp Design System v#{Cfa::Styleguide::VERSION}", styleguide_main_path, class: %w{main-header__logo} %>
+        </h1>
+        <button class="button button--small sidebar__collapse-toggle" onclick="toggleNav()">Menu</button>
+      </div>
+    </header>
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="spacing-below-0">
+            <span class="section-header heading-25-small spacing-below-10">Sections</span>
+            <ul class="sidebar__sub-items spacing-below-10">
+              <li class="spacing-below-25"><%= link_to "Honeycrisp", styleguide_main_path %></li>
+              <li class="spacing-below-25"><%= link_to "Honeycrisp Compact", styleguide_honeycrisp_compact_path %></li>
+              <li class="spacing-below-25"><%= link_to "Emojis", styleguide_emojis_path %></li>
+              <li class="spacing-below-25"><%= link_to "Form Builder V1", styleguide_form_builder_v1_path %></li>
+              <li class="spacing-below-25"><%= link_to "Form Builder V2", styleguide_form_builder_v2_path %></li>
+            </ul>
+          </li>
+          <%= content_for :subnavigation %>
+        </ul>
+      </nav>
+    </aside>
+    <div class="main-content--with-sidebar">
+      <%= yield %>
+    </div>
+  </div>
+
+  <footer class="main-footer main-footer--with-sidebar">
+    <div class="grid">
+      <div class="grid__item">
+        <div class="main-footer__legal">
+          <p>Honeycrisp is a design system developed by <a class="link--subtle" href="https://codeforamerica.org">Code for America</a>.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+      var pattern = (function() {
+          var p = {
+              init: function() {
+                  $('.pattern__code-example').each(function() {
+                      const htmlTab = $(this).find('#html');
+                      const erbTab = $(this).find('#erb');
+                      const allTabs = [htmlTab, erbTab];
+
+                      // select html tab and display html code example by default
+                      htmlTab.toggleClass('is-selected');
+                      $(this).find('.code-example--erb').hide();
+
+                      // attach click handler on tabs
+                      allTabs.forEach(function(elem) {
+                          elem.click(function(e) {
+                              e.preventDefault();
+                              const patternCodeExample = $(this).parents('.pattern__code-example');
+
+                              // deselect all tabs, select clicked tab
+                              allTabs.forEach(function(tab) { tab.removeClass('is-selected') });
+                              $(this).toggleClass('is-selected');
+
+                              // hide all code, show selected tab's code
+                              patternCodeExample.find('.code-example').hide();
+                              patternCodeExample.find(`.code-example--${elem.attr('id')}`).show();
+                          });
+                      });
+                  });
+              }
+          };
+
+          return {
+              init: p.init
+          }
+      })();
+
+      pattern.init();
+  </script>
+</body>
+</html>

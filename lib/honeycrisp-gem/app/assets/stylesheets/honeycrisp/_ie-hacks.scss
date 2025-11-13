@@ -1,0 +1,18 @@
+.lt-ie10 {
+  .select {
+    &:before {
+      display: none;
+    }
+  }
+  .select__element {
+    padding-right: .7em;
+  }
+}
+
+.select {
+  -ms-overflow-style: none;
+}
+
+select::-ms-expand {
+  display: none;
+}

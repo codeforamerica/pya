@@ -1,0 +1,205 @@
+// Spacing Units
+$s5:                        0.5rem !default;
+$s10:                       1.0rem !default;
+$s15:                       1.5rem !default;
+$s18:                       1.8rem !default; // Default line height spacing for Honeycrisp Compact
+$s25:                       2.5rem !default;
+$s35:                       3.5rem !default;
+$s60:                       6.0rem !default;
+$s95:                       9.5rem !default;
+$s155:                      15.5rem !default;
+$s250:                      25.0rem !default;
+
+
+// Fonts
+$font-system:               -apple-system, BlinkMacSystemFont,
+                            "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+                            "Fira Sans", "Droid Sans", "Helvetica Neue",
+                            sans-serif;
+
+/* use !important to prevent issues with browser extensions that change fonts */
+$font-icon:                 'Material Icons' !important;;
+
+
+// Typopgraphy
+$em-base:                   62.5% !default;	// Changes root font size to 10px for easier rem calculations
+$font-size-60:              5rem !default;
+$font-size-35:              2.7rem !default;
+$font-size-25:              1.9rem !default;
+$font-size-25-small:        1.6rem !default;
+$font-size-18:              1.5rem !default; // Default font size for Honeycrisp Compact
+$font-size-15:              1.2rem !default;
+
+$font-weight-normal:	    400 !default;
+$font-weight-bold:		    700 !default;
+$font-weight-light:         300 !default;
+
+
+// Colors
+$color-green: 			    #00891B !default;
+$color-green-light: 	    #EBFFEF !default;
+
+$color-grey: 			    #CFC5BF !default;
+$color-grey-light: 		    #F7F5F4 !default;
+$color-grey-dark: 		    #5F5854 !default;
+$color-grey-darkest: 	    #121111 !default;
+
+$color-magenta: 		    #A6005E !default;
+$color-magenta-light: 	    #FFEAF6 !default;
+$color-magenta-dark:  	    #66013A !default;
+
+$color-red: 			    #D13F00 !default;
+$color-red-light: 		    #FCE3D9 !default;
+
+$color-orange:        	    #D48C00 !default;
+
+$color-teal: 			    #008060 !default;
+$color-teal-light: 		    #EBFFFA !default;
+$color-teal-dark: 		    #034E46 !default;
+
+$color-yellow: 			    #FFAE00 !default;
+$color-yellow-light: 	    #FFF2D1 !default;
+
+$color-gold: 			    #C2850C !default;
+
+$color-white:               #FFFFFF !default;
+
+$color-background:    	    $color-grey-light !default;
+
+$unselected-tab-background: darken($color-background, 5%);
+$selected-tab-background:   $color-background;
+
+$color-link-default:        $color-teal !default;
+$color-link-hover:          $color-teal-dark !default;
+$color-link-visited:        $color-teal !default;
+$color-link-active:         $color-teal !default;
+
+// Breakpoints
+$small-mobile-up:           320px !default;
+$mobile-up:                 481px !default;
+$tablet-up:           	    601px !default;
+$site-max-up:         	    961px !default;
+
+
+// Magic Numbers
+$site-max-width:            960px !default;
+$footer-height-home:  	    340px !default;
+$footer-height:       	    100px !default;
+$sidebar-width:             250px !default;
+$site-margins:              $s35 !default;
+$border-radius:             $s5 !default;
+$border-radius-large:       $s10 !default;
+$tooltip-width:             $s250 !default;
+
+
+// Image Sizes
+$width-image-icon:          $s15 !default;
+$width-image-small:         $s60 !default;
+$width-image-med:           $s95 !default;
+$width-image-large:         $s155 !default;
+
+
+// Form Widths
+$width-form-med:            13em !default;
+$width-form-long:           25em !default;
+$width-form-short:          8em !default;
+
+$width-form-casenumber:     8em !default;
+$width-form-phone:          11em !default;
+$width-form-name:           12em !default;
+$width-form-zip:            6.5em !default;
+$width-form-ssn:            10em !default;
+$width-form-searchbar:      30em !default;
+
+// Shadows
+$box-shadow:                0px 3px 5px rgba(0,0,0,.15) !default;
+
+// Animations
+$animation-fast:            .1s ease-out !default;
+$animation-med:             .2s ease-out !default;
+
+// Icons
+$icons: (
+        add: "\e145",
+        add_a_photo: "\e439",
+        add_circle: "\e147",
+        control_point: "\e3ba",
+        arrow_back: "\e5c4",
+        arrow_downward: "\e5db",
+        arrow_drop_down: "\e5c5",
+        arrow_drop_up: "\e5c7",
+        arrow_forward: "\e5c8",
+        arrow_upward: "\e5d8",
+        call_made: "\e0b2",
+        call_received: "\e0b5",
+        cancel: "\e5c9",
+        check: "\e5ca",
+        check_box: "\e834",
+        check_box_outline_blank: "\e835",
+        check_circle: "\e86c",
+        navigate_before: "\e408",
+        navigate_next: "\e409",
+        close: "\e5cd",
+        mode_edit: "\e254",
+        delete: "\e872",
+        delete_forever: "\e92b",
+        done: "\e876",
+        done_all: "\e877",
+        time_to_leave: "\e62c",
+        markunread: "\e159",
+        expand_less: "\e5ce",
+        favorite: "\e87d",
+        favorite_border: "\e87e",
+        get_app: "\e884",
+        file_upload: "\e2c6",
+        people: "\e7fb",
+        group_add : "\e7f0",
+        help: "\e887",
+        help_outline: "\e8fd",
+        highlight_off: "\e888",
+        photo: "\e410",
+        info: "\e88e",
+        info_outline: "\e88f",
+        insert_comment: "\e24c",
+        tag_faces: "\e420",
+        keyboard_arrow_down: "\e313",
+        keyboard_arrow_left: "\e314",
+        keyboard_arrow_right: "\e315",
+        keyboard_arrow_up: "\e316",
+        keyboard_backspace: "\e317",
+        language: "\e894",
+        room: "\e8b4",
+        lock_open: "\e898",
+        lock_outline: "\e899",
+        mood_bad: "\e7f3",
+        move_to_inbox: "\e168",
+        no_encryption: "\e641",
+        notifications: "\e7f4",
+        notifications_active: "\e7f7",
+        notifications_off: "\e7f6",
+        person: "\e7fd",
+        person_add: "\e7fe",
+        phone_in_talk: "\e61d",
+        phone_iphone: "\e325",
+        visibility: "\e8f4",
+        replay: "\e042",
+        report: "\e160",
+        warning: "\e002",
+        sentiment_dissatisfied: "\e811",
+        sentiment_neutral: "\e812",
+        sentiment_satisfied: "\e813",
+        sentiment_very_dissatisfied: "\e814",
+        sentiment_very_satisfied: "\e815",
+        settings: "\e8b8",
+        star_border: "\e83a",
+        stars: "\e8d0",
+        thumb_down: "\e8db",
+        thumb_up: "\e8dc",
+        timer: "\e425",
+        translate: "\e8e2",
+        vertical_align_bottom: "\e258",
+        vertical_align_top: "\e25a",
+        watch_later: "\e924",
+        zoom_in: "\e8ff",
+        zoom_out: "\e900"
+);

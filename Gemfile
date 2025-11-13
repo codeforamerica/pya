@@ -24,7 +24,9 @@ gem "turbo-rails"
 gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
-gem "cfa-styleguide", "0.17.1", git: "https://github.com/codeforamerica/honeycrisp-gem", branch: "main", ref: "40a4356dd217dacfba82a7b92010111999954c91"
+# TODO: Delete local version when honeycrisp is no longe private
+# gem "cfa-styleguide", "0.17.1", git: "https://github.com/codeforamerica/honeycrisp-gem", branch: "main", ref: "40a4356dd217dacfba82a7b92010111999954c91"
+gem "cfa-styleguide", "0.17.1", path: "./lib/honeycrisp-gem/"
 gem "delayed_job_active_record"
 gem "delayed_job_web"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]

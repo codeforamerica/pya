@@ -1,0 +1,83 @@
+[class^="icon-"], [class*=" icon-"] {
+  line-height: $s25;
+  position: relative;
+}
+
+// Microadjustments for icons
+.icon-arrow_forward {
+  top: .15em;
+}
+
+.icon-keyboard_arrow_left {
+  top: .15em;
+}
+
+.icon-keyboard_arrow_right {
+  top: .15em;
+}
+
+.icon-arrow_back {
+  top: .15em;
+}
+
+.icon-insert_comment {
+  top: .1em;
+}
+
+.icon-file_upload {
+  top: .15em;
+}
+
+.icon-person {
+  top: .1em;
+}
+
+.icon-people {
+  top: .15em;
+}
+
+.icon-replay {
+  top: .1em;
+}
+
+.icon-add {
+  top: .1em;
+}
+
+.icon-control_point {
+  top: .1em;
+}
+
+.icon-info {
+  top: .1em;
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: normal;
+  src: url('MaterialIcons-Regular.eot'); /* For IE6-8 */
+  src: url('MaterialIcons-Regular.eot?#iefix') format('embedded-opentype'),
+    url('MaterialIcons-Regular.ttf') format('truetype'),
+    url('MaterialIcons-Regular.woff') format('woff'),
+    url('MaterialIcons-Regular.svg') format('svg');
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  font-family: $font-icon;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  vertical-align: -.1em;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon {
+  @include icons($icons);
+}

@@ -1,0 +1,78 @@
+<form action="POST">
+  <!-- Follow-up with a radio button -->
+  <div class="question-with-follow-up">
+    <div class="question-with-follow-up__question">
+      <fieldset class="form-group">
+        <legend class="form-question">
+          Did you have a CalFresh interview?
+        </legend>
+        <p class="text--help">Answering no will trigger a follow-up question.</p>
+        <radiogroup class="input-group--inline">
+          <label for="example_radio_inline_4_1" class="radio-button">
+            <input type="radio" name="example_radio_inline_4" id="example_radio_inline_4_1">
+            Yes
+          </label>
+          <label for="example_radio_inline_4_2" class="radio-button">
+            <input type="radio" name="example_radio_inline_4" id="example_radio_inline_4_2" data-follow-up="#interview-follow-up">
+            No
+          </label>
+        </radiogroup>
+      </fieldset>
+    </div>
+    <div class="question-with-follow-up__follow-up" id="interview-follow-up">
+      <fieldset class="form-group">
+        <legend class="form-question">Do you know why?</legend>
+        <p class="text--help">Check all that apply</p>
+        <radiogroup class="input-group--block">
+          <label for="enrollment_survey_interview_follow_up_notified_too_late" class="radio-button">
+            <input type="radio" name="enrollment_survey[interview_follow_up]" id="enrollment_survey_interview_follow_up_notified_too_late">
+            Notified too late
+          </label>
+          <label for="enrollment_survey_interview_follow_up_never_received_call" class="radio-button">
+            <input type="radio" name="enrollment_survey[interview_follow_up]" id="enrollment_survey_interview_follow_up_never_received_call">
+            Never received a call
+          </label>
+          <label for="enrollment_survey_interview_follow_up_no_phone" class="radio-button">
+            <input type="radio" name="enrollment_survey[interview_follow_up]" id="enrollment_survey_interview_follow_up_no_phone">
+            Don’t have a phone
+          </label>
+          <label for="enrollment_survey_could_not_attend" class="radio-button">
+            <input type="radio" name="enrollment_survey[interview_follow_up]" id="enrollment_survey_could_not_attend">
+            Missed the interview
+          </label>
+        </radiogroup>
+      </fieldset>
+    </div>
+  </div>
+
+  <!-- Follow-up with a checkbox list -->
+  <div class="question-with-follow-up">
+    <div class="question-with-follow-up__question">
+      <fieldset class="input-group form-group">
+        <legend class="form-question ">
+          What are your favorite colors?
+        </legend>
+        <p class="text--help">Selecting 'Other' will trigger a follow-up question.</p>
+
+        <label class="checkbox">
+          <input type="checkbox" value="blue" name="form[example_blue]" id="form_example_blue" /> Blue
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" value="green" name="form[example_green]" id="form_example_green" /> Green
+        </label>
+        <label class="checkbox">
+          <input data-follow-up="#color_survey-follow-up" type="checkbox" value="other" name="form[example_other]" id="form_example_other">
+          Other
+        </label>
+      </fieldset>
+    </div>
+    <div class="question-with-follow-up__follow-up" id="color_survey-follow-up">
+      <div class="form-group">
+        <label for="color_survey_other_color">
+          <p class="form-question">Please specify</p>
+        </label>
+        <input type="text" class="text-input" name="color_survey_other_color" id="color_survey_other_color">
+      </div>
+    </div>
+  </div>
+</form>
