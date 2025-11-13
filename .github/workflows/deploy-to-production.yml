@@ -4,17 +4,17 @@ on:
   workflow_dispatch:
     inputs:
       release_type:
-        description: 'Part of version to increment (major, minor, patch)'
+        description: "Part of version to increment (major, minor, patch)"
         required: true
-        default: 'minor'
+        default: "minor"
         type: choice
         options: [patch, minor, major]
       release_title:
-        description: 'Optional title to replace auto-generated one'
+        description: "Optional title to replace auto-generated one"
         required: false
         type: string
     push:
-      branches: [ main ]
+      branches: [main]
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -38,7 +38,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
         with:
-          fetch-depth: 0  # fetch full history and tags
+          fetch-depth: 0 # fetch full history and tags
 
       - name: Fetch tags explicitly
         run: git fetch --tags
@@ -215,3 +215,4 @@ jobs:
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.TAX_ENG_SLACK_URL }}
+

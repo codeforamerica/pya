@@ -5,13 +5,13 @@ class ImportArchivedIntakesFromS3 < Thor
   default_task :load
 
   desc "load", "Downloads gzipped dump from S3 and loads it into the database"
-  def load(path)
-    pg_load(db_connection_string, path)
+  def load(path, bucket_name)
+    pg_load(db_connection_string, path, bucket_name)
   end
 
   no_tasks do
-    def pg_load(connection_string, file_path)
-      sql_string = read_input(file_path)
+    def pg_load(connection_string, file_path, bucket_name)
+      sql_string = read_input(file_path, bucket_name)
 
       Open3.popen3("psql", "-d", connection_string) do |i, o, e, _|
         i.puts(sql_string)
@@ -33,35 +33,17 @@ class ImportArchivedIntakesFromS3 < Thor
       end
     end
 
-    def read_input(file_name)
-      if Rails.env.development? && ENV["AWS_ACCESS_KEY_ID"].blank?
-        read_from_file(file_name)
-      else
-        read_from_s3(file_name)
-      end
+    def read_input(file_name, bucket_name)
+      read_from_s3(file_name, bucket_name)
     end
 
-    def read_from_file(file_name)
-      File.open(file_name, "r", binmode: true) do |file_obj|
-        Zlib.gunzip(file_obj.read)
-      end
-    end
-
-    def read_from_s3(file_name)
+    def read_from_s3(file_name, bucket_name)
       Zlib.gunzip(
         s3_client.get_object(
           bucket: bucket_name,
           key: file_name
         ).body.read
       )
-    end
-
-    def bucket_name
-      if rails.env.development?
-        "pya-production-submission-pdfs"
-      else
-        "pya-staging-submission-pdfs-import"
-      end
     end
 
     def db_connection_string
@@ -73,9 +55,6 @@ class ImportArchivedIntakesFromS3 < Thor
       in host:, port:, database:
         "postgres://#{host}:#{port}/#{database}"
       end
-    end
-
-    def source_bucket
     end
 
     def s3_client
