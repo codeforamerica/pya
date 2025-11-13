@@ -50,10 +50,10 @@ class ImportArchivedIntakesFromS3 < Thor
       config_hash = ActiveRecord::Base.connection_db_config.as_json.with_indifferent_access[:configuration_hash]
 
       case config_hash
-        in host:, port:, username:, password:, database:
-          "postgres://#{username}:#{password}@#{host}:#{port}/#{database}"
-        in host:, port:, database:
-          "postgres://#{host}:#{port}/#{database}"
+      in host:, port:, username:, password:, database:
+        "postgres://#{username}:#{password}@#{host}:#{port}/#{database}"
+      in host:, port:, database:
+        "postgres://#{host}:#{port}/#{database}"
       end
     end
 
