@@ -579,7 +579,7 @@ DEPENDENCIES
   phony
   propshaft
   pry-byebug
-  puma (>= 5.0)
+  puma (= 7.1.0)
   rails (~> 8.0.2)
   rails-controller-testing
   rails-i18n
