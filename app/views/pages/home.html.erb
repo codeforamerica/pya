@@ -17,7 +17,7 @@
 <% end %>
 
 <div class="spacing-below-25">
-  <%= link_to "https://www.getyourrefund.org/en", class: "button home-button no-external", id: "firstCta", role: "button" do %>
+  <%= link_to "https://www.getyourrefund.org/#{I18n.locale}", class: "button home-button no-external", id: "firstCta", role: "button" do %>
     <%= image_tag("icons/uswds-launch.svg", alt: "", class: "button__icon") %>
     <%= t("views.pages.home.visit_gyr") %>
   <% end %>
