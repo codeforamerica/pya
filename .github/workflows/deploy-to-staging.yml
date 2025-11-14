@@ -2,7 +2,7 @@ name: Deploy to AWS Staging
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 concurrency:
@@ -41,8 +41,9 @@ jobs:
       - name: Build and push Docker image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          BUNDLE_GITHUB__COM: ${{ secrets.BUNDLE_GITHUB__COM}}
         run: |
-          docker build -t 300423309117.dkr.ecr.us-east-1.amazonaws.com/pya-staging-web:${{env.IMAGE_TAG}} --platform linux/amd64 .
+          docker build -t 300423309117.dkr.ecr.us-east-1.amazonaws.com/pya-staging-web:${{env.IMAGE_TAG}} --secret id=github_pat,env=BUNDLE_GITHUB__COM --platform linux/amd64 .
           docker push 300423309117.dkr.ecr.us-east-1.amazonaws.com/pya-staging-web:${{env.IMAGE_TAG}}
 
       - name: Update SSM Version Parameter
@@ -73,7 +74,7 @@ jobs:
         uses: 8398a7/action-slack@v3
         if: failure()
         with:
-          text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q99GPBK8> <@U07Q39HFLBG> PYA staging deploy ${{ job.status }} :sob:"
+          text: "<!subteam^S06P99RGJDS> PYA staging deploy ${{ job.status }} :sob:"
           status: ${{ job.status }}
           fields: message,commit,author,workflow,took
         env:
