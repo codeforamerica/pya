@@ -46,9 +46,9 @@ en:
     identification_number:
       edit:
         error_message: Please enter the correct SSN/ITIN. After 2 failed attempts, your account will be locked.
-        help_text: To keep your identity safe, we need to confirm your social security number.
+        help_text: To keep your identity safe, we need to confirm your Social Security Number.
         ssn_label: Social Security Number or ITIN
-        title: We found your account! Please confirm your identity
+        title: Please confirm your identity
     layouts:
       environment_warning:
         banner_html: This site is for example purposes only. If you want help with your taxes, go to <a target="_blank" rel="nofollow noopener" href="https://www.fileyourstatetaxes.org">FileYourStateTaxes.org</a>.

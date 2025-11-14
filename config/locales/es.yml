@@ -41,13 +41,13 @@ es:
       edit:
         email_address_label: Tu correo electrónico
         send_code: Enviar el código
-        title: Enter the email address linked to your account
+        title: Selecciona el año tributario de la declaración que desea descargar
     identification_number:
       edit:
         error_message: Por favor, ingresa correctamente el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN). Luego de 2 intentos fallidos, tu cuenta quedará bloqueada.
         help_text: Para mantener segura tu identidad, necesitamos confirmar tu número de Seguro Social.
         ssn_label: Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
-        title: We found your account! Please confirm your identity
+        title: Por favor confirma tu identidad
     layouts:
       environment_warning:
         banner_html: This site is for example purposes only. If you want help with your taxes, go to <a target="_blank" rel="nofollow noopener" href="https://www.fileyourstatetaxes.org">FileYourStateTaxes.org</a>.
@@ -75,7 +75,7 @@ es:
         integration_html: "<strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free</strong>."
         sign_in: Sign in
       knock_out:
-        also_visit_html: You can also visit your state’s tax agency website to request your %{year} tax return. For more information, click on the links below or visit our <a href='https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return'>FAQ page</a>.
+        also_visit_html: Puedes visitar la página web de la agencia tributaria de tu estado para solicitar tu declaración de impuestos %{year}. Para mayor información, haz clic en los siguientes enlaces o visita nuestra <a href='https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return'>página de preguntas frecuentes</a>.
         az_dor: Departamento de Ingresos de Arizona
         id_form: Idaho Form STC-06
         locked_due_to: Esta cuenta ha sido bloqueada debido a demasiados intentos fallidos para iniciar sesión.
@@ -115,7 +115,7 @@ es:
         text:
           body_1: Por favor, ingresa el código enviado por mensaje de texto.
           body_2_html: En caso de que no sea el número de teléfono que empleaste para crear tu cuenta, por favor, regresa e ingresa el número de teléfono correcto. Si aún necesitas ayuda, <a class="open-intercom">chatea con nosotros</a>.
-        title_html: We’ve sent a code to %{contact_info}
+        title_html: Enviamos el código a %{contact_info}
         verification_code_label: Ingresa el código de 6 dígitos
     year_select:
       show:
