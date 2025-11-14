@@ -9,7 +9,7 @@
 </div>
 <h1 class="h1 strong"><%= title %></h1>
 <div class="spacing-below-25">
-  <%= t("views.pages.home.closed_forever_subheader_html", faq_link: "https://www.fileyourstatetaxes.org/#{I18n.locale == :en ? '' : I18n.locale}/us/faq") %>
+  <%= t("views.pages.home.closed_forever_subheader_html", faq_link: "https://www.fileyourstatetaxes.org/#{I18n.locale}/us/faq") %>
 </div>
 
 <%= link_to year_select_path, class: "button home-button button--primary", id: "firstCta", role: "button" do %>
