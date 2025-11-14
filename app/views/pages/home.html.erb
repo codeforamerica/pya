@@ -2,20 +2,23 @@
 <% content_for :body_class, "state-file us-state--" %>
 <% content_for :page_title, t("views.pages.home.headline") %>
 
-<main id="maincontent">
-  <div class="home-container">
-    <div class="home-content">
-      <h1 class="h1 strong"><%= t("views.pages.home.headline") %></h1>
+<% title = t("views.pages.home.headline") %>
 
-      <p><%= t("views.pages.home.integration_html").html_safe %></p>
+<div class="warning">
+  <%= t("views.pages.home.closed_warning") %>
+</div>
+<h1 class="h1 strong"><%= title %></h1>
+<div class="spacing-below-25">
+  <%= t("views.pages.home.closed_forever_subheader_html", faq_link: "https://www.fileyourstatetaxes.org/#{I18n.locale}/us/faq") %>
+</div>
 
-      <p class="strong-text"><%= t("views.pages.home.closed_notice_html") %></p>
+<%= link_to year_select_path, class: "button home-button button--primary", id: "firstCta", role: "button" do %>
+  <%= t("views.pages.home.download_your_return") %>
+<% end %>
 
-      <p><%= t("views.pages.home.download_notice_html").html_safe %></p>
-
-      <%= link_to t("views.pages.home.sign_in"), year_select_path, class: "button button--primary button--wide" %>
-    </div>
-
-    <%= image_tag("welcome.svg", class: "home-image", alt: "") %>
-  </div>
-</main>
+<div class="spacing-below-25">
+  <%= link_to "https://www.getyourrefund.org/en", class: "button home-button no-external", id: "firstCta", role: "button" do %>
+    <%= image_tag("icons/uswds-launch.svg", alt: "", class: "button__icon") %>
+    <%= t("views.pages.home.visit_gyr") %>
+  <% end %>
+</div>
