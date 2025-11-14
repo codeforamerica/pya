@@ -87,7 +87,7 @@ en:
     pages:
       home:
         download_your_return: Download your return
-        closed_warning: FileYourStateTaxes closed on October 31 2025 and was not renewed for the 2025 season.
+        closed_warning: FileYourStateTaxes closed on October 31, 2025 and was not renewed for the 2025 season.
         visit_gyr: Visit GetYourRefund
         closed_forever_subheader_html: |
           <strong>FileYourStateTaxes</strong> integrated with IRS Direct File to help you complete your state tax return for free, and is now closed.<br/><br/>
