@@ -3,16 +3,18 @@ es:
   errors:
     attributes:
       email_address:
-        invalid: Por favor, ingresa un correo electrónico válido.
         blank: Por favor, ingresa un correo electrónico válido.
+        invalid: Por favor, ingresa un correo electrónico válido.
       phone_number:
-        invalid: Por favor, ingresa un número de teléfono válido.
         blank: Por favor, ingresa un número de teléfono válido.
+        invalid: Por favor, ingresa un número de teléfono válido.
       selected_address:
         blank: Por favor, selecciona la dirección de correo postal correcta para tu declaración de impuestos %{tax_year}.
       verification_code:
-        invalid: Por favor ingresa un código válido. Luego de 2 intentos fallidos, tu cuenta quedará bloqueada.
         blank: Por favor ingresa un código válido. Luego de 2 intentos fallidos, tu cuenta quedará bloqueada.
+        invalid: Por favor ingresa un código válido. Luego de 2 intentos fallidos, tu cuenta quedará bloqueada.
+    messages:
+      blank: No puede estar en blanco.
   general:
     continue: Continuar
     faq: Preguntas frecuentes
@@ -27,11 +29,11 @@ es:
         <p>Tu equipo de impuestos en FileYourStateTaxes.org</p>
       body_text: |
         ¡Hola!
-        Tu código de verificación de seis dígitos para %{service_name} es: %{verification_code}. Este código expirará después de 10 minutos.
+        Tu código de verificación de seis dígitos para FileYourStateTaxes es: %{verification_code}. Este código expirará después de 10 minutos.
 
-        ¿Recibiste este código sin registrarte? Envíanos un correo electrónico a help@%{service_name_lower}.org
+        ¿Recibiste este código sin registrarte? Envíanos un correo electrónico a help@fileyourstatetaxes.org
 
-        Tu equipo de impuestos en %{service_name}.org
+        Tu equipo de impuestos en FileYourStateTaxes.org
       subject: Código de verificación de seis dígitos para FileYourStateTaxes
   views:
     contact_preference:
