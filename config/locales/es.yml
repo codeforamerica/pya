@@ -69,6 +69,13 @@ es:
         title: Confirma tu dirección para acceder a tu declaración de impuestos
     pages:
       home:
+        faq: Preguntas frecuentes
+        download_your_return: Descarga tu declaración
+        closed_warning: FileYourStateTaxes cerró el 31 de octubre de 2025 y no fue renovado para la temporada de impuestos 2025.
+        closed_forever_subheader_html: |
+          <strong>FileYourStateTaxes</strong> se integraba con  el servicio Direct File del IRS para ayudarte a completar tu declaración de impuestos estatal sin costo, y este servicio ya no está activo.<br/><br/>
+          Si presentaste tu declaración con nosotros en 2025 o 2024, puedes descargar una copia de tu declaración estatal. Para obtener más información sobre cómo acceder a tus reembolsos federales y estatales, <a href=%{faq_link}>visita nuestras Preguntas Frecuentes</a><br /><br />
+          Para recibir ayuda para presentar tus impuestos federales y estatales sin costo, visita GetYourRefund.
         closed_notice_html: "<strong>We’re closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong>"
         download_notice_html: Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong>.
         headline: A free state filing service for taxpayers using IRS Direct File

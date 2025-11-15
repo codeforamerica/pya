@@ -70,21 +70,17 @@ en:
         title: Confirm your address to access your tax return
     pages:
       home:
-        download_your_return: Download your return
-        closed_warning: FileYourStateTaxes closed on October 31, 2025 and was not renewed for the 2025 season.
-        visit_gyr: Visit GetYourRefund
         closed_forever_subheader_html: |
           <strong>FileYourStateTaxes</strong> integrated with IRS Direct File to help you complete your state tax return for free, and is now closed.<br/><br/>
           If you filed with us in 2025 or 2024, you can download a copy of your state return. For more information on accessing your federal and state refunds, <a href=%{faq_link}>visit our FAQs</a><br /><br />
           For support in filing your federal and state taxes for free, visit GetYourRefund.
-        skip_to_main_content: "Skip to main content"
-        faq: "FAQ"
-        spanish: "Español"
-        headline: "A free state filing service for taxpayers using IRS Direct File"
-        integration_html: "<strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free</strong>."
         closed_notice_html: "<strong>We’re closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong>"
-        download_notice_html: Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong>.
-        sign_in: Sign in
+        closed_warning: FileYourStateTaxes closed on October 31, 2025 and was not renewed for the 2025 season.
+        download_your_return: Download your return
+        faq: FAQ
+        headline: A free state filing service for taxpayers using IRS Direct File
+        spanish: Español
+        visit_gyr: Visit GetYourRefund
       knock_out:
         also_visit_html: You can also visit your state’s tax agency website to request your %{year} tax return. For more information, click on the links below or visit our <a href='https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return'>FAQ page</a>.
         az_dor: Arizona Department of Revenue
