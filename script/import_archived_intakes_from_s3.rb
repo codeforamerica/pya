@@ -63,18 +63,21 @@ class ImportArchivedIntakesFromS3 < Thor
     end
 
     def s3_client
-      if ENV["AWS_ACCESS_KEY_ID"].present? && ENV["AWS_SECRET_ACCESS_KEY"].present?
+      if ENV["AWS_ACCESS_KEY_ID"].present? &&
+        ENV["AWS_SECRET_ACCESS_KEY"].present?
         Aws::S3::Client.new(
           region: "us-east-1",
           credentials: Aws::Credentials.new(
             ENV["AWS_ACCESS_KEY_ID"],
-            ENV["AWS_SECRET_ACCESS_KEY"]
+            ENV["AWS_SECRET_ACCESS_KEY"],
+            ENV["AWS_SESSION_TOKEN"] # can be nil; AWS SDK handles that
           )
         )
       else
         Aws::S3::Client.new(region: "us-east-1")
       end
     end
+
   end
 end
 
