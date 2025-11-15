@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     post "pdf/log_and_redirect", to: "pdf#log_and_redirect"
     resources :pdf, only: [:index]
 
-    devise_for :state_file_archived_intakes
+    devise_for :state_file_archived_intakes,
+      controllers: { sessions: "state_file_archived_intakes/sessions" }
   end
 end
