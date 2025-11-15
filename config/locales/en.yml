@@ -84,8 +84,6 @@ en:
         integration_html: "<strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free</strong>."
         closed_notice_html: "<strong>We’re closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong>"
         download_notice_html: Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong>.
-        headline: A free state filing service for taxpayers using IRS Direct File
-        integration_html: "<strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free</strong>."
         sign_in: Sign in
       knock_out:
         also_visit_html: You can also visit your state’s tax agency website to request your %{year} tax return. For more information, click on the links below or visit our <a href='https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return'>FAQ page</a>.
