@@ -4,12 +4,15 @@ es:
     attributes:
       email_address:
         invalid: Por favor, ingresa un correo electrónico válido.
+        blank: Por favor, ingresa un correo electrónico válido.
       phone_number:
         invalid: Por favor, ingresa un número de teléfono válido.
+        blank: Por favor, ingresa un número de teléfono válido.
       selected_address:
         blank: Por favor, selecciona la dirección de correo postal correcta para tu declaración de impuestos %{tax_year}.
       verification_code:
         invalid: Por favor ingresa un código válido. Luego de 2 intentos fallidos, tu cuenta quedará bloqueada.
+        blank: Por favor ingresa un código válido. Luego de 2 intentos fallidos, tu cuenta quedará bloqueada.
   general:
     continue: Continuar
     faq: Preguntas frecuentes
@@ -75,7 +78,7 @@ es:
           Para recibir ayuda para presentar tus impuestos federales y estatales sin costo, visita GetYourRefund.
         closed_warning: FileYourStateTaxes cerró el 31 de octubre de 2025 y no fue renovado para la temporada de impuestos 2025.
         download_your_return: Descarga tu declaración
-        headline: A free state filing service for taxpayers using IRS Direct File
+        headline: Un servicio sin costo para declarar los impuestos estatales para las personas que usaron IRS Direct File
         visit_gyr: Visita GetYourRefund
       knock_out:
         also_visit_html: Puedes visitar la página web de la agencia tributaria de tu estado para solicitar tu declaración de impuestos %{year}. Para mayor información, haz clic en los siguientes enlaces o visita nuestra <a href='https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return'>página de preguntas frecuentes</a>.

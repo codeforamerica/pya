@@ -4,12 +4,15 @@ en:
     attributes:
       email_address:
         invalid: Please enter a valid email address.
+        blank: Please enter a valid email address.
       phone_number:
         invalid: Please enter a valid phone number.
+        blank: Please enter a valid phone number.
       selected_address:
         blank: Please select the correct mailing address for your %{tax_year} tax return.
       verification_code:
         invalid: Please enter a valid code. After 2 failed attempts, your account will be locked.
+        blank: Please enter a valid code. After 2 failed attempts, your account will be locked.
   general:
     continue: Continue
     faq: FAQ
