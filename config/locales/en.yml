@@ -3,16 +3,18 @@ en:
   errors:
     attributes:
       email_address:
-        invalid: Please enter a valid email address.
         blank: Please enter a valid email address.
+        invalid: Please enter a valid email address.
       phone_number:
-        invalid: Please enter a valid phone number.
         blank: Please enter a valid phone number.
+        invalid: Please enter a valid phone number.
       selected_address:
         blank: Please select the correct mailing address for your %{tax_year} tax return.
       verification_code:
-        invalid: Please enter a valid code. After 2 failed attempts, your account will be locked.
         blank: Please enter a valid code. After 2 failed attempts, your account will be locked.
+        invalid: Please enter a valid code. After 2 failed attempts, your account will be locked.
+    messages:
+      blank: Can't be blank.
   general:
     continue: Continue
     faq: FAQ
@@ -28,11 +30,11 @@ en:
       body_text: |
         Hello!
 
-        Your six-digit verification code for %{service_name} is: %{verification_code}. This code will expire after 10 minutes.
+        Your six-digit verification code for FileYourStateTaxes is: %{verification_code}. This code will expire after 10 minutes.
 
-        Did you receive this code without signing up? Email us at help@%{service_name_lower}.org226226
+        Did you receive this code without signing up? Email us at help@fileyourstatetaxes.org
 
-        Your tax team at %{service_name}.org
+        Your tax team at FileYourStateTaxes.org
       subject: Six-Digit Code from FileYourStateTaxes
   views:
     contact_preference:

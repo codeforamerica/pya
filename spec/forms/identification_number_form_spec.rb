@@ -27,7 +27,7 @@ RSpec.describe IdentificationNumberForm do
       it "is not valid and adds a validation error" do
         expect(form).not_to be_valid
         expect(form.errors).to include :ssn
-        expect(form.errors[:ssn]).to include "Can't be blank."
+        expect(form.errors[:ssn]).to include I18n.t("views.identification_number.edit.error_message")
       end
     end
 

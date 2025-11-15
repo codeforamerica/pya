@@ -46,7 +46,7 @@ describe TextMessageVerificationCodeService do
 
     it "sends a text message with the verification code" do
       described_class.request_code(**params)
-      expected_body = "Your 6-digit FileYourStateTaxes verification code is: 123456. This code will expire after 10 minutes"
+      expected_body = "Hello!\n\nYour six-digit verification code for FileYourStateTaxes is: 123456. This code will expire after 10 minutes.\n\nDid you receive this code without signing up? Email us at help@fileyourstatetaxes.org\n\nYour tax team at FileYourStateTaxes.org"
 
       expect(twilio_service).to have_received(:send_message).with(
         to: phone_number,

@@ -4,6 +4,7 @@ class MailingAddressValidationController < BaseController
   before_action :confirm_code_and_ssn_verification
 
   def edit
+    @year = current_state_file_archived_intake.tax_year
     @addresses = current_state_file_archived_intake.address_challenge_set
     @form = MailingAddressValidationForm.new(addresses: @addresses, current_address: current_state_file_archived_intake.full_address, tax_year: current_state_file_archived_intake.tax_year )
   end
