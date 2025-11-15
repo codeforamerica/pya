@@ -47,17 +47,12 @@ class ImportArchivedIntakesFromS3 < Thor
     end
 
     def db_connection_string
-      config = ActiveRecord::Base.connection_db_config.configuration_hash
+      config_hash = ActiveRecord::Base.connection_db_config.as_json.with_indifferent_access[:configuration_hash]
 
-      host     = config[:host]     || config["host"]
-      port     = config[:port]     || config["port"] || 5432
-      database = config[:database] || config["database"]
-      username = config[:username] || config["username"]
-      password = config[:password] || config["password"]
-
-      if username && password
+      case config_hash
+      in host:, port:, username:, password:, database:
         "postgres://#{username}:#{password}@#{host}:#{port}/#{database}"
-      else
+      in host:, port:, database:
         "postgres://#{host}:#{port}/#{database}"
       end
     end
