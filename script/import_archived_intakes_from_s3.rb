@@ -63,20 +63,16 @@ class ImportArchivedIntakesFromS3 < Thor
     end
 
     def s3_client
-      Aws::S3::Client.new(
-        region: "us-east-1",
-        credentials: s3_credentials
-      )
-    end
-
-    def s3_credentials
-      if ENV["AWS_ACCESS_KEY_ID"].present? # is this for local?
-        Aws::Credentials.new(ENV["AWS_ACCESS_KEY_ID"], ENV.fetch("AWS_SECRET_ACCESS_KEY", nil))
-      else
-        Aws::Credentials.new(
-          Rails.application.credentials.dig(:aws, :access_key_id),
-          Rails.application.credentials.dig(:aws, :secret_access_key)
+      if ENV["AWS_ACCESS_KEY_ID"].present? && ENV["AWS_SECRET_ACCESS_KEY"].present?
+        Aws::S3::Client.new(
+          region: "us-east-1",
+          credentials: Aws::Credentials.new(
+            ENV["AWS_ACCESS_KEY_ID"],
+            ENV["AWS_SECRET_ACCESS_KEY"]
+          )
         )
+      else
+        Aws::S3::Client.new(region: "us-east-1")
       end
     end
   end
