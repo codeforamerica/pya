@@ -1,4 +1,4 @@
-class StateFileArchivedIntakes::SessionsController < Devise::SessionsController
+class SessionsController < Devise::SessionsController
 
   def destroy
     year_selected = session[:year_selected]

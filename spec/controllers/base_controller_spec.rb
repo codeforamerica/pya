@@ -7,6 +7,7 @@ RSpec.describe BaseController, type: :controller do
   before do
     request.env["devise.mapping"] = Devise.mappings[:state_file_archived_intake]
     allow(controller).to receive(:root_path).and_return("/")
+    allow(controller).to receive(:knock_out_path).and_return("/knock-out")
   end
 
   let(:tax_year) { 2024 }
@@ -124,6 +125,84 @@ RSpec.describe BaseController, type: :controller do
           controller.create_and_login_state_file_archived_intake(email_address: "y0@ex.com")
         }.not_to change { StateFileArchivedIntake.count }
         expect(controller.current_state_file_archived_intake).to be_nil
+      end
+    end
+  end
+
+  describe "#is_intake_unavailable" do
+    before do
+      allow(controller).to receive(:knock_out_path).and_return("/knock-out")
+    end
+
+    context "when there is no current intake" do
+      before do
+        allow(controller)
+          .to receive(:current_state_file_archived_intake)
+                .and_return(nil)
+      end
+
+      it "redirects to knock_out_path" do
+        expect(controller).to receive(:redirect_to).with("/knock-out")
+        controller.is_intake_unavailable
+      end
+    end
+
+    context "when the intake is permanently locked" do
+      let!(:locked_intake) do
+        create(:state_file_archived_intake, permanently_locked_at: Time.current)
+      end
+
+      before do
+        allow(controller)
+          .to receive(:current_state_file_archived_intake)
+                .and_return(locked_intake)
+      end
+
+      it "sets session[:permanently_locked] and redirects to knock_out_path" do
+        expect(controller).to receive(:redirect_to).with("/knock-out")
+        controller.is_intake_unavailable
+        expect(session[:permanently_locked]).to eq(true)
+      end
+    end
+
+    context "when the intake is access locked but not permanently locked" do
+      let!(:access_locked_intake) do
+        create(:state_file_archived_intake, permanently_locked_at: nil)
+      end
+
+      before do
+        # stub only the predicate on the real record
+        allow(access_locked_intake).to receive(:access_locked?).and_return(true)
+
+        allow(controller)
+          .to receive(:current_state_file_archived_intake)
+                .and_return(access_locked_intake)
+      end
+
+      it "redirects to knock_out_path without setting permanently_locked" do
+        expect(controller).to receive(:redirect_to).with("/knock-out")
+        controller.is_intake_unavailable
+        expect(session[:permanently_locked]).to be_nil
+      end
+    end
+
+    context "when the intake is available (not locked)" do
+      let!(:available_intake) do
+        create(:state_file_archived_intake, permanently_locked_at: nil)
+      end
+
+      before do
+        allow(available_intake).to receive(:access_locked?).and_return(false)
+
+        allow(controller)
+          .to receive(:current_state_file_archived_intake)
+                .and_return(available_intake)
+      end
+
+      it "does not redirect or set permanently_locked" do
+        expect(controller).not_to receive(:redirect_to)
+        controller.is_intake_unavailable
+        expect(session[:permanently_locked]).to be_nil
       end
     end
   end
