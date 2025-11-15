@@ -31,7 +31,7 @@ RSpec.describe EmailAddressForm do
         form = EmailAddressForm.new(email_address: "")
 
         expect(form.valid?).to be false
-        expect(form.errors[:email_address]).to include("Can't be blank.")
+        expect(form.errors[:email_address]).to include("Please enter a valid email address.")
       end
     end
   end

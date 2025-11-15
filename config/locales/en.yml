@@ -13,6 +13,9 @@ en:
       verification_code:
         invalid: Please enter a valid code. After 2 failed attempts, your account will be locked.
         blank: Please enter a valid code. After 2 failed attempts, your account will be locked.
+      identification_number:
+        blank: Kill yourself
+
   general:
     continue: Continue
     faq: FAQ
