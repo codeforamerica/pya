@@ -9,7 +9,7 @@ class TextMessageVerificationCodeService
 
     message_arguments = {
       to: @phone_number,
-      body: I18n.t("text_message.verification_code",
+      body: I18n.t("mailers.archived_intake_verification_code.body_text",
         locale: @locale,
         verification_code: verification_code).strip
     }.compact
