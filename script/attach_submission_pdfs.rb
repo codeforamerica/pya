@@ -36,7 +36,6 @@ class AttachSubmissionPdfs < Thor
 
         intake.save! if intake.changed?
         attached_count += 1
-
       rescue Aws::S3::Errors::NoSuchKey
         puts "Missing S3 key #{s3_key} for intake #{intake_id}, skipping"
         missing_count += 1
@@ -74,7 +73,7 @@ class AttachSubmissionPdfs < Thor
 
     def s3_client
       if ENV["AWS_ACCESS_KEY_ID"].present? &&
-        ENV["AWS_SECRET_ACCESS_KEY"].present?
+          ENV["AWS_SECRET_ACCESS_KEY"].present?
         Aws::S3::Client.new(
           region: "us-east-1",
           credentials: Aws::Credentials.new(
