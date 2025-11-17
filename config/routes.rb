@@ -36,6 +36,6 @@ Rails.application.routes.draw do
     resources :pdf, only: [:index]
 
     devise_for :state_file_archived_intakes,
-      controllers: { sessions: "sessions" }
+      controllers: {sessions: "sessions"}
   end
 end

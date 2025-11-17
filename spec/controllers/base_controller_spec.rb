@@ -138,7 +138,7 @@ RSpec.describe BaseController, type: :controller do
       before do
         allow(controller)
           .to receive(:current_state_file_archived_intake)
-                .and_return(nil)
+          .and_return(nil)
       end
 
       it "redirects to knock_out_path" do
@@ -155,7 +155,7 @@ RSpec.describe BaseController, type: :controller do
       before do
         allow(controller)
           .to receive(:current_state_file_archived_intake)
-                .and_return(locked_intake)
+          .and_return(locked_intake)
       end
 
       it "sets session[:permanently_locked] and redirects to knock_out_path" do
@@ -176,7 +176,7 @@ RSpec.describe BaseController, type: :controller do
 
         allow(controller)
           .to receive(:current_state_file_archived_intake)
-                .and_return(access_locked_intake)
+          .and_return(access_locked_intake)
       end
 
       it "redirects to knock_out_path without setting permanently_locked" do
@@ -196,7 +196,7 @@ RSpec.describe BaseController, type: :controller do
 
         allow(controller)
           .to receive(:current_state_file_archived_intake)
-                .and_return(available_intake)
+          .and_return(available_intake)
       end
 
       it "does not redirect or set permanently_locked" do

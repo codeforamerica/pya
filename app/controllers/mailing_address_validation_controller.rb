@@ -6,7 +6,7 @@ class MailingAddressValidationController < BaseController
   def edit
     @year = current_state_file_archived_intake.tax_year
     @addresses = current_state_file_archived_intake.address_challenge_set
-    @form = MailingAddressValidationForm.new(addresses: @addresses, current_address: current_state_file_archived_intake.full_address, tax_year: current_state_file_archived_intake.tax_year )
+    @form = MailingAddressValidationForm.new(addresses: @addresses, current_address: current_state_file_archived_intake.full_address, tax_year: current_state_file_archived_intake.tax_year)
   end
 
   def update

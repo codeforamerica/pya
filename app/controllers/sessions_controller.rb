@@ -1,5 +1,4 @@
 class SessionsController < Devise::SessionsController
-
   def destroy
     year_selected = session[:year_selected]
     permanently_locked = session[:permanently_locked]
