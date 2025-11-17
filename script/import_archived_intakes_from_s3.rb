@@ -47,31 +47,34 @@ class ImportArchivedIntakesFromS3 < Thor
     end
 
     def db_connection_string
-      config_hash = ActiveRecord::Base.connection_db_config.as_json.with_indifferent_access[:configuration_hash]
+      config = ActiveRecord::Base.connection_db_config.configuration_hash
 
-      case config_hash
-      in host:, port:, username:, password:, database:
+      host = config[:host] || config["host"]
+      port = config[:port] || config["port"] || 5432
+      database = config[:database] || config["database"]
+      username = config[:username] || config["username"]
+      password = config[:password] || config["password"]
+
+      if username && password
         "postgres://#{username}:#{password}@#{host}:#{port}/#{database}"
-      in host:, port:, database:
+      else
         "postgres://#{host}:#{port}/#{database}"
       end
     end
 
     def s3_client
-      Aws::S3::Client.new(
-        region: "us-east-1",
-        credentials: s3_credentials
-      )
-    end
-
-    def s3_credentials
-      if ENV["AWS_ACCESS_KEY_ID"].present? # is this for local?
-        Aws::Credentials.new(ENV["AWS_ACCESS_KEY_ID"], ENV.fetch("AWS_SECRET_ACCESS_KEY", nil))
-      else
-        Aws::Credentials.new(
-          Rails.application.credentials.dig(:aws, :access_key_id),
-          Rails.application.credentials.dig(:aws, :secret_access_key)
+      if ENV["AWS_ACCESS_KEY_ID"].present? &&
+          ENV["AWS_SECRET_ACCESS_KEY"].present?
+        Aws::S3::Client.new(
+          region: "us-east-1",
+          credentials: Aws::Credentials.new(
+            ENV["AWS_ACCESS_KEY_ID"],
+            ENV["AWS_SECRET_ACCESS_KEY"],
+            ENV["AWS_SESSION_TOKEN"] # can be nil; AWS SDK handles that
+          )
         )
+      else
+        Aws::S3::Client.new(region: "us-east-1")
       end
     end
   end
