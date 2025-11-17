@@ -11,7 +11,7 @@ class IdentificationNumberForm < Form
   def valid?
     super
 
-    unless ssn.present?
+    if ssn.blank?
       errors.clear
       errors.add(:ssn, I18n.t("views.identification_number.edit.error_message"))
       return false

@@ -1,9 +1,13 @@
 class MailingAddressValidationForm < Form
-  attr_accessor :selected_address
+  attr_accessor :selected_address, :tax_year
+
   validates :selected_address,
             presence: {
               message: ->(object, data) {
-                I18n.t("errors.attributes.selected_address.blank", tax_year: object.instance_variable_get(:@tax_year))
+                I18n.t(
+                  "errors.attributes.selected_address.blank",
+                  tax_year: object.tax_year
+                )
               }
             }
 
