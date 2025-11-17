@@ -171,7 +171,6 @@ RSpec.describe BaseController, type: :controller do
       end
 
       before do
-        # stub only the predicate on the real record
         allow(access_locked_intake).to receive(:access_locked?).and_return(true)
 
         allow(controller)
