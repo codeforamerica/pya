@@ -10,7 +10,12 @@ class IdentificationNumberForm < Form
 
   def valid?
     super
-    return false unless ssn.present?
+
+    if ssn.blank?
+      errors.clear
+      errors.add(:ssn, I18n.t("views.identification_number.edit.error_message"))
+      return false
+    end
 
     hashed_ssn = SsnHashingService.hash(parsed_ssn)
 

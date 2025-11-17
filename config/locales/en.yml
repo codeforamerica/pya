@@ -1,118 +1,112 @@
+---
 en:
+  errors:
+    attributes:
+      email_address:
+        blank: Please enter a valid email address.
+        invalid: Please enter a valid email address.
+      phone_number:
+        blank: Please enter a valid phone number.
+        invalid: Please enter a valid phone number.
+      selected_address:
+        blank: Please select the correct mailing address for your %{tax_year} tax return.
+      verification_code:
+        blank: Please enter a valid code. After 2 failed attempts, your account will be locked.
+        invalid: Please enter a valid code. After 2 failed attempts, your account will be locked.
+    messages:
+      blank: Can't be blank.
+  general:
+    continue: Continue
+    faq: FAQ
+    return_home: Return to homepage
+    sign_in: Sign in
   mailers:
     archived_intake_verification_code:
       body_html: |
         <p>Hello!</p>
-        <p>Your six-digit verification code for %{service_name} is: <strong> %{verification_code}.</strong> This code will expire after 30 minutes.</p>
-        <p>Did you receive this code without signing up? Email us at <a href="mailto:help@%{service_name_lower}.org">help@%{service_name_lower}.org</a></p>
-        <p>Your tax team at %{service_name}.org</p>
+        <p>Your six-digit verification code for FileYourStateTaxes is: <strong> %{verification_code}.</strong> This code will expire after 10 minutes.</p>
+        <p>Did you receive this code without signing up? Email us at <a href="mailto:help@fileyourstatetaxes.org</a></p>
+        <p>Your tax team at FileYourStateTaxes.org</p>
       body_text: |
         Hello!
 
-        Your six-digit verification code for %{service_name} is: %{verification_code}. This code will expire after 30 minutes.
+        Your six-digit verification code for FileYourStateTaxes is: %{verification_code}. This code will expire after 10 minutes.
 
-        Did you receive this code without signing up? Email us at help@%{service_name_lower}.org226226
+        Did you receive this code without signing up? Email us at help@fileyourstatetaxes.org
 
-        Your tax team at %{service_name}.org
+        Your tax team at FileYourStateTaxes.org
       subject: Six-Digit Code from FileYourStateTaxes
-  errors:
-    messages:
-      blank: Can't be blank.
-    attributes:
-      selected_address:
-        blank: Select a mailing address.
-      email_address:
-        invalid: Please enter a valid email address.
-      phone_number:
-        invalid: Please enter a valid phone number.
-      verification_code:
-        invalid: Incorrect verification code. After 2 failed attempts, accounts are locked.
-  general:
-    continue: Continue
-    return_home: Return to home
-    submit: Submit
-  text_message:
-    verification_code: "Your 6-digit FileYourStateTaxes verification code is: %{verification_code}. This code will expire after 10 minutes"
   views:
-    pdf:
-      index:
-        title: Your account has been successfully verified!
-        subtitle: To access your %{year} %{state} Tax return, click the link below.
-        another_return: If you have another year’s return you would like to download, you will have to sign back in with the contact method you used to create that account.
-        download_button: Download %{year} Return
-        another_return_button: Download another return
+    contact_preference:
+      edit:
+        email_option: Sign in with email
+        subtitle: 'Note: Your sign in method might be different than how you received notifications about your tax return.'
+        text_message_option: Sign in with phone number
+        title: What sign in method did you use to create an account?
+    email_address:
+      edit:
+        email_address_label: Your email address
+        send_code: Send code
+        title: Enter the email address linked to your account
+    identification_number:
+      edit:
+        error_message: Please enter the correct SSN/ITIN. After 2 failed attempts, your account will be locked.
+        help_text: To keep your identity safe, we need to confirm your Social Security Number.
+        ssn_label: Social Security Number or ITIN
+        title: Please confirm your identity
+    layouts:
+      environment_warning:
+        banner_html: This site is for example purposes only. If you want help with your taxes, go to <a target="_blank" rel="nofollow noopener" href="https://www.fileyourstatetaxes.org">FileYourStateTaxes.org</a>.
+      footer:
+        built_by_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with state tax agencies to integrate with IRS Direct File.
+        contact_us: Contact us
+        contact_us_url: mailto:help@fileyourstatetaxes.org
+        faq: FAQ
+        faq_url: https://www.fileyourstatetaxes.org/en/us/faq
+        privacy_policy: Privacy Policy
+        privacy_policy_url: https://www.fileyourstatetaxes.org/en/privacy-policy
+        sms_terms: SMS Terms
+        sms_terms_url: https://www.fileyourstatetaxes.org/en/sms-terms
+        spanish: Español
     mailing_address_validation:
       edit:
         identity_safe: To keep your identity safe, we need to confirm the address on your %{year} tax return.
         radio_button_title: 'Select the mailing address for your %{year} tax return:'
         title: Confirm your address to access your tax return
-    identification_number:
-      edit:
-        error_message: Please enter the correct SSN/ITIN. After 2 failed attempts, your account will be locked.
-        help_text: To keep your identity safe, we need to confirm your social security number.
-        ssn_label: Social Security Number or ITIN
-        title: We found your account! Please confirm your identity
-    email_address:
-      edit:
-        title: Enter the email address linked to your account
-        email_address_label: Your email address
-        send_code: Send code
-    verification_code:
-      edit:
-        action: Verify code
-        verification_code_label: Enter the 6-digit code
-        title_html: We’ve sent a code to %{contact_info}
-        email:
-          body_1: Please enter the code emailed to you. If you didn’t receive a code, please check your spam folder.
-          body_2_html: If this is not the email address you used to create your account, please go back and enter the correct email address.  If you still need help, <a class="open-intercom">chat with us</a>.
-        text:
-          body_1: Please enter the code texted to you.
-          body_2_html: If this is not the phone number you used to create your account, please go back and enter the correct phone number.  If you still need help, <a class="open-intercom">chat with us</a>.
-    year_select:
-      show:
-        title: Select the tax year of the return you want to download
-        subtitle: To keep your information secure, if you need to download both returns, you can return to this screen to download the second return after you finish downloading the first.
-        radio_label: "Select the tax year of the return you want to download:"
-    contact_preference:
-      edit:
-        title: What sign in method did you use to create an account?
-        subtitle: Your sign in method might be different than how you received notifications about your tax return.
-        text_message_option: Sign in with phone number
-        email_option: "Sign in with email"
-    phone_number:
-      edit:
-        title: Enter the phone number linked to your account
-        phone_number_label: Your phone number
-        numbers_only: Enter numbers only
     pages:
       home:
-        download_your_return: Download your return
-        closed_warning: FileYourStateTaxes closed on October 31, 2025 and was not renewed for the 2025 season.
-        visit_gyr: Visit GetYourRefund
         closed_forever_subheader_html: |
           <strong>FileYourStateTaxes</strong> integrated with IRS Direct File to help you complete your state tax return for free, and is now closed.<br/><br/>
           If you filed with us in 2025 or 2024, you can download a copy of your state return. For more information on accessing your federal and state refunds, <a href=%{faq_link}>visit our FAQs</a><br /><br />
           For support in filing your federal and state taxes for free, visit GetYourRefund.
-        skip_to_main_content: "Skip to main content"
-        faq: "FAQ"
-        spanish: "Español"
-        headline: "A free state filing service for taxpayers using IRS Direct File"
-        integration_html: "<strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free</strong>."
-        closed_notice_html: "<strong>We’re closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong>"
-        download_notice_html: "Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong>."
-        sign_in: "Sign in"
+        closed_warning: FileYourStateTaxes closed on October 31, 2025 and was not renewed for the 2025 season.
+        download_your_return: Download your return
+        headline: A free state filing service for taxpayers using IRS Direct File
+        visit_gyr: Visit GetYourRefund
       knock_out:
+        also_visit_html: You can also visit your state’s tax agency website to request your %{year} tax return. For more information, click on the links below or visit our <a href='https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return'>FAQ page</a>.
         az_dor: Arizona Department of Revenue
-        locked_due_to: This account has been locked due to too many failed login attempts.
-        one_hour: Please try again in 1 hour.
         id_form: Idaho Form STC-06
-        ny_dor: NY State Tax Department
+        locked_due_to: This account has been locked due to too many failed login attempts.
         md_form: Maryland Form 129
         nc_dor: North Carolina Department of Revenue
         nj_dot: New Jersey Division of Taxation
+        ny_dor: NY State Tax Department
+        one_hour: Please try again in 1 hour.
         return_to_home: Return to Homepage
-        also_visit_html: You can also visit your state’s tax agency website to request your %{year} tax return. For more information, click on the links below or visit our <a href='https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return'>FAQ page</a>.
         title: Sorry, we were not able to verify your account
+    pdf:
+      index:
+        another_return: If you have another year’s return you would like to download, you will have to sign back in with the contact method you used to create that account.
+        another_return_button: Download another return
+        download_button: Download %{year} Return
+        subtitle: To access your %{year} %{state} Tax return, click the link below.
+        title: Your account has been successfully verified!
+    phone_number:
+      edit:
+        numbers_only: Enter numbers only
+        phone_number_label: Your phone number
+        title: Enter the phone number linked to your account
     public_pages:
       internal_server_error:
         body: It looks like there was a server error. We've been notified of the issue and will work to fix it!
@@ -121,20 +115,19 @@ en:
       page_not_found:
         let_us_know_html: If you followed a link here, please let us know using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
         title: Oops, we're sorry, but the page you're looking for can't be found.
-    layouts:
-      header:
-        link_to_main_content: "Skip to main content"
-        spanish: "Español"
-      footer:
-        contact_us: "Contact us"
-        contact_us_url: "mailto:help@fileyourstatetaxes.org"
-        faq: "FAQ"
-        faq_url: "https://www.fileyourstatetaxes.org/en/us/faq"
-        privacy_policy: "Privacy Policy"
-        privacy_policy_url: "https://www.fileyourstatetaxes.org/en/privacy-policy"
-        sms_terms: "SMS Terms"
-        sms_terms_url: "https://www.fileyourstatetaxes.org/en/sms-terms"
-        spanish: "Español"
-        built_by_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with state tax agencies to integrate with IRS Direct File.
-      environment_warning:
-        banner_html: This site is for example purposes only. If you want help with your taxes, go to <a target="_blank" rel="nofollow noopener" href="https://www.fileyourstatetaxes.org">FileYourStateTaxes.org</a>.
+    verification_code:
+      edit:
+        action: Verify code
+        email:
+          body_1: Please enter the code emailed to you. If you didn’t receive a code, please check your spam folder.
+          body_2_html: If this is not the email address you used to create your account, please go back and enter the correct email address.  If you still need help, <a class="open-intercom">chat with us</a>.
+        text:
+          body_1: Please enter the code texted to you.
+          body_2_html: If this is not the phone number you used to create your account, please go back and enter the correct phone number.  If you still need help, <a class="open-intercom">chat with us</a>.
+        title_html: We’ve sent a code to %{contact_info}
+        verification_code_label: Enter the 6-digit code
+    year_select:
+      show:
+        radio_label: 'Select the tax year of the return you want to download:'
+        subtitle: To keep your information secure, if you need to download both returns, you can return to this screen to download the second return after you finish downloading the first.
+        title: Select the tax year of the return you want to download
