@@ -78,7 +78,7 @@ es:
           <strong>FileYourStateTaxes</strong> se integraba con  el servicio Direct File del IRS para ayudarte a completar tu declaración de impuestos estatal sin costo, y este servicio ya no está activo.<br/><br/>
           Si presentaste tu declaración con nosotros en 2025 o 2024, puedes descargar una copia de tu declaración estatal. Para obtener más información sobre cómo acceder a tus reembolsos federales y estatales, <a href=%{faq_link}>visita nuestras Preguntas Frecuentes</a><br /><br />
           Para recibir ayuda para presentar tus impuestos federales y estatales sin costo, visita GetYourRefund.
-        closed_warning: FileYourStateTaxes cerró el 31 de octubre de 2025 y no fue renovado para la temporada de impuestos 2025.
+        closed_warning: FileYourStateTaxes cerró el 31 de octubre de 2025 y no fue renovado para la temporada de impuestos 2026.
         download_your_return: Descarga tu declaración
         headline: Un servicio sin costo para declarar los impuestos estatales para las personas que usaron IRS Direct File
         visit_gyr: Visita GetYourRefund
