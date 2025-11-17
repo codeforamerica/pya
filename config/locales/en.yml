@@ -120,11 +120,11 @@ en:
         action: Verify code
         email:
           body_1: Please enter the code emailed to you. If you didn’t receive a code, please check your spam folder.
-          body_2_html: If this is not the email address you used to create your account, please go back and enter the correct email address.  If you still need help, <a class="open-intercom">chat with us</a>.
+          body_2_html: If this is not the email address you used to create your account, please go back and enter the correct email address.  If you still need help, <a href="mailto:help@fileyourstatetaxes.org" class="open-intercom">chat with us</a>.
         text:
           body_1: Please enter the code texted to you.
-          body_2_html: If this is not the phone number you used to create your account, please go back and enter the correct phone number.  If you still need help, <a class="open-intercom">chat with us</a>.
-        title_html: We’ve sent a code to %{contact_info}
+          body_2_html: If this is not the phone number you used to create your account, please go back and enter the correct phone number.  If you still need help, <a href="mailto:help@fileyourstatetaxes.org" class="open-intercom">chat with us</a>.
+        title_html: We sent a code to %{contact_info}
         verification_code_label: Enter the 6-digit code
     year_select:
       show:
