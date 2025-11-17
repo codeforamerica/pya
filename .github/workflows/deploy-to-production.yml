@@ -166,6 +166,7 @@ jobs:
       - name: Build and push Docker image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          BUNDLE_GITHUB__COM: ${{ secrets.BUNDLE_GITHUB__COM}}
         run: |
           docker build -t 828007041297.dkr.ecr.us-east-1.amazonaws.com/pya-production-web:${{env.IMAGE_TAG}} --platform linux/amd64 .
           docker push 828007041297.dkr.ecr.us-east-1.amazonaws.com/pya-production-web:${{env.IMAGE_TAG}}
