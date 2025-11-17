@@ -5,11 +5,11 @@
   <div class="grid">
     <h1 class="h2"><%= title %></h1>
     <p><%= t("views.pages.knock_out.locked_due_to") %></p>
-    <% if @intake.present? && @intake&.permanently_locked_at.nil? %>
+    <% unless session[:permanently_locked] == true %>
       <p><%= t("views.pages.knock_out.one_hour")%></p>
     <% end %>
     <p><%= t("views.pages.knock_out.also_visit_html", year: session[:year_selected] || "")%></p>
-    <% if @intake.present? %>
+    <% if session[:year_selected] %>
       <div class="bulleted">
         <ul>
           <li><a href="https://azdor.gov/forms/other-forms/request-copies-tax-documents"><%= t("views.pages.knock_out.az_dor") %></a></li>

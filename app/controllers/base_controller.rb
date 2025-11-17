@@ -29,7 +29,12 @@ class BaseController < ApplicationController
   end
 
   def is_intake_unavailable
-    if current_state_file_archived_intake.nil? || current_state_file_archived_intake.access_locked? || current_state_file_archived_intake.permanently_locked_at.present?
+    if current_state_file_archived_intake.nil?
+      redirect_to knock_out_path
+    elsif current_state_file_archived_intake.permanently_locked_at.present?
+      session[:permanently_locked] = true
+      redirect_to knock_out_path
+    elsif current_state_file_archived_intake.access_locked?
       redirect_to knock_out_path
     end
   end

@@ -9,6 +9,7 @@ class VerificationCodeController < BaseController
   end
 
   def edit
+    session[:permanently_locked] = false
     @form = VerificationCodeForm.new(contact_info: @contact_info, contact_preference: current_state_file_archived_intake.contact_preference)
     case current_state_file_archived_intake.contact_preference
     when "text"

@@ -20,6 +20,7 @@ class MailingAddressValidationController < BaseController
       redirect_to pdf_index_path
     elsif params["mailing_address_validation_form"].present?
       EventLogger.log("incorrect mailing address", current_state_file_archived_intake.id)
+      session[:permanently_locked] = true
       current_state_file_archived_intake.update(permanently_locked_at: Time.now)
       redirect_to knock_out_path
     else
