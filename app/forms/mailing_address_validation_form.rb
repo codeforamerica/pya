@@ -1,13 +1,17 @@
 class MailingAddressValidationForm < Form
-  attr_accessor :selected_address
-  validates :selected_address,
-            presence: {
-              message: ->(object, data) {
-                I18n.t("errors.attributes.selected_address.blank", tax_year: object.instance_variable_get(:@tax_year))
-              }
-            }
+  attr_accessor :selected_address, :tax_year
 
-  def initialize(attributes = {}, addresses: [], current_address: nil, tax_year:)
+  validates :selected_address,
+    presence: {
+      message: ->(object, data) {
+        I18n.t(
+          "errors.attributes.selected_address.blank",
+          tax_year: object.tax_year
+        )
+      }
+    }
+
+  def initialize(attributes = {}, tax_year:, addresses: [], current_address: nil)
     super(attributes)
     @tax_year = tax_year
     @addresses = addresses

@@ -12,7 +12,7 @@ class YearSelectController < ApplicationController
         redirect_to edit_email_address_path
       when "2024"
         session[:year_selected] = "2024"
-        redirect_to contact_preference_show_path
+        redirect_to contact_preference_path
       else
         render :show
       end
