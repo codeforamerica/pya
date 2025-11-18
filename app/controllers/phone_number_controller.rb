@@ -1,11 +1,6 @@
 class PhoneNumberController < BaseController
   def edit
-    sign_out(:state_file_archived_intake) if respond_to?(:sign_out)
-
-    session[:ssn_verified] = false
-    session[:mailing_verified] = false
-    session[:code_verified] = false
-
+    logout_clear_session
     @form = PhoneNumberForm.new
   end
 
