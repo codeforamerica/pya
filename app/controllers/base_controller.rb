@@ -28,6 +28,14 @@ class BaseController < ApplicationController
     sign_in intake
   end
 
+  def logout_clear_session
+    sign_out(:state_file_archived_intake) if respond_to?(:sign_out)
+
+    session[:ssn_verified] = false
+    session[:mailing_verified] = false
+    session[:code_verified] = false
+  end
+
   def is_intake_unavailable
     if current_state_file_archived_intake.nil?
       redirect_to knock_out_path

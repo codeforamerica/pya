@@ -1,5 +1,6 @@
 class PhoneNumberController < BaseController
   def edit
+    logout_clear_session
     @form = PhoneNumberForm.new
   end
 

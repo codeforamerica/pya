@@ -1,5 +1,6 @@
 class EmailAddressController < BaseController
   def edit
+    logout_clear_session
     @form = EmailAddressForm.new
   end
 

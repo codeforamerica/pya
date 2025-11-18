@@ -9,6 +9,41 @@ RSpec.describe EmailAddressController, type: :controller do
   end
 
   describe "GET #edit" do
+    it "signs out any existing state_file_archived_intake and resets verification flags" do
+      intake = create(:state_file_archived_intake)
+      sign_in intake
+
+      session[:ssn_verified] = true
+      session[:mailing_verified] = true
+      session[:code_verified] = true
+
+      get :edit
+
+      expect(controller.current_state_file_archived_intake).to be_nil
+
+      expect(session[:ssn_verified]).to eq(false)
+      expect(session[:mailing_verified]).to eq(false)
+      expect(session[:code_verified]).to eq(false)
+
+      expect(assigns(:form)).to be_a(EmailAddressForm)
+      expect(response).to render_template(:edit)
+    end
+
+    it "initializes a new EmailAddressForm and sets verification flags to false when no one is signed in" do
+      session[:ssn_verified] = true
+      session[:mailing_verified] = nil
+      session[:code_verified] = true
+
+      get :edit
+
+      expect(assigns(:form)).to be_a(EmailAddressForm)
+      expect(response).to render_template(:edit)
+
+      expect(session[:ssn_verified]).to eq(false)
+      expect(session[:mailing_verified]).to eq(false)
+      expect(session[:code_verified]).to eq(false)
+    end
+
     it "renders the edit template with a new EmailAddressForm" do
       get :edit
 
