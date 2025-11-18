@@ -34,6 +34,8 @@ class AttachSubmissionPdfs < Thor
           content_type: "application/pdf"
         )
 
+        io.close
+
         intake.save! if intake.changed?
         attached_count += 1
       rescue Aws::S3::Errors::NoSuchKey
@@ -41,6 +43,8 @@ class AttachSubmissionPdfs < Thor
         missing_count += 1
       rescue => e
         puts "Error attaching for intake #{intake_id}: #{e.class} - #{e.message}"
+      ensure
+        io&.close
       end
     end
 
