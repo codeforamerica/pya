@@ -35,6 +35,7 @@ class BaseController < ApplicationController
     session[:mailing_verified] = false
     session[:code_verified] = false
   end
+
   def is_intake_unavailable
     if current_state_file_archived_intake.nil? || current_state_file_archived_intake.access_locked? || current_state_file_archived_intake.permanently_locked_at.present?
       redirect_to knock_out_path
