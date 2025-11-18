@@ -13,12 +13,12 @@
       <div class="bulleted">
         <ul>
           <li><a href="https://azdor.gov/forms/other-forms/request-copies-tax-documents"><%= t("views.pages.knock_out.az_dor") %></a></li>
-          <% if session[:year_selected] == "2025" %>
+          <% if session[:year_selected] == "2023" %>
             <li><a href="https://www.tax.ny.gov/help/contact/get-copy-of-return.htm"><%= t("views.pages.knock_out.ny_dor") %></a></li>
           <% end %>
           <% if session[:year_selected] == "2024" %>
             <li><a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00141/EFO00141_12-12-2022.pdf"><%= t("views.pages.knock_out.id_form") %></a></li>
-            <li><a href="https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2023/129.pdf"><%= t("views.pages.knock_out.md_form") %></a></li>
+            <li><a href="https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/misc/129.pdf"><%= t("views.pages.knock_out.md_form") %></a></li>
             <li><a href="https://www.ncdor.gov/taxes-forms/individual-income-tax/customer-education-individuals/how-get-copy-your-north-carolina-return"><%= t("views.pages.knock_out.nc_dor") %></a></li>
             <li><a href="https://www.nj.gov/treasury/taxation/pdf/other_forms/misc/dcc.pdf"><%= t("views.pages.knock_out.nj_dot") %></a></li>
           <% end %>
