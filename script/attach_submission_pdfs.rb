@@ -5,6 +5,7 @@ class AttachSubmissionPdfs < Thor
 
   desc "attach MAPPING_JSON_KEY BUCKET_NAME", "Attach PDFs from S3 to StateFileArchivedIntakes"
   def attach(mapping_json_key, bucket_name)
+    GC.start
     mappings = load_mappings_from_s3(mapping_json_key, bucket_name)
 
     attached_count = 0
