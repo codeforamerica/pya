@@ -51,7 +51,6 @@ class AttachSubmissionPdfs < Thor
       .where(id: mappings_by_id.keys)
       .includes(submission_pdf_attachment: :blob)
       .find_each(batch_size: batch_size) do |intake|
-
       intake_id = intake.id
       s3_key = mappings_by_id[intake_id]
 
@@ -66,7 +65,7 @@ class AttachSubmissionPdfs < Thor
 
       if intake.submission_pdf.attached?
         already_attached_count += 1
-        results[:already_attached] << { intake_id: intake_id }
+        results[:already_attached] << {intake_id: intake_id}
         next
       end
 
@@ -80,12 +79,10 @@ class AttachSubmissionPdfs < Thor
         )
 
         attached_count += 1
-        results[:attached] << { intake_id: intake_id, key: s3_key }
-
+        results[:attached] << {intake_id: intake_id, key: s3_key}
       rescue Aws::S3::Errors::NoSuchKey
         missing_count += 1
-        results[:missing] << { intake_id: intake_id, key: s3_key }
-
+        results[:missing] << {intake_id: intake_id, key: s3_key}
       rescue => e
         results[:errors] << {
           intake_id: intake_id,
@@ -150,7 +147,7 @@ class AttachSubmissionPdfs < Thor
 
     def s3_client
       if ENV["AWS_ACCESS_KEY_ID"].present? &&
-        ENV["AWS_SECRET_ACCESS_KEY"].present?
+          ENV["AWS_SECRET_ACCESS_KEY"].present?
         Aws::S3::Client.new(
           region: "us-east-1",
           credentials: Aws::Credentials.new(
