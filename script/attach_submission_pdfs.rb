@@ -43,6 +43,8 @@ class AttachSubmissionPdfs < Thor
         missing_count += 1
       rescue => e
         puts "Error attaching for intake #{intake_id}: #{e.class} - #{e.message}"
+      ensure
+        io&.close
       end
     end
 
