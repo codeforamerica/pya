@@ -4,7 +4,7 @@
 
 <% title = t("views.pages.home.headline") %>
 
-<div class="warning">
+<div class="warning spacing-above-10">
   <%= t("views.pages.home.closed_warning") %>
 </div>
 <h1 class="h1 strong"><%= title %></h1>
@@ -12,12 +12,12 @@
   <%= t("views.pages.home.closed_forever_subheader_html", faq_link: "https://www.fileyourstatetaxes.org/#{I18n.locale}/us/faq") %>
 </div>
 
-<%= link_to year_select_path, class: "button home-button button--primary", id: "firstCta", role: "button" do %>
+<%= link_to year_select_path, class: "button button--home button--primary", id: "firstCta", role: "button" do %>
   <%= t("views.pages.home.download_your_return") %>
 <% end %>
 
 <div class="spacing-below-25">
-  <%= link_to "https://www.getyourrefund.org/#{I18n.locale}", class: "button home-button no-external", id: "firstCta", role: "button" do %>
+  <%= link_to "https://www.getyourrefund.org/#{I18n.locale}", class: "button button--home no-external", id: "firstCta", role: "button" do %>
     <%= image_tag("icons/uswds-launch.svg", alt: "", class: "button__icon") %>
     <%= t("views.pages.home.visit_gyr") %>
   <% end %>

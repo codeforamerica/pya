@@ -267,13 +267,17 @@ ol.with-bullets {
   vertical-align: middle;
 }
 
-.home-button {
-  min-width: 40rem;
-  max-width: 40rem;
-  width: 40rem;
+.button--home {
+  @media screen and (min-width: $tablet-up) {
+    max-width: 34.5rem;
+  }
 
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+
+  &:first-of-type {
+    margin-left: 1.25rem;
+  }
 }
