@@ -277,3 +277,23 @@ ol.with-bullets {
   align-items: center;
   text-align: center;
 }
+
+.year-radio-group .form-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.year-radio-group .form-group .radio-button {
+  flex: 1 1 calc(50% - 0.75rem);
+  box-sizing: border-box;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .year-radio-group .form-group .radio-button {
+    flex: 1 1 100%;
+  }
+}

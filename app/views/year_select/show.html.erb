@@ -17,13 +17,16 @@
             <%= t("views.year_select.show.radio_label") %>
           </p>
 
-          <%= f.cfa_radio_set(
-                :year,
-                collection: [
-                  { value: "2023", label: "2023" },
-                  { value: "2024", label: "2024" },
-                ]
-              ) %>
+          <div class="year-radio-group">
+            <%= f.cfa_radio_set(
+                  :year,
+                  collection: [
+                    { value: "2023", label: "2023" },
+                    { value: "2024", label: "2024" },
+                  ]
+                ) %>
+          </div>
+
         </div>
 
         <button type="submit" class="button button--primary button--wide">
