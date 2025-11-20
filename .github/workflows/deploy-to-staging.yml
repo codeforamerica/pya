@@ -70,12 +70,12 @@ jobs:
             https://api.github.com/repos/$repo_owner/$repo_name/dispatches \
             -d "{\"event_type\": \"$event_type\", \"client_payload\": {\"environment\": \"$environment\", \"config\": \"$config\"}}"
 
-      - name: Notify deploy failure on Slack
-        uses: 8398a7/action-slack@v3
-        if: failure()
-        with:
-          text: "<!subteam^S06P99RGJDS> PYA staging deploy ${{ job.status }} :sob:"
-          status: ${{ job.status }}
-          fields: message,commit,author,workflow,took
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      # - name: Notify deploy failure on Slack
+      #   uses: 8398a7/action-slack@v3
+      #   if: failure()
+      #   with:
+      #     text: "<!subteam^S06P99RGJDS> PYA staging deploy ${{ job.status }} :sob:"
+      #     status: ${{ job.status }}
+      #     fields: message,commit,author,workflow,took
+      #   env:
+      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
