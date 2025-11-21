@@ -83,3 +83,5 @@ gem "sentry-ruby"
 gem "sentry-rails"
 
 gem "openssl", ">= 3.3.1"
+
+gem "intercom-rails", "~> 1.0"
