@@ -77,7 +77,7 @@ en:
       home:
         closed_forever_subheader_html: |
           <strong>FileYourStateTaxes</strong> integrated with IRS Direct File to help you complete your state tax return for free, and is now closed.<br/><br/>
-          If you filed with us in 2025 or 2024, you can download a copy of your state return. For more information on accessing your federal and state refunds, <a href=%{faq_link}>visit our FAQs</a><br /><br />
+          If you filed with us in 2025 or 2024, you can download a copy of your state return. For more information on accessing your federal and state refunds, <a class="no-external default-link" href=%{faq_link}>visit our FAQs</a><br /><br />
           For support in filing your federal and state taxes for free, visit GetYourRefund.
         closed_warning: FileYourStateTaxes closed on October 31, 2025 and was not renewed for the 2026 season.
         download_your_return: Download your return
