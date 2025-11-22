@@ -81,19 +81,19 @@ RSpec.describe IdentificationNumberController, type: :controller do
         expect(archived_intake.reload.failed_attempts).to eq(1)
         expect(response).to render_template(:edit)
       end
+      context "with a recent failed attempt" do
+        let!(:archived_intake) { create(:state_file_archived_intake, :with_recent_failed_attempt) }
+        it "locks the account after subsequent failures, logs lockout begin, and redirects to knock_out" do
+          expect(EventLogger).to receive(:log).with("incorrect ssn challenge", archived_intake.id).ordered
+          expect(EventLogger).to receive(:log).with("client lockout begin", archived_intake.id).ordered
 
-      it "locks the account after subsequent failures, logs lockout begin, and redirects to knock_out" do
-        archived_intake.update!(failed_attempts: 1)
+          post :update, params: {identification_number_form: {ssn: invalid_ssn}}
 
-        expect(EventLogger).to receive(:log).with("incorrect ssn challenge", archived_intake.id).ordered
-        expect(EventLogger).to receive(:log).with("client lockout begin", archived_intake.id).ordered
-
-        post :update, params: {identification_number_form: {ssn: invalid_ssn}}
-
-        archived_intake.reload
-        expect(archived_intake.failed_attempts).to eq(2)
-        expect(archived_intake.access_locked?).to be_truthy
-        expect(response).to redirect_to(knock_out_path)
+          archived_intake.reload
+          expect(archived_intake.failed_attempts).to eq(2)
+          expect(archived_intake.access_locked?).to be_truthy
+          expect(response).to redirect_to(knock_out_path)
+        end
       end
     end
 
