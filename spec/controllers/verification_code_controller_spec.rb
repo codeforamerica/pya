@@ -131,26 +131,18 @@ RSpec.describe VerificationCodeController, type: :controller do
           expect(response).to render_template(:edit)
         end
 
-        context "with a recent failed attempt" do
-          let!(:archived_intake) do
-            create(
-              :state_file_archived_intake,
-              :with_recent_failed_attempt,
-              email_address: email_address,
-              contact_preference: "email"
-            )
-          end
-          it "locks the account, logs lockout begin, and redirects after another attempt" do
-            expect(EventLogger).to receive(:log).with("incorrect email code", archived_intake.id).ordered
-            expect(EventLogger).to receive(:log).with("client lockout begin", archived_intake.id).ordered
+        it "locks the account, logs lockout begin, and redirects after multiple failed attempts" do
+          archived_intake.update!(failed_attempts: 1)
 
-            post :update, params: {verification_code_form: {verification_code: invalid_verification_code}}
+          expect(EventLogger).to receive(:log).with("incorrect email code", archived_intake.id).ordered
+          expect(EventLogger).to receive(:log).with("client lockout begin", archived_intake.id).ordered
 
-            expect(session[:code_verified]).to be_nil
-            expect(archived_intake.reload.failed_attempts).to eq(2)
-            expect(archived_intake.reload.access_locked?).to be(true)
-            expect(response).to redirect_to(knock_out_path)
-          end
+          post :update, params: {verification_code_form: {verification_code: invalid_verification_code}}
+
+          expect(session[:code_verified]).to be_nil
+          expect(archived_intake.reload.failed_attempts).to eq(2)
+          expect(archived_intake.reload.access_locked?).to be(true)
+          expect(response).to redirect_to(knock_out_path)
         end
       end
 
@@ -168,26 +160,19 @@ RSpec.describe VerificationCodeController, type: :controller do
           expect(assigns(:form)).to be_a(VerificationCodeForm)
           expect(response).to render_template(:edit)
         end
-        context "with a recent failed attempt" do
-          let!(:archived_intake) do
-            create(
-              :state_file_archived_intake,
-              :with_recent_failed_attempt,
-              phone_number: phone_number,
-              contact_preference: "text"
-            )
-          end
-          it "locks the account, logs lockout begin, and redirects after multiple failed attempts" do
-            expect(EventLogger).to receive(:log).with("incorrect text code", archived_intake.id).ordered
-            expect(EventLogger).to receive(:log).with("client lockout begin", archived_intake.id).ordered
 
-            post :update, params: {verification_code_form: {verification_code: invalid_verification_code}}
+        it "locks the account, logs lockout begin, and redirects after multiple failed attempts" do
+          archived_intake.update!(failed_attempts: 1)
 
-            expect(session[:code_verified]).to be_nil
-            expect(archived_intake.reload.failed_attempts).to eq(2)
-            expect(archived_intake.reload.access_locked?).to be(true)
-            expect(response).to redirect_to(knock_out_path)
-          end
+          expect(EventLogger).to receive(:log).with("incorrect text code", archived_intake.id).ordered
+          expect(EventLogger).to receive(:log).with("client lockout begin", archived_intake.id).ordered
+
+          post :update, params: {verification_code_form: {verification_code: invalid_verification_code}}
+
+          expect(session[:code_verified]).to be_nil
+          expect(archived_intake.reload.failed_attempts).to eq(2)
+          expect(archived_intake.reload.access_locked?).to be(true)
+          expect(response).to redirect_to(knock_out_path)
         end
       end
     end

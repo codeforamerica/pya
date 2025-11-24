@@ -9,7 +9,6 @@
 #  fake_address_1          :string
 #  fake_address_2          :string
 #  hashed_ssn              :string
-#  last_failed_attempt_at  :datetime
 #  locked_at               :datetime
 #  mailing_apartment       :string
 #  mailing_city            :string
@@ -43,12 +42,7 @@ class StateFileArchivedIntake < ApplicationRecord
   end
 
   def increment_failed_attempts
-    if last_failure_outside_window?
-      update_column(:failed_attempts, 0)
-      self.failed_attempts = 0
-    end
     super
-    update_column(:last_failed_attempt_at, Time.current)
     lock_access! if attempts_exceeded? && !access_locked?
   end
 
@@ -113,15 +107,5 @@ class StateFileArchivedIntake < ApplicationRecord
       "pya-staging-docs"
     end
   end
-
-  def last_failure_outside_window?
-    return true if last_failed_attempt_at.nil?
-    last_failed_attempt_at < failed_attempts_window.ago
-  end
-
-  def failed_attempts_window
-    Rails.env.production? ? 1.hour : 3.minutes
-  end
-
   # standard:enable Style/IdenticalConditionalBranches
 end

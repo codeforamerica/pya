@@ -1,77 +1,39 @@
+# == Schema Information
+#
+# Table name: state_file_archived_intakes
+#
+#  id                      :bigint           not null, primary key
+#  contact_preference      :integer          default("unfilled"), not null
+#  email_address           :string
+#  failed_attempts         :integer          default(0), not null
+#  fake_address_1          :string
+#  fake_address_2          :string
+#  hashed_ssn              :string
+#  locked_at               :datetime
+#  mailing_apartment       :string
+#  mailing_city            :string
+#  mailing_state           :string
+#  mailing_street          :string
+#  mailing_zip             :string
+#  permanently_locked_at   :datetime
+#  phone_number            :string
+#  state_code              :string
+#  tax_year                :integer
+#  unsubscribed_from_email :boolean          default(FALSE), not null
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#
 require "rails_helper"
 
 RSpec.describe StateFileArchivedIntake, type: :model do
   describe "#increment_failed_attempts" do
-    before do
-      allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("production"))
-    end
-    include ActiveSupport::Testing::TimeHelpers
+    let!(:state_file_archived_intake) { create :state_file_archived_intake, failed_attempts: 1, state_code: "AZ" }
+    it "locks access when failed attempts is incremented to 2" do
+      expect(state_file_archived_intake.access_locked?).to eq(false)
 
-    let(:failed_attempts) { 1 }
-    let(:last_failure_time) { Time.current }
+      state_file_archived_intake.increment_failed_attempts
 
-    let!(:state_file_archived_intake) do
-      create(
-        :state_file_archived_intake,
-        failed_attempts: failed_attempts,
-        state_code: "AZ",
-        last_failed_attempt_at: last_failure_time
-      )
-    end
-
-    context "when the last failure was within 1 hour" do
-      it "does not reset failed_attempts, increments to 2, locks, and updates last_failed_attempt_at" do
-        travel_to Time.current do
-          expect(state_file_archived_intake.failed_attempts).to eq 1
-          expect(state_file_archived_intake.access_locked?).to eq false
-
-          state_file_archived_intake.increment_failed_attempts
-          state_file_archived_intake.reload
-
-          expect(state_file_archived_intake.failed_attempts).to eq 2
-          expect(state_file_archived_intake.access_locked?).to eq true
-          expect(state_file_archived_intake.last_failed_attempt_at)
-            .to be_within(1.second).of(Time.current)
-        end
-      end
-    end
-
-    context "when the last failure was more than 1 hour ago" do
-      let(:last_failure_time) { 61.minutes.ago }
-
-      it "resets failed_attempts before incrementing, does not lock, and updates last_failed_attempt_at" do
-        travel_to Time.current do
-          expect(state_file_archived_intake.failed_attempts).to eq 1
-          expect(state_file_archived_intake.access_locked?).to eq false
-
-          state_file_archived_intake.increment_failed_attempts
-          state_file_archived_intake.reload
-
-          expect(state_file_archived_intake.failed_attempts).to eq 1
-          expect(state_file_archived_intake.access_locked?).to eq false
-          expect(state_file_archived_intake.last_failed_attempt_at)
-            .to be_within(1.second).of(Time.current)
-        end
-      end
-    end
-
-    context "with a previous attempt but no last_failed_attempt_at" do
-      let(:last_failure_time) { nil }
-
-      it "treats this as a new window, does not lock, and leaves failed_attempts at 1" do
-        travel_to Time.current do
-          expect(state_file_archived_intake.failed_attempts).to eq 1
-          expect(state_file_archived_intake.access_locked?).to eq false
-
-          state_file_archived_intake.increment_failed_attempts
-          state_file_archived_intake.reload
-
-          expect(state_file_archived_intake.failed_attempts).to eq 1
-          expect(state_file_archived_intake.access_locked?).to eq false
-          expect(state_file_archived_intake.last_failed_attempt_at)
-            .to be_within(1.second).of(Time.current)
-        end
-      end
+      expect(state_file_archived_intake.access_locked?).to eq(true)
     end
   end
 
