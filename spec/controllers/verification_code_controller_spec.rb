@@ -141,7 +141,6 @@ RSpec.describe VerificationCodeController, type: :controller do
             )
           end
           it "locks the account, logs lockout begin, and redirects after another attempt" do
-
             expect(EventLogger).to receive(:log).with("incorrect email code", archived_intake.id).ordered
             expect(EventLogger).to receive(:log).with("client lockout begin", archived_intake.id).ordered
 
@@ -179,7 +178,6 @@ RSpec.describe VerificationCodeController, type: :controller do
             )
           end
           it "locks the account, logs lockout begin, and redirects after multiple failed attempts" do
-
             expect(EventLogger).to receive(:log).with("incorrect text code", archived_intake.id).ordered
             expect(EventLogger).to receive(:log).with("client lockout begin", archived_intake.id).ordered
 
