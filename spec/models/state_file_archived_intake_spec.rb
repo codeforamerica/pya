@@ -54,6 +54,25 @@ RSpec.describe StateFileArchivedIntake, type: :model do
         end
       end
     end
+
+    context "with a previous attempt but no last_failed_attempt_at" do
+      let(:last_failure_time) { nil }
+
+      it "treats this as a new window, does not lock, and leaves failed_attempts at 1" do
+        travel_to Time.current do
+          expect(state_file_archived_intake.failed_attempts).to eq 1
+          expect(state_file_archived_intake.access_locked?).to eq false
+
+          state_file_archived_intake.increment_failed_attempts
+          state_file_archived_intake.reload
+
+          expect(state_file_archived_intake.failed_attempts).to eq 1
+          expect(state_file_archived_intake.access_locked?).to eq false
+          expect(state_file_archived_intake.last_failed_attempt_at)
+            .to be_within(1.second).of(Time.current)
+        end
+      end
+    end
   end
 
   describe "#fetch_random_addresses" do
