@@ -3,7 +3,9 @@ require "rails_helper"
 RSpec.describe StateFileArchivedIntake, type: :model do
   describe "#increment_failed_attempts" do
     before do
-      allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("production"))
+      allow_any_instance_of(StateFileArchivedIntake)
+        .to receive(:failed_attempts_window)
+        .and_return(1.hour)
     end
     include ActiveSupport::Testing::TimeHelpers
 
