@@ -297,3 +297,24 @@ ol.with-bullets {
     border-color: darken($color-green-money, 5%);
   }
 }
+
+.intercom-button-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+}
+
+.button--intercom {
+  display: flex;
+  align-items: center;
+  max-width: 21rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.3);
+}
+
+.intercom-button-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  margin-right: 0.6rem;
+}

@@ -22,7 +22,7 @@
   <%= javascript_importmap_tags "application" %>
   <%= Sentry.get_trace_propagation_meta.html_safe %>
 </head>
-<%= render "shared/intercom_email_button" %>
+
 <body <% if content_for?(:body_class) %>class="<%= yield :body_class %>"<% end %>>
   <div class="state-file">
     <div class="page-wrapper">
@@ -41,5 +41,6 @@
       </div>
     </div>
   </div>
+  <%= render "shared/intercom_email_button" %>
 </body>
 </html>
