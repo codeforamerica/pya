@@ -1,0 +1,54 @@
+<script>
+    window.intercomSettings = {
+        app_id: "<%= ENV["INTERCOM_APP_ID"] %>",
+        hide_default_launcher: true
+    };
+</script>
+
+<script>
+    (function() {
+        var windowObject = window;
+        var intercomFunction = windowObject.Intercom;
+
+        if (typeof intercomFunction === "function") {
+            intercomFunction("reattach_activator");
+            intercomFunction("update", windowObject.intercomSettings);
+        } else {
+            var documentObject = document;
+            var intercomPlaceholder = function() {
+                intercomPlaceholder.queue(arguments);
+            };
+            intercomPlaceholder.queue = [];
+            intercomPlaceholder.queue.push = function(args) {
+                Array.prototype.push.call(intercomPlaceholder.queue, args);
+            };
+
+            windowObject.Intercom = intercomPlaceholder;
+
+            var loadIntercomScript = function() {
+                var scriptElement = documentObject.createElement("script");
+                scriptElement.type = "text/javascript";
+                scriptElement.async = true;
+                scriptElement.src = "https://widget.intercom.io/widget/"<%= ENV["INTERCOM_APP_ID"] %>intercom-chat.svg;
+
+                var firstScriptTag = documentObject.getElementsByTagName("script")[0];
+                firstScriptTag.parentNode.insertBefore(scriptElement, firstScriptTag);
+            };
+
+            if (documentObject.readyState === "complete") {
+                loadIntercomScript();
+            } else if (windowObject.attachEvent) {
+                windowObject.attachEvent("onload", loadIntercomScript);
+            } else {
+                windowObject.addEventListener("load", loadIntercomScript, false);
+            }
+        }
+    })();
+</script>
+
+<div class="intercom-button-container">
+  <button type="button" class="open-intercom button button--small button--green button--intercom" onclick="Intercom('showNewMessage');">
+    <%= image_tag("intercom-chat.svg", "aria-hidden": "true", class: "intercom-button-icon") %>
+    <%= I18n.t("general.intercom_chat_with_us") %>
+  </button>
+</div>

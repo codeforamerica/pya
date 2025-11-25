@@ -281,3 +281,19 @@ ol.with-bullets {
     margin-left: 1.25rem;
   }
 }
+
+.state-file .button--green {
+  background: $color-green-money;
+  border-color: $color-green-money;
+  color: $color-black;
+
+  &:active {
+    background-color: $color-green-money;
+    border-color: $color-green-money;
+  }
+
+  &:hover {
+    background-color: darken($color-green-money, 5%);
+    border-color: darken($color-green-money, 5%);
+  }
+}
