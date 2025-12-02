@@ -56,6 +56,12 @@ IntercomRails.config do |config|
   #   :favorite_color => :favorite_color
   # }
 
+  config.user.custom_data = {
+    user_hash: ->(user) {
+      next nil unless user
+      IntercomService.generate_user_hash(user.id)
+    }
+  }
   # == Current company method/variable
   # The method/variable that contains the current company for the current user,
   # in your controllers. 'Companies' are generic groupings of users, so this
