@@ -9,18 +9,4 @@ class IntercomService
       user_id.to_s
     )
   end
-
-  def self.client
-    token = ENV["INTERCOM_ACCESS_TOKEN"]
-    return nil if token.blank?
-
-    @client ||= Intercom::Client.new(token: token)
-  end
-
-  def self.with_client
-    intercom_client = client
-    return unless intercom_client
-
-    yield intercom_client
-  end
 end
