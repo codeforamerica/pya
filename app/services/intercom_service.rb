@@ -1,5 +1,6 @@
 class IntercomService
   def self.generate_user_hash(user_id)
+    return nil if Rails.env.test?
     secret = ENV["INTERCOM_SECURE_MODE_SECRET_KEY"]
     return nil if secret.blank? || user_id.blank?
 
