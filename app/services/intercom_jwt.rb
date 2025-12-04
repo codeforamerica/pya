@@ -1,10 +1,8 @@
-# app/services/intercom_jwt.rb
 require "jwt"
 
 class IntercomJwt
   ALGORITHM = "HS256".freeze
 
-  # intake is your current_state_file_archived_intake
   def self.for(intake)
     return nil unless intake
 
