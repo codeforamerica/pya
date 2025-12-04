@@ -13,6 +13,7 @@ gem "devise"
 gem "mailgun-ruby"
 gem "aws-sdk-s3"
 gem "csv", "~> 3.3"
+gem 'jwt'
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"

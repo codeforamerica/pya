@@ -21,6 +21,9 @@
   <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags "application" %>
   <%= Sentry.get_trace_propagation_meta.html_safe %>
+
+  <%= render "layouts/intercom_jwt" %>
+  <%= intercom_script_tag %>
 </head>
 
 <body <% if content_for?(:body_class) %>class="<%= yield :body_class %>"<% end %>>

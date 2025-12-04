@@ -593,6 +593,7 @@ DEPENDENCIES
   importmap-rails
   intercom-rails (~> 1.0)
   jbuilder
+  jwt
   mailgun-ruby
   openssl (>= 3.3.1)
   pg

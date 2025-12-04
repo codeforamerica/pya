@@ -21,7 +21,7 @@ IntercomRails.config do |config|
   # The method/variable that contains the logged in user in your controllers.
   # If it is `current_user` or `@user`, then you can ignore this
 
-  config.user.current = proc { current_state_file_archived_intake }
+  config.user.current = proc { nil }
 
   # == Include for logged out Users
   # If set to true, include the Intercom messenger on all pages, regardless of whether
@@ -55,13 +55,9 @@ IntercomRails.config do |config|
   #   :plan => Proc.new { |current_user| current_user.plan.name },
   #   :favorite_color => :favorite_color
   # }
-
-  config.user.custom_data = {
-    user_hash: ->(user) {
-      next nil unless user
-      IntercomService.generate_user_hash(user.id)
-    }
-  }
+  #
+  config.user.custom_data = {}
+  #
   # == Current company method/variable
   # The method/variable that contains the current company for the current user,
   # in your controllers. 'Companies' are generic groupings of users, so this
