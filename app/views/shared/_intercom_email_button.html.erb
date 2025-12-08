@@ -1,0 +1,9 @@
+<div class="intercom-button-container">
+  <button
+      type="button"
+      class="open-intercom button button--small button--green button--intercom"
+      onclick="Intercom('showNewMessage');">
+    <%= image_tag("intercom-chat.svg", "aria-hidden": "true", class: "intercom-button-icon") %>
+    <%= I18n.t("general.intercom_chat_with_us") %>
+  </button>
+</div>

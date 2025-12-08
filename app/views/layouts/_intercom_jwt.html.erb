@@ -1,0 +1,7 @@
+<script>
+    window.intercomSettings = window.intercomSettings || {};
+    window.intercomSettings.app_id = "<%= ENV.fetch('INTERCOM_APP_ID') %>";
+    <% if current_state_file_archived_intake.present? %>
+    window.intercomSettings.intercom_user_jwt = "<%= j IntercomJwt.for(current_state_file_archived_intake) %>";
+    <% end %>
+</script>
