@@ -16,6 +16,7 @@ es:
     messages:
       blank: No puede estar en blanco.
   general:
+    intercom_chat_with_us: Send us a message
     continue: Continuar
     faq: Preguntas frecuentes
     return_home: Regresar al inicio
