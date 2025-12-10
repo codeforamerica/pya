@@ -16,7 +16,7 @@ es:
     messages:
       blank: No puede estar en blanco.
   general:
-    intercom_chat_with_us: Send us a message
+    intercom_chat_with_us: Envíanos un mensaje
     continue: Continuar
     faq: Preguntas frecuentes
     return_home: Regresar al inicio
@@ -26,7 +26,7 @@ es:
       body_html: |
         <p>¡Hola!</p>
         <p>Tu código de verificación de seis dígitos para FileYourStateTaxes es: <strong>%{verification_code}.</strong> Este código expirará después de 30 minutos.</p>
-        <p>¿Recibiste este código sin registrarte? Envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org</a></p>
+        <p>¿Recibiste este código sin registrarte? Envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org"</a></p>
         <p>Tu equipo de impuestos en FileYourStateTaxes.org</p>
       body_text: |
         ¡Hola!
@@ -56,16 +56,16 @@ es:
         title: Por favor confirma tu identidad
     layouts:
       environment_warning:
-        banner_html: This site is for example purposes only. If you want help with your taxes, go to <a target="_blank" rel="nofollow noopener" href="https://www.fileyourstatetaxes.org">FileYourStateTaxes.org</a>.
+        banner_html: Este sitio es sólo para fines de ejemplo. Si necesitas ayuda con sus impuestos, visite <a target="_blank" rel="nofollow noopener" href="https://www.fileyourstatetaxes.org">FileYourStateTaxes.org</a>.
       footer:
-        built_by_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with state tax agencies to integrate with IRS Direct File.
-        contact_us: Contact us
+        built_by_html: FileYourStateTaxes ha sido creado por <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> en colaboración con estados para integrarse con el servicio Direct File del IRS.
+        contact_us: Contáctanos
         contact_us_url: mailto:help@fileyourstatetaxes.org
         faq: Preguntas frecuentes
         faq_url: https://www.fileyourstatetaxes.org/en/us/faq
-        privacy_policy: Privacy Policy
+        privacy_policy: Políticas de privacidad
         privacy_policy_url: https://www.fileyourstatetaxes.org/en/privacy-policy
-        sms_terms: SMS Terms
+        sms_terms: Términos y Condiciones de SMS
         sms_terms_url: https://www.fileyourstatetaxes.org/en/sms-terms
         spanish: Español
     mailing_address_validation:
