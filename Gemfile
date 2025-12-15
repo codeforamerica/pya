@@ -76,8 +76,9 @@ group :test do
   gem "selenium-webdriver"
 end
 
-# Enable IAM RDS
-gem "pg-aws_rds_iam"
+group :production do
+  gem "pg-aws_rds_iam"
+end
 
 gem "dartsass-rails", "~> 0.5.1"
 gem "http_accept_language"
