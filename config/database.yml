@@ -24,6 +24,7 @@ deploy_default: &deploy_default
   database: prior_year_access
   host: <%= ENV["DATABASE_HOST"] if ENV["DATABASE_USER"] %>
   username: <%= ENV["DATABASE_USER"] if ENV["DATABASE_USER"] %>
+  url: <%= ENV["DATABASE_URL"] %>
   aws_rds_iam_auth_token_generator: 'default'
 
 # Store production database in the storage/ directory, which by default
