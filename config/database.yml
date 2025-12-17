@@ -25,6 +25,7 @@ deploy_default: &deploy_default
   host: <%= ENV["DATABASE_HOST"] if ENV["DATABASE_USER"] %>
   username: <%= ENV["DATABASE_USER"] if ENV["DATABASE_USER"] %>
   url: <%= ENV["DATABASE_URL"] %>
+  sslmode: require
   aws_rds_iam_auth_token_generator: default
 
 # Store production database in the storage/ directory, which by default
@@ -44,4 +45,3 @@ production:
 
 staging:
   <<: *deploy_default
-
