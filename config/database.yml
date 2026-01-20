@@ -26,6 +26,7 @@ deploy_default: &deploy_default
   username: <%= ENV["DATABASE_USER"] if ENV["DATABASE_USER"] %>
   url: <%= ENV["DATABASE_URL"] %>
   aws_rds_iam_auth_token_generator: default
+  sslmode: require
 
 # Store production database in the storage/ directory, which by default
 # is mounted as a persistent Docker volume in config/deploy.yml.
