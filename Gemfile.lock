@@ -122,7 +122,7 @@ GEM
       msgpack (~> 1.2)
     bourbon (7.3.0)
       thor (~> 1.0)
-    brakeman (7.1.1)
+    brakeman (8.0.0)
       racc
     builder (3.3.0)
     byebug (12.0.0)
@@ -616,4 +616,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   2.7.2
+  4.0.1
