@@ -1,6 +1,9 @@
 require "rails_helper"
 
 describe ContactPreferenceController, type: :controller do
+  before do
+    ENV["INTERCOM_APP_ID"] = "fake app_id"
+  end
   render_views
   describe "#show" do
     it "succeeds" do

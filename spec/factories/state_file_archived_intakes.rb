@@ -9,6 +9,7 @@
 #  fake_address_1          :string
 #  fake_address_2          :string
 #  hashed_ssn              :string
+#  last_failed_attempt_at  :datetime
 #  locked_at               :datetime
 #  mailing_apartment       :string
 #  mailing_city            :string
@@ -41,6 +42,11 @@ FactoryBot.define do
       after(:create) do |archived_intake|
         archived_intake.submission_pdf.attach(io: File.open("public/pdfs/ID-VP.pdf"), filename: "ID-VP.pdf")
       end
+    end
+
+    trait :with_recent_failed_attempt do
+      failed_attempts { 1 }
+      last_failed_attempt_at { Time.current }
     end
 
     transient do

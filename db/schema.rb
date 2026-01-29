@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_31_200841) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_21_195240) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -96,6 +96,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_31_200841) do
     t.integer "failed_attempts", default: 0, null: false
     t.datetime "locked_at"
     t.datetime "permanently_locked_at"
+    t.datetime "last_failed_attempt_at"
   end
 
   create_table "text_message_access_tokens", force: :cascade do |t|

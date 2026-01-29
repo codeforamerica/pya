@@ -154,6 +154,23 @@ a[href^='http']:not([href*=request_domain i]):not(.no-external) {
   @include external-link;
 }
 
+.state-file a.default-link {
+  color: $color-link-default;
+  text-decoration: underline;
+
+  &:visited {
+    color: $color-link-visited;
+  }
+
+  &:hover {
+    color: $color-link-hover;
+  }
+
+  &:active {
+    color: $color-link-active;
+  }
+}
+
 ul.with-bullets {
   margin-left: 20px;
   list-style-type: disc;
@@ -267,13 +284,104 @@ ol.with-bullets {
   vertical-align: middle;
 }
 
-.home-button {
-  min-width: 40rem;
-  max-width: 40rem;
-  width: 40rem;
+.button--home {
+  @media screen and (min-width: $tablet-up) {
+    max-width: 34.5rem;
+  }
 
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+
+  &:first-of-type {
+    margin-left: 1.25rem;
+  }
+}
+
+.state-file .button--green {
+  background: $color-green-money;
+  border-color: $color-green-money;
+  color: $color-black;
+
+  &:active {
+    background-color: $color-green-money;
+    border-color: $color-green-money;
+  }
+
+  &:hover {
+    background-color: darken($color-green-money, 5%);
+    border-color: darken($color-green-money, 5%);
+  }
+}
+
+.intercom-button-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+}
+
+.button--intercom {
+  display: flex;
+  align-items: center;
+  max-width: 21rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.3);
+  white-space: nowrap;
+}
+
+.intercom-button-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  margin-right: 0.6rem;
+}
+
+.contact-preference-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.contact-preference-buttons .button {
+  flex: 1 1 calc(50% - 1rem);
+  box-sizing: border-box;
+  padding: 1.4rem 1.6rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  &:first-of-type {
+    margin-left: 1.25rem;
+  }
+}
+
+.contact-preference-buttons .button:last-of-type {
+  padding-top: 1.6rem;
+  padding-bottom: 1.2rem;
+}
+
+@media (max-width: 600px) {
+  .contact-preference-buttons .button {
+    flex: 1 1 100%;
+  }
+}
+
+.main-header .toolbar__right {
+  display: flex;
+  align-items: center !important;
+}
+
+.main-header .toolbar__right .toolbar__item {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+
+
+html,
+body {
+  background-color: $color-az-grey !important;
 }

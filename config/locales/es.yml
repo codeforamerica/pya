@@ -16,6 +16,7 @@ es:
     messages:
       blank: No puede estar en blanco.
   general:
+    intercom_chat_with_us: Envíanos un mensaje
     continue: Continuar
     faq: Preguntas frecuentes
     return_home: Regresar al inicio
@@ -25,7 +26,7 @@ es:
       body_html: |
         <p>¡Hola!</p>
         <p>Tu código de verificación de seis dígitos para FileYourStateTaxes es: <strong>%{verification_code}.</strong> Este código expirará después de 30 minutos.</p>
-        <p>¿Recibiste este código sin registrarte? Envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org</a></p>
+        <p>¿Recibiste este código sin registrarte? Envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org"</a></p>
         <p>Tu equipo de impuestos en FileYourStateTaxes.org</p>
       body_text: |
         ¡Hola!
@@ -55,16 +56,16 @@ es:
         title: Por favor confirma tu identidad
     layouts:
       environment_warning:
-        banner_html: This site is for example purposes only. If you want help with your taxes, go to <a target="_blank" rel="nofollow noopener" href="https://www.fileyourstatetaxes.org">FileYourStateTaxes.org</a>.
+        banner_html: Este sitio es sólo para fines de ejemplo. Si necesitas ayuda con sus impuestos, visite <a target="_blank" rel="nofollow noopener" href="https://www.fileyourstatetaxes.org">FileYourStateTaxes.org</a>.
       footer:
-        built_by_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with state tax agencies to integrate with IRS Direct File.
-        contact_us: Contact us
+        built_by_html: FileYourStateTaxes ha sido creado por <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> en colaboración con estados para integrarse con el servicio Direct File del IRS.
+        contact_us: Contáctanos
         contact_us_url: mailto:help@fileyourstatetaxes.org
         faq: Preguntas frecuentes
         faq_url: https://www.fileyourstatetaxes.org/en/us/faq
-        privacy_policy: Privacy Policy
+        privacy_policy: Política de Privacidad
         privacy_policy_url: https://www.fileyourstatetaxes.org/en/privacy-policy
-        sms_terms: SMS Terms
+        sms_terms: Términos y Condiciones de SMS
         sms_terms_url: https://www.fileyourstatetaxes.org/en/sms-terms
         spanish: Español
     mailing_address_validation:
@@ -76,7 +77,7 @@ es:
       home:
         closed_forever_subheader_html: |
           <strong>FileYourStateTaxes</strong> se integraba con  el servicio Direct File del IRS para ayudarte a completar tu declaración de impuestos estatal sin costo, y este servicio ya no está activo.<br/><br/>
-          Si presentaste tu declaración con nosotros en 2025 o 2024, puedes descargar una copia de tu declaración estatal. Para obtener más información sobre cómo acceder a tus reembolsos federales y estatales, <a href=%{faq_link}>visita nuestras Preguntas Frecuentes</a><br /><br />
+          Si presentaste tu declaración con nosotros en 2025 o 2024, puedes descargar una copia de tu declaración estatal. Para obtener más información sobre cómo acceder a tus reembolsos federales y estatales, <a class="no-external default-link" href=%{faq_link}>visita nuestras Preguntas Frecuentes</a><br /><br />
           Para recibir ayuda para presentar tus impuestos federales y estatales sin costo, visita GetYourRefund.
         closed_warning: FileYourStateTaxes cerró el 31 de octubre de 2025 y no fue renovado para la temporada de impuestos 2026.
         download_your_return: Descarga tu declaración

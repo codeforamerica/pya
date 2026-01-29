@@ -36,7 +36,7 @@ jobs:
           exit 1
 
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0 # fetch full history and tags
 
@@ -151,7 +151,7 @@ jobs:
       - run: echo 'Starting the production deploy'
 
       - name: Check out code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v5
@@ -166,7 +166,7 @@ jobs:
       - name: Build and push Docker image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          BUNDLE_GITHUB__COM: ${{ secrets.BUNDLE_GITHUB__COM}}
+          BUNDLE_GITHUB__COM: ${{ secrets.DEPLOY_PAT }}
         run: |
           docker build -t 828007041297.dkr.ecr.us-east-1.amazonaws.com/pya-production-web:${{env.IMAGE_TAG}} --secret id=github_pat,env=BUNDLE_GITHUB__COM --platform linux/amd64 .
           docker push 828007041297.dkr.ecr.us-east-1.amazonaws.com/pya-production-web:${{env.IMAGE_TAG}}
@@ -216,4 +216,3 @@ jobs:
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.TAX_ENG_SLACK_URL }}
-
