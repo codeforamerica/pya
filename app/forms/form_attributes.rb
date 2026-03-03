@@ -3,6 +3,7 @@ module FormAttributes
 
   included do
     extend AutoStripAttributes
+
     class_attribute :attribute_names
 
     def initialize(*args, **kwargs)
