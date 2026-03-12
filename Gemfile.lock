@@ -335,7 +335,7 @@ GEM
     pg-aws_rds_iam (0.7.0)
       aws-sdk-rds (~> 1.0)
       pg (~> 1.1)
-    phony (3.0.2)
+    phony (3.0.3)
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
