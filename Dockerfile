@@ -3,7 +3,7 @@
 
 # This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
 # docker build -t pya --platform linux/amd64 .
-# docker run --platform linux/amd64 -d -p 8080:8080 -e RAILS_MASTER_KEY=<value from config/master.key> --name pya pya
+# docker run --platform linux/amd64 -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name pya pya
 
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
@@ -66,6 +66,5 @@ USER 1000:1000
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start server via Thruster by default, this can be overwritten at runtime
-ENV THRUSTER_HTTP_PORT=8080
-EXPOSE 8080
+EXPOSE 80
 CMD ["./bin/thrust", "./bin/rails", "server"]
