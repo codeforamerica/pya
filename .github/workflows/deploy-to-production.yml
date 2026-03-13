@@ -121,7 +121,7 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Notify Slack
-        uses: slackapi/slack-github-action@v2.1.1
+        uses: slackapi/slack-github-action@v3.0.1
         if: success()
         with:
           webhook-type: webhook-trigger
@@ -220,7 +220,7 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Notify deploy success on Slack
-        uses: slackapi/slack-github-action@v2.1.1
+        uses: slackapi/slack-github-action@v3.0.1
         if: success()
         with:
           webhook-type: webhook-trigger
