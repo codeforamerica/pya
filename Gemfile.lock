@@ -275,7 +275,7 @@ GEM
       net-imap
       net-pop
       net-smtp
-    mailgun-ruby (1.4.2)
+    mailgun-ruby (1.4.3)
       faraday (~> 2.1)
       faraday-multipart (< 2)
       mini_mime
