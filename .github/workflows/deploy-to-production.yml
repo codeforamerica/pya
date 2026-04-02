@@ -13,6 +13,10 @@ on:
         description: "Optional title to replace auto-generated one"
         required: false
         type: string
+      distinct_id:
+        description: Distinct ID for this execution, used for tracking.
+        required: false
+        type: string
     push:
       branches: [main]
 concurrency:
@@ -147,7 +151,13 @@ jobs:
     env:
       ECR_REPOSITORY: pya-production-web
       IMAGE_TAG: ${{ github.sha }}
+      INFRA_REPO: tax-benefits-backend
     steps:
+      - name: distinct ID ${{ inputs.distinct_id || github.run_id }}
+        uses: imesense/gha-echo-action@v0.2
+        with:
+          input-string: "${{ inputs.distinct_id || github.run_id }}"
+
       - run: echo 'Starting the production deploy'
 
       - name: Check out code
@@ -208,6 +218,21 @@ jobs:
               "environment": "pya-prod",
               "config": "pya.fileyourstatetaxes.org"
             }
+
+      - name: Wait on Workflow
+        uses: lucasssvaz/wait-on-workflow@v1
+        id: waiter
+        with:
+          github-token: ${{ steps.token.outputs.token }}
+          repository: codeforamerica/${{ env.INFRA_REPO }}
+          workflow: ${{ steps.dispatch.outputs.run_id }}
+
+      - name: Fail unless the workflow succeeded
+        if: ${{ steps.waiter.outputs.conclusion != 'success' }}
+        uses: actions/github-script@v8
+        with:
+          script: |
+            core.setFailed('Deployment workflow completed with status: ${{ steps.waiter.outputs.conclusion }}')
 
       - name: Notify deploy failure on Slack
         uses: 8398a7/action-slack@v3
