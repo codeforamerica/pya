@@ -4,11 +4,6 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-    inputs:
-      distinct_id:
-        description: Distinct ID for this execution, used for tracking.
-        required: false
-        type: string
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -27,11 +22,6 @@ jobs:
       IMAGE_TAG: ${{ github.sha }}
       INFRA_REPO: tax-benefits-backend
     steps:
-      - name: distinct ID ${{ inputs.distinct_id || github.run_id }}
-        uses: imesense/gha-echo-action@v0.2
-        with:
-          input-string: "${{ inputs.distinct_id || github.run_id }}"
-
       - run: echo 'Linter and tests passed.'
 
       - run: echo 'Starting the staging deploy'

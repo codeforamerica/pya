@@ -13,10 +13,6 @@ on:
         description: "Optional title to replace auto-generated one"
         required: false
         type: string
-      distinct_id:
-        description: Distinct ID for this execution, used for tracking.
-        required: false
-        type: string
     push:
       branches: [main]
 concurrency:
@@ -153,11 +149,6 @@ jobs:
       IMAGE_TAG: ${{ github.sha }}
       INFRA_REPO: tax-benefits-backend
     steps:
-      - name: distinct ID ${{ inputs.distinct_id || github.run_id }}
-        uses: imesense/gha-echo-action@v0.2
-        with:
-          input-string: "${{ inputs.distinct_id || github.run_id }}"
-
       - run: echo 'Starting the production deploy'
 
       - name: Check out code
