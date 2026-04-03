@@ -147,6 +147,7 @@ jobs:
     env:
       ECR_REPOSITORY: pya-production-web
       IMAGE_TAG: ${{ github.sha }}
+      INFRA_REPO: tax-benefits-backend
     steps:
       - run: echo 'Starting the production deploy'
 
@@ -209,11 +210,26 @@ jobs:
               "config": "pya.fileyourstatetaxes.org"
             }
 
+      - name: Wait on Workflow
+        uses: lucasssvaz/wait-on-workflow@v1
+        id: waiter
+        with:
+          github-token: ${{ steps.token.outputs.token }}
+          repository: codeforamerica/${{ env.INFRA_REPO }}
+          workflow: ${{ steps.dispatch.outputs.run_id }}
+
+      - name: Fail unless the workflow succeeded
+        if: ${{ steps.waiter.outputs.conclusion != 'success' }}
+        uses: actions/github-script@v8
+        with:
+          script: |
+            core.setFailed('Deployment workflow completed with status: ${{ steps.waiter.outputs.conclusion }}')
+
       - name: Notify deploy failure on Slack
         uses: 8398a7/action-slack@v3
         if: failure()
         with:
-          text: "<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q39HFLBG> PYA production deploy ${{ job.status }} :sob:"
+          text: "<!subteam^S06P99RGJDS> PYA production deploy ${{ job.status }} :sob:"
           status: ${{ job.status }}
           fields: message,commit,author,workflow,took
         env:
@@ -226,7 +242,7 @@ jobs:
           webhook-type: webhook-trigger
           payload: |
             {
-              "text": ":mega: :sparkles: PYA production deploy ${{ job.status }} :sparkles: Please monitor infrastructure deploy: https://github.com/codeforamerica/tax-benefits-backend/actions/workflows/deploy.yaml\n<!subteam^S06P99RGJDS> <@U07QATMB6SW> <@U07Q39HFLBG>"
+              "text": ":mega: :sparkles: PYA production deploy ${{ job.status }} :sparkles: Please monitor infrastructure deploy: https://github.com/codeforamerica/tax-benefits-backend/actions/workflows/deploy.yaml\n<!subteam^S06P99RGJDS>"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.TAX_ENG_SLACK_URL }}
