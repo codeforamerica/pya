@@ -838,7 +838,7 @@
 }
 
 .us-state-- {
-  .button--intercom {
+  .button--contact-us {
     background: #fff;
     border: 2px solid $color-az-grey;
     color: $color-az-grey;
@@ -874,15 +874,11 @@ $state-colors: (
       background-color: $state-color;
     }
 
-    .button--intercom {
+    .button--contact-us {
       background: #fff;
       border: 2px solid $state-color;
       // icon: state primary color
       color: $state-color;
-    }
-
-    .icon-wrapper--intercom {
-      padding-right: $s10;
     }
   }
 

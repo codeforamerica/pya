@@ -1,0 +1,7 @@
+<div class="contact-us-button-container">
+  <%= link_to "mailto:#{I18n.t('general.contact_us_email')}",
+      class: "button button--small button--green button--contact-us" do %>
+    <%= image_tag("contact-us-chat.svg", "aria-hidden": "true", class: "contact-us-button-icon") %>
+    <%= I18n.t("general.contact_us_message") %>
+  <% end %>
+</div>

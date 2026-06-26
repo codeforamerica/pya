@@ -52,10 +52,6 @@ body {
   }
 }
 
-.open-intercom {
-  cursor: pointer;
-}
-
 .link--delete {
   font-size: 1.6rem;
   color: inherit;
@@ -315,14 +311,14 @@ ol.with-bullets {
   }
 }
 
-.intercom-button-container {
+.contact-us-button-container {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
   z-index: 1000;
 }
 
-.button--intercom {
+.button--contact-us {
   display: flex;
   align-items: center;
   max-width: 21rem;
@@ -331,7 +327,7 @@ ol.with-bullets {
   white-space: nowrap;
 }
 
-.intercom-button-icon {
+.contact-us-button-icon {
   width: 1.6rem;
   height: 1.6rem;
   margin-right: 0.6rem;

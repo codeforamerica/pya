@@ -16,7 +16,8 @@ en:
     messages:
       blank: Can't be blank.
   general:
-    intercom_chat_with_us: Send us a message
+    contact_us_email: help@fileyourstatetaxes.org
+    contact_us_message: Send us a message
     continue: Continue
     faq: FAQ
     return_home: Return to homepage
@@ -111,20 +112,20 @@ en:
     public_pages:
       internal_server_error:
         body: It looks like there was a server error. We've been notified of the issue and will work to fix it!
-        contact_html: If you’re running into trouble, we’re here for you. You can reach us using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
+        contact_html: If you’re running into trouble, we’re here for you. You can reach us by sending us an email at %{email_link}.
         title: Oops, we're sorry, but something went wrong.
       page_not_found:
-        let_us_know_html: If you followed a link here, please let us know using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
+        let_us_know_html: If you followed a link here, please let us know by sending us an email at %{email_link}.
         title: Oops, we're sorry, but the page you're looking for can't be found.
     verification_code:
       edit:
         action: Verify code
         email:
           body_1: Please enter the code emailed to you. If you didn’t receive a code, please check your spam folder.
-          body_2_html: If this is not the email address you used to create your account, please go back and enter the correct email address.  If you still need help, <a href="mailto:help@fileyourstatetaxes.org" class="open-intercom">chat with us</a>.
+          body_2_html: If this is not the email address you used to create your account, please go back and enter the correct email address.  If you still need help, <a href="mailto:help@fileyourstatetaxes.org">chat with us</a>.
         text:
           body_1: Please enter the code texted to you.
-          body_2_html: If this is not the phone number you used to create your account, please go back and enter the correct phone number.  If you still need help, <a href="mailto:help@fileyourstatetaxes.org" class="open-intercom">chat with us</a>.
+          body_2_html: If this is not the phone number you used to create your account, please go back and enter the correct phone number.  If you still need help, <a href="mailto:help@fileyourstatetaxes.org">chat with us</a>.
         title_html: We sent a code to %{contact_info}
         verification_code_label: Enter the 6-digit code
     year_select:

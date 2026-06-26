@@ -87,5 +87,3 @@ gem "sentry-rails"
 gem "pg-aws_rds_iam"
 
 gem "openssl", ">= 3.3.1"
-
-gem "intercom-rails", "~> 1.0"
