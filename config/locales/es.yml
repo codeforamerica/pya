@@ -16,7 +16,8 @@ es:
     messages:
       blank: No puede estar en blanco.
   general:
-    intercom_chat_with_us: Envíanos un mensaje
+    contact_us_email: help@fileyourstatetaxes.org
+    contact_us_message: Envíanos un mensaje
     continue: Continuar
     faq: Preguntas frecuentes
     return_home: Regresar al inicio
@@ -110,20 +111,20 @@ es:
     public_pages:
       internal_server_error:
         body: It looks like there was a server error. We've been notified of the issue and will work to fix it!
-        contact_html: If you’re running into trouble, we’re here for you. You can reach us using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
+        contact_html: If you’re running into trouble, we’re here for you. You can reach us by sending us an email at %{email_link}.
         title: Oops, we're sorry, but something went wrong.
       page_not_found:
-        let_us_know_html: If you followed a link here, please let us know using the "Help"/"Chat" button in the bottom right or by sending us an email at %{email_link}.
+        let_us_know_html: If you followed a link here, please let us know by sending us an email at %{email_link}.
         title: Oops, we're sorry, but the page you're looking for can't be found.
     verification_code:
       edit:
         action: Verificar el código
         email:
           body_1: Ingresa el código enviado a tu correo electrónico. Si no recibiste el código por favor revisa tu carpeta de spam.
-          body_2_html: En caso de que no sea el correo electrónico que usaste para crear tu cuenta, por favor, regresa e ingresa el correo electrónico correcto. Si aún necesitas ayuda, <a class="open-intercom">chatea con nosotros</a>.
+          body_2_html: En caso de que no sea el correo electrónico que usaste para crear tu cuenta, por favor, regresa e ingresa el correo electrónico correcto. Si aún necesitas ayuda, <a href="mailto:help@fileyourstatetaxes.org">chatea con nosotros</a>.
         text:
           body_1: Por favor, ingresa el código enviado por mensaje de texto.
-          body_2_html: En caso de que no sea el número de teléfono que empleaste para crear tu cuenta, por favor, regresa e ingresa el número de teléfono correcto. Si aún necesitas ayuda, <a class="open-intercom">chatea con nosotros</a>.
+          body_2_html: En caso de que no sea el número de teléfono que empleaste para crear tu cuenta, por favor, regresa e ingresa el número de teléfono correcto. Si aún necesitas ayuda, <a href="mailto:help@fileyourstatetaxes.org">chatea con nosotros</a>.
         title_html: Enviamos el código a %{contact_info}
         verification_code_label: Ingresa el código de 6 dígitos
     year_select:

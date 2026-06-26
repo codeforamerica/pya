@@ -1,9 +1,6 @@
 require "rails_helper"
 
 describe YearSelectController, type: :controller do
-  before do
-    ENV["INTERCOM_APP_ID"] = "fake app_id"
-  end
   describe "#show" do
     render_views
 
