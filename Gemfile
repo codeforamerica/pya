@@ -86,3 +86,5 @@ gem "sentry-rails"
 gem "pg-aws_rds_iam"
 
 gem "openssl", ">= 3.3.1"
+
+gem "ostruct", "~> 0.6.3"

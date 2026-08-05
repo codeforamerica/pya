@@ -318,6 +318,7 @@ GEM
       racc (~> 1.4)
     openssl (4.0.2)
     orm_adapter (0.5.0)
+    ostruct (0.6.3)
     parallel (1.27.0)
     parser (3.3.10.2)
       ast (~> 2.4.1)
@@ -614,6 +615,7 @@ DEPENDENCIES
   jbuilder
   mailgun-ruby
   openssl (>= 3.3.1)
+  ostruct (~> 0.6.3)
   pg
   pg-aws_rds_iam
   phony
@@ -641,4 +643,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-  4.0.2
+  4.0.17
