@@ -53,9 +53,9 @@ RSpec.describe EmailAddressForm do
     # MX or disposable-domain checks without a security review.
     before do
       allow(Resolv::DNS).to receive(:open)
-                              .and_raise("EmailAddressForm must not perform DNS lookups on submitted email domains")
+        .and_raise("EmailAddressForm must not perform DNS lookups on submitted email domains")
       allow(Resolv::DNS).to receive(:new)
-                              .and_raise("EmailAddressForm must not perform DNS lookups on submitted email domains")
+        .and_raise("EmailAddressForm must not perform DNS lookups on submitted email domains")
     end
 
     it "does not resolve DNS for a well-formed email on an attacker-controlled domain" do
