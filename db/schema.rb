@@ -10,30 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_21_195240) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_21_195240) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "record_type", null: false
-    t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.bigint "record_id", null: false
+    t.string "record_type", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
   create_table "active_storage_blobs", force: :cascade do |t|
-    t.string "key", null: false
-    t.string "filename", null: false
-    t.string "content_type"
-    t.text "metadata"
-    t.string "service_name", null: false
     t.bigint "byte_size", null: false
     t.string "checksum"
+    t.string "content_type"
     t.datetime "created_at", null: false
+    t.string "filename", null: false
+    t.string "key", null: false
+    t.text "metadata"
+    t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -44,24 +44,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_21_195240) do
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
-    t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "failed_at"
     t.text "handler", null: false
     t.text "last_error"
-    t.datetime "run_at"
     t.datetime "locked_at"
-    t.datetime "failed_at"
     t.string "locked_by"
+    t.integer "priority", default: 0, null: false
     t.string "queue"
-    t.datetime "created_at"
+    t.datetime "run_at"
     t.datetime "updated_at"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
   create_table "email_access_tokens", force: :cascade do |t|
+    t.datetime "created_at", null: false
     t.citext "email_address", null: false
     t.string "token", null: false
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_email_access_tokens_on_email_address"
     t.index ["token"], name: "index_email_access_tokens_on_token"
@@ -69,40 +69,40 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_21_195240) do
 
   create_table "state_file_archived_intake_access_logs", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.jsonb "details", default: "{}"
     t.integer "event_type"
     t.bigint "state_file_archived_intakes_id"
+    t.datetime "updated_at", null: false
     t.index ["state_file_archived_intakes_id"], name: "idx_on_state_file_archived_intakes_id_e878049c06"
   end
 
   create_table "state_file_archived_intakes", force: :cascade do |t|
+    t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "email_address"
-    t.string "phone_number"
+    t.integer "failed_attempts", default: 0, null: false
     t.string "fake_address_1"
     t.string "fake_address_2"
     t.string "hashed_ssn"
+    t.datetime "last_failed_attempt_at"
+    t.datetime "locked_at"
     t.string "mailing_apartment"
     t.string "mailing_city"
     t.string "mailing_state"
     t.string "mailing_street"
     t.string "mailing_zip"
+    t.datetime "permanently_locked_at"
+    t.string "phone_number"
     t.string "state_code"
     t.integer "tax_year"
     t.boolean "unsubscribed_from_email", default: false, null: false
-    t.integer "contact_preference", default: 0, null: false
-    t.integer "failed_attempts", default: 0, null: false
-    t.datetime "locked_at"
-    t.datetime "permanently_locked_at"
-    t.datetime "last_failed_attempt_at"
+    t.datetime "updated_at", null: false
   end
 
   create_table "text_message_access_tokens", force: :cascade do |t|
+    t.datetime "created_at", null: false
     t.string "sms_phone_number", null: false
     t.string "token", null: false
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["token"], name: "index_text_message_access_tokens_on_token"
   end
