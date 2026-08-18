@@ -52,12 +52,14 @@ jobs:
 
       - name: Bump version
         id: bump
+        env:
+          RELEASE_TYPE: ${{ github.event.inputs.release_type }}
         run: |
           version="${{ steps.get_tag.outputs.tag }}"
           version="${version#v}"
           IFS='.' read -r major minor patch <<< "$version"
 
-          case "${{ github.event.inputs.release_type }}" in
+          case "$RELEASE_TYPE" in
             major)
               major=$((major + 1)); minor=0; patch=0;;
             minor)
@@ -84,8 +86,9 @@ jobs:
       - name: Create GitHub Release with auto-generated notes
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TITLE: ${{ github.event.inputs.release_title }}
         run: |
-          TITLE="${{ github.event.inputs.release_title }}"
+          TITLE="$RELEASE_TITLE"
           if [ -z "$TITLE" ]; then
             TITLE="${{ steps.bump.outputs.new_tag }}"
           fi
