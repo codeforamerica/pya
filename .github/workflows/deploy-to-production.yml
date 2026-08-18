@@ -86,8 +86,9 @@ jobs:
       - name: Create GitHub Release with auto-generated notes
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TITLE: ${{ github.event.inputs.release_title }}
         run: |
-          TITLE="${{ github.event.inputs.release_title }}"
+          TITLE="$RELEASE_TITLE"
           if [ -z "$TITLE" ]; then
             TITLE="${{ steps.bump.outputs.new_tag }}"
           fi
