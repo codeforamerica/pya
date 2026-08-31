@@ -266,7 +266,7 @@ GEM
     loofah (2.25.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
-    mail (2.9.0)
+    mail (2.9.1)
       logger
       mini_mime (>= 0.1.1)
       net-imap
@@ -290,12 +290,12 @@ GEM
       ruby2_keywords (~> 0.0.1)
     net-http (0.9.1)
       uri (>= 0.11.1)
-    net-imap (0.6.4.1)
+    net-imap (0.6.6)
       date
       net-protocol
     net-pop (0.1.2)
       net-protocol
-    net-protocol (0.2.2)
+    net-protocol (0.3.0)
       timeout
     net-smtp (0.5.1)
       net-protocol
@@ -561,7 +561,7 @@ GEM
     unicode-emoji (4.2.0)
     uri (1.1.1)
     useragent (0.16.11)
-    valid_email2 (7.0.15)
+    valid_email2 (7.1.0)
       activemodel (>= 6.0)
       mail (~> 2.5)
     warden (1.2.9)
@@ -640,7 +640,7 @@ DEPENDENCIES
   turbo-rails
   twilio-ruby
   tzinfo-data
-  valid_email2 (~> 7.0.13)
+  valid_email2 (~> 7.1.0)
   web-console
 
 BUNDLED WITH
