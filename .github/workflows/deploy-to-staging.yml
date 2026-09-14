@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      stop_after_push:
+        description: "Stop after pushing the image to ECR (skip the staging deploy)"
+        type: boolean
+        default: false
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -64,7 +69,12 @@ jobs:
           secrets: |
             github_pat=${{ secrets.DEPLOY_PAT }}
 
+      - name: Stop after image push
+        if: ${{ inputs.stop_after_push }}
+        run: echo "Image pushed to ECR. Skipping SSM update and infrastructure deploy."
+
       - name: Update SSM Version Parameter
+        if: ${{ !inputs.stop_after_push }}
         run: |
           echo "tag:$IMAGE_TAG"
           aws ssm put-parameter \
@@ -73,6 +83,7 @@ jobs:
             --overwrite
 
       - name: Get a deployment token
+        if: ${{ !inputs.stop_after_push }}
         uses: actions/create-github-app-token@v3.2.0
         id: token
         with:
@@ -82,6 +93,7 @@ jobs:
           repositories: tax-benefits-backend
 
       - name: Trigger infrastructure deployment
+        if: ${{ !inputs.stop_after_push }}
         uses: codex-/return-dispatch@v4
         id: dispatch
         with:
@@ -103,6 +115,7 @@ jobs:
             }
 
       - name: Wait on Workflow
+        if: ${{ !inputs.stop_after_push }}
         uses: lucasssvaz/wait-on-workflow@v1
         id: waiter
         with:
@@ -111,7 +124,7 @@ jobs:
           workflow: ${{ steps.dispatch.outputs.run_id }}
 
       - name: Fail unless the workflow succeeded
-        if: ${{ steps.waiter.outputs.conclusion != 'success' }}
+        if: ${{ !inputs.stop_after_push && steps.waiter.outputs.conclusion != 'success' }}
         uses: actions/github-script@v9
         with:
           script: |
