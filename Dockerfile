@@ -14,9 +14,11 @@ FROM dhi.io/ruby:$RUBY_VERSION-dev AS base
 # Rails app lives here
 WORKDIR /rails
 
-# Install base packages
+# Install base packages. Runtime only: libpq5 rather than libpq-dev (headers are
+# needed to build the pg gem, not to run it), and no libvips since the app does
+# not use image_processing.
 RUN apt-get update -qq && \
-  apt-get install --no-install-recommends -y curl libjemalloc2 libvips libpq-dev && \
+  apt-get install --no-install-recommends -y curl libjemalloc2 libpq5 && \
   rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
@@ -30,7 +32,7 @@ FROM base AS build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-  apt-get install --no-install-recommends -y build-essential curl git pkg-config libyaml-dev && \
+  apt-get install --no-install-recommends -y build-essential curl git pkg-config libyaml-dev libpq-dev && \
   rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems
