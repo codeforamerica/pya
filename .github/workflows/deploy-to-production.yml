@@ -175,13 +175,24 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_READONLY_TOKEN }}
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Attestations are disabled on purpose: they make buildx push an image
+      # index, and ECR/Inspector reports an index as UnsupportedImageError,
+      # leaving the findings on an untagged child manifest. A single-platform
+      # manifest is what Inspector can scan by tag.
       - name: Build and push Docker image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          BUNDLE_GITHUB__COM: ${{ secrets.DEPLOY_PAT }}
-        run: |
-          docker build -t 828007041297.dkr.ecr.us-east-1.amazonaws.com/pya-production-web:${{env.IMAGE_TAG}} --secret id=github_pat,env=BUNDLE_GITHUB__COM --platform linux/amd64 .
-          docker push 828007041297.dkr.ecr.us-east-1.amazonaws.com/pya-production-web:${{env.IMAGE_TAG}}
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: 828007041297.dkr.ecr.us-east-1.amazonaws.com/pya-production-web:${{ env.IMAGE_TAG }}
+          provenance: false
+          sbom: false
+          secrets: |
+            github_pat=${{ secrets.DEPLOY_PAT }}
 
       - name: Update SSM Version Parameter
         run: |
