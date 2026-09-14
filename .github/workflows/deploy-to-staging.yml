@@ -55,71 +55,65 @@ jobs:
           docker build -t 300423309117.dkr.ecr.us-east-1.amazonaws.com/pya-staging-web:${{env.IMAGE_TAG}} --secret id=github_pat,env=BUNDLE_GITHUB__COM --platform linux/amd64 .
           docker push 300423309117.dkr.ecr.us-east-1.amazonaws.com/pya-staging-web:${{env.IMAGE_TAG}}
 
-      # TEMPORARY (rd/dhi-image): everything below stops after the image push so
-      # the PR can exercise the build and ECR scan without deploying staging or
-      # paging the team. Restore all of these steps before merge.
-      - name: Stop after image push
-        run: echo "Image pushed to ECR. Skipping SSM update and infrastructure deploy."
+      - name: Update SSM Version Parameter
+        run: |
+          echo "tag:$IMAGE_TAG"
+          aws ssm put-parameter \
+            --name  /pya/staging/web/version \
+            --value "$IMAGE_TAG" \
+            --overwrite
 
-      # - name: Update SSM Version Parameter
-      #   run: |
-      #     echo "tag:$IMAGE_TAG"
-      #     aws ssm put-parameter \
-      #       --name  /pya/staging/web/version \
-      #       --value "$IMAGE_TAG" \
-      #       --overwrite
-      #
-      # - name: Get a deployment token
-      #   uses: actions/create-github-app-token@v3.2.0
-      #   id: token
-      #   with:
-      #     app-id: ${{ secrets.DEPLOYMENT_APP_ID }}
-      #     private-key: ${{ secrets.DEPLOYMENT_APP_KEY }}
-      #     owner: codeforamerica
-      #     repositories: tax-benefits-backend
-      #
-      # - name: Trigger infrastructure deployment
-      #   uses: codex-/return-dispatch@v4
-      #   id: dispatch
-      #   with:
-      #     token: ${{ steps.token.outputs.token }}
-      #     # Update this to match the reference (branch, tag, or
-      #     # commit SHA) you want to deploy.
-      #     ref: main
-      #     # Replace this with the name of the target repository.
-      #     repo: tax-benefits-backend
-      #     owner: codeforamerica
-      #     # Replace this with the name of the workflow to call.
-      #     workflow: deploy.yaml
-      #     # Workflow inputs should be formatted as JSON. You can
-      #     # pass additional inputs as needed.
-      #     workflow_inputs: |
-      #       {
-      #         "environment": "pya-nonprod",
-      #         "config": "staging.pya.fileyourstatetaxes.org"
-      #       }
-      #
-      # - name: Wait on Workflow
-      #   uses: lucasssvaz/wait-on-workflow@v1
-      #   id: waiter
-      #   with:
-      #     github-token: ${{ steps.token.outputs.token }}
-      #     repository: codeforamerica/${{ env.INFRA_REPO }}
-      #     workflow: ${{ steps.dispatch.outputs.run_id }}
-      #
-      # - name: Fail unless the workflow succeeded
-      #   if: ${{ steps.waiter.outputs.conclusion != 'success' }}
-      #   uses: actions/github-script@v9
-      #   with:
-      #     script: |
-      #       core.setFailed('Deployment workflow completed with status: ${{ steps.waiter.outputs.conclusion }}')
-      #
-      # - name: Notify deploy failure on Slack
-      #   uses: 8398a7/action-slack@v3
-      #   if: failure()
-      #   with:
-      #     text: "<!subteam^S06P99RGJDS> PYA staging deploy ${{ job.status }} :sob:"
-      #     status: ${{ job.status }}
-      #     fields: message,commit,author,workflow,took
-      #   env:
-      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: Get a deployment token
+        uses: actions/create-github-app-token@v3.2.0
+        id: token
+        with:
+          app-id: ${{ secrets.DEPLOYMENT_APP_ID }}
+          private-key: ${{ secrets.DEPLOYMENT_APP_KEY }}
+          owner: codeforamerica
+          repositories: tax-benefits-backend
+
+      - name: Trigger infrastructure deployment
+        uses: codex-/return-dispatch@v4
+        id: dispatch
+        with:
+          token: ${{ steps.token.outputs.token }}
+          # Update this to match the reference (branch, tag, or
+          # commit SHA) you want to deploy.
+          ref: main
+          # Replace this with the name of the target repository.
+          repo: tax-benefits-backend
+          owner: codeforamerica
+          # Replace this with the name of the workflow to call.
+          workflow: deploy.yaml
+          # Workflow inputs should be formatted as JSON. You can
+          # pass additional inputs as needed.
+          workflow_inputs: |
+            {
+              "environment": "pya-nonprod",
+              "config": "staging.pya.fileyourstatetaxes.org"
+            }
+
+      - name: Wait on Workflow
+        uses: lucasssvaz/wait-on-workflow@v1
+        id: waiter
+        with:
+          github-token: ${{ steps.token.outputs.token }}
+          repository: codeforamerica/${{ env.INFRA_REPO }}
+          workflow: ${{ steps.dispatch.outputs.run_id }}
+
+      - name: Fail unless the workflow succeeded
+        if: ${{ steps.waiter.outputs.conclusion != 'success' }}
+        uses: actions/github-script@v9
+        with:
+          script: |
+            core.setFailed('Deployment workflow completed with status: ${{ steps.waiter.outputs.conclusion }}')
+
+      - name: Notify deploy failure on Slack
+        uses: 8398a7/action-slack@v3
+        if: failure()
+        with:
+          text: "<!subteam^S06P99RGJDS> PYA staging deploy ${{ job.status }} :sob:"
+          status: ${{ job.status }}
+          fields: message,commit,author,workflow,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
