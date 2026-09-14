@@ -9,14 +9,14 @@
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
 ARG RUBY_VERSION=4.0.6
-FROM dhi.io/ruby:$RUBY_VERSION-debian-dev AS base
+FROM dhi.io/ruby:$RUBY_VERSION-dev AS base
 
 # Rails app lives here
 WORKDIR /rails
 
 # Install base packages
 RUN apt-get update -qq && \
-  apt-get install --no-install-recommends -y libjemalloc2 postgresql-client && \
+  apt-get install --no-install-recommends -y curl libjemalloc2 libvips libpq-dev && \
   rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
@@ -30,7 +30,7 @@ FROM base AS build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-  apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config && \
+  apt-get install --no-install-recommends -y build-essential curl git pkg-config libyaml-dev && \
   rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems
