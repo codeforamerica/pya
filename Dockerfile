@@ -5,6 +5,7 @@
 # docker build -t pya --platform linux/amd64 .
 # docker run --platform linux/amd64 -d -p 8080:8080 -e RAILS_MASTER_KEY=<value from config/master.key> --name pya pya
 
+# Based on https://docs.docker.com/guides/ruby/
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
@@ -15,10 +16,12 @@ FROM dhi.io/ruby:$RUBY_VERSION-dev AS base
 WORKDIR /rails
 
 # Install base packages. Runtime only: libpq5 rather than libpq-dev (headers are
-# needed to build the pg gem, not to run it), and no libvips since the app does
-# not use image_processing.
+# needed to build the pg gem, not to run it), no libvips since the app does not
+# use image_processing, and no curl since the /up health check is run by the load
+# balancer. passwd supplies groupadd/useradd for the final stage; the hardened
+# base only ships base-passwd.
 RUN apt-get update -qq && \
-  apt-get install --no-install-recommends -y curl libjemalloc2 libpq5 && \
+  apt-get install --no-install-recommends -y libjemalloc2 libpq5 passwd && \
   rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
