@@ -55,8 +55,10 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # Max-mode provenance and an SBOM let VEX-aware scanners trace the DHI
-      # base image lineage and apply its VEX statements to this derived image.
+      # Attestations are disabled on purpose: they make buildx push an image
+      # index, and ECR/Inspector reports an index as UnsupportedImageError,
+      # leaving the findings on an untagged child manifest. A single-platform
+      # manifest is what Inspector can scan by tag.
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
@@ -64,8 +66,8 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: 300423309117.dkr.ecr.us-east-1.amazonaws.com/pya-staging-web:${{ env.IMAGE_TAG }}
-          provenance: mode=max
-          sbom: true
+          provenance: false
+          sbom: false
           secrets: |
             github_pat=${{ secrets.DEPLOY_PAT }}
 
