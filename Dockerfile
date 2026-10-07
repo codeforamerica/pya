@@ -40,8 +40,7 @@ RUN apt-get update -qq && \
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
-RUN --mount=type=secret,id=github_pat \
-  BUNDLE_GITHUB__COM=$(cat /run/secrets/github_pat) bundle install && \
+RUN bundle install && \
   rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
   bundle exec bootsnap precompile --gemfile
 
