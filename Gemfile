@@ -1,12 +1,12 @@
-source "https://rubygems.org"
+source "https://rubygems.org", cooldown: 7
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.1.3"
+gem "rails", "~> 8.1.4"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 gem "pg"
 gem "rails-i18n"
-gem "valid_email2", "~> 7.0.13"
+gem "valid_email2", "~> 7.1.0"
 gem "phony"
 gem "auto_strip_attributes"
 gem "devise"
