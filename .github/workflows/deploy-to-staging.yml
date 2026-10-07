@@ -5,6 +5,7 @@ on:
     branches: [main]
   workflow_dispatch:
     inputs:
+      # TEMPORARY: for testing the shared build workflow. See the deploy job.
       stop_after_push:
         description: "Stop after pushing the image to ECR (skip the staging deploy)"
         type: boolean
@@ -17,22 +18,34 @@ concurrency:
 jobs:
   tests:
     uses: ./.github/workflows/ci.yml
+  build:
+    needs: ["tests"]
+    # TODO: Pin to main once codeforamerica/github-actions#14 is merged.
+    uses: codeforamerica/github-actions/.github/workflows/ecr-build-push.yaml@22cba9c7d216ab83d63684e5835d7337718a9175
+    permissions:
+      contents: read
+      id-token: write
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      REGISTRY_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      REGISTRY_PASSWORD: ${{ secrets.DOCKER_HUB_READONLY_TOKEN }}
+    with:
+      ecr-repository: pya-staging-web
+      environment: staging
   deploy:
     name: deploy
-    needs: ["tests"]
+    needs: ["build"]
+    # TEMPORARY: lets us test the image build without deploying. Remove with
+    # the stop_after_push input once the shared build workflow is verified.
+    if: ${{ !inputs.stop_after_push }}
     environment: staging
     runs-on: ubuntu-latest
     env:
-      ECR_REPOSITORY: pya-staging-web
       IMAGE_TAG: ${{ github.sha }}
       INFRA_REPO: tax-benefits-backend
     steps:
-      - run: echo 'Linter and tests passed.'
-
       - run: echo 'Starting the staging deploy'
-
-      - name: Check out code
-        uses: actions/checkout@v7
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6.2.3
@@ -41,42 +54,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: us-east-1
 
-      - name: Log in to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
-
-      - name: Log in to Docker Hardened Images registry
-        uses: docker/login-action@v3
-        with:
-          registry: dhi.io
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_READONLY_TOKEN }}
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      # Attestations are disabled on purpose: they make buildx push an image
-      # index, and ECR/Inspector reports an index as UnsupportedImageError,
-      # leaving the findings on an untagged child manifest. A single-platform
-      # manifest is what Inspector can scan by tag.
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          platforms: linux/amd64
-          push: true
-          tags: 300423309117.dkr.ecr.us-east-1.amazonaws.com/pya-staging-web:${{ env.IMAGE_TAG }}
-          provenance: false
-          sbom: false
-          secrets: |
-            github_pat=${{ secrets.DEPLOY_PAT }}
-
-      - name: Stop after image push
-        if: ${{ inputs.stop_after_push }}
-        run: echo "Image pushed to ECR. Skipping SSM update and infrastructure deploy."
-
       - name: Update SSM Version Parameter
-        if: ${{ !inputs.stop_after_push }}
         run: |
           echo "tag:$IMAGE_TAG"
           aws ssm put-parameter \
@@ -85,7 +63,6 @@ jobs:
             --overwrite
 
       - name: Get a deployment token
-        if: ${{ !inputs.stop_after_push }}
         uses: actions/create-github-app-token@v3.2.0
         id: token
         with:
@@ -95,7 +72,6 @@ jobs:
           repositories: tax-benefits-backend
 
       - name: Trigger infrastructure deployment
-        if: ${{ !inputs.stop_after_push }}
         uses: codex-/return-dispatch@v4
         id: dispatch
         with:
@@ -117,7 +93,6 @@ jobs:
             }
 
       - name: Wait on Workflow
-        if: ${{ !inputs.stop_after_push }}
         uses: lucasssvaz/wait-on-workflow@v1
         id: waiter
         with:
@@ -126,18 +101,24 @@ jobs:
           workflow: ${{ steps.dispatch.outputs.run_id }}
 
       - name: Fail unless the workflow succeeded
-        if: ${{ !inputs.stop_after_push && steps.waiter.outputs.conclusion != 'success' }}
+        if: ${{ steps.waiter.outputs.conclusion != 'success' }}
         uses: actions/github-script@v9
         with:
           script: |
             core.setFailed('Deployment workflow completed with status: ${{ steps.waiter.outputs.conclusion }}')
 
+  # Runs as its own job so build failures are reported too.
+  notify_failure:
+    name: notify failure
+    needs: ["build", "deploy"]
+    if: ${{ failure() && (needs.build.result == 'failure' || needs.deploy.result == 'failure') }}
+    runs-on: ubuntu-latest
+    steps:
       - name: Notify deploy failure on Slack
         uses: 8398a7/action-slack@v3
-        if: failure()
         with:
-          text: "<!subteam^S06P99RGJDS> PYA staging deploy ${{ job.status }} :sob:"
-          status: ${{ job.status }}
+          text: "<!subteam^S06P99RGJDS> PYA staging deploy failure :sob:"
+          status: failure
           fields: message,commit,author,workflow,took
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
