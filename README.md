@@ -63,6 +63,15 @@ The workflow relies on the following secrets:
   The staging PAT will need to be regenerated every 90 days and updated in Github and Lastpass
 ---
 
+## Docker Hardened Images (DHI)
+
+The [`Dockerfile`](Dockerfile) builds on [Docker Hardened Images](https://docs.docker.com/dhi/) — minimal,
+continuously patched base images — per the [Docker guide for Rails](https://docs.docker.com/guides/ruby/).
+
+These are not public images. Building requires a (free) Docker account and `docker login dhi.io` first; otherwise the build fails at the first `FROM`.
+CI uses the `DOCKER_HUB_USERNAME` and `DOCKER_HUB_READONLY_TOKEN` secrets. **CfA staff: contact DevOps for credentials.** 
+---
+
 ## Stylesheet Compilation
 
 This project uses the [`dart-sass`](https://rubygems.org/gems/dart-sass) Ruby gem to compile SCSS files.

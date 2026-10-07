@@ -4,6 +4,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      # TEMPORARY: for testing the shared build workflow. See the deploy job.
+      stop_after_push:
+        description: "Stop after pushing the image to ECR (skip the staging deploy)"
+        type: boolean
+        default: false
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -12,22 +18,34 @@ concurrency:
 jobs:
   tests:
     uses: ./.github/workflows/ci.yml
+  build:
+    needs: ["tests"]
+    # TODO: Pin to main once codeforamerica/github-actions#14 is merged.
+    uses: codeforamerica/github-actions/.github/workflows/ecr-build-push.yaml@22cba9c7d216ab83d63684e5835d7337718a9175
+    permissions:
+      contents: read
+      id-token: write
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      REGISTRY_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      REGISTRY_PASSWORD: ${{ secrets.DOCKER_HUB_READONLY_TOKEN }}
+    with:
+      ecr-repository: pya-staging-web
+      environment: staging
   deploy:
     name: deploy
-    needs: ["tests"]
+    needs: ["build"]
+    # TEMPORARY: lets us test the image build without deploying. Remove with
+    # the stop_after_push input once the shared build workflow is verified.
+    if: ${{ !inputs.stop_after_push }}
     environment: staging
     runs-on: ubuntu-latest
     env:
-      ECR_REPOSITORY: pya-staging-web
       IMAGE_TAG: ${{ github.sha }}
       INFRA_REPO: tax-benefits-backend
     steps:
-      - run: echo 'Linter and tests passed.'
-
       - run: echo 'Starting the staging deploy'
-
-      - name: Check out code
-        uses: actions/checkout@v7
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6.3.0
@@ -35,17 +53,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: us-east-1
-
-      - name: Log in to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
-      - name: Build and push Docker image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          BUNDLE_GITHUB__COM: ${{ secrets.DEPLOY_PAT }}
-        run: |
-          docker build -t 300423309117.dkr.ecr.us-east-1.amazonaws.com/pya-staging-web:${{env.IMAGE_TAG}} --secret id=github_pat,env=BUNDLE_GITHUB__COM --platform linux/amd64 .
-          docker push 300423309117.dkr.ecr.us-east-1.amazonaws.com/pya-staging-web:${{env.IMAGE_TAG}}
 
       - name: Update SSM Version Parameter
         run: |
@@ -100,12 +107,18 @@ jobs:
           script: |
             core.setFailed('Deployment workflow completed with status: ${{ steps.waiter.outputs.conclusion }}')
 
+  # Runs as its own job so build failures are reported too.
+  notify_failure:
+    name: notify failure
+    needs: ["build", "deploy"]
+    if: ${{ failure() && (needs.build.result == 'failure' || needs.deploy.result == 'failure') }}
+    runs-on: ubuntu-latest
+    steps:
       - name: Notify deploy failure on Slack
         uses: 8398a7/action-slack@v3
-        if: failure()
         with:
-          text: "<!subteam^S06P99RGJDS> PYA staging deploy ${{ job.status }} :sob:"
-          status: ${{ job.status }}
+          text: "<!subteam^S06P99RGJDS> PYA staging deploy failure :sob:"
+          status: failure
           fields: message,commit,author,workflow,took
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

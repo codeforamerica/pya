@@ -5,18 +5,23 @@
 # docker build -t pya --platform linux/amd64 .
 # docker run --platform linux/amd64 -d -p 8080:8080 -e RAILS_MASTER_KEY=<value from config/master.key> --name pya pya
 
+# Based on https://docs.docker.com/guides/ruby/
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
-ARG RUBY_VERSION=4.0.6
-FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
+ARG RUBY_VERSION=4.0.7
+FROM dhi.io/ruby:$RUBY_VERSION-dev AS base
 
 # Rails app lives here
 WORKDIR /rails
 
-# Install base packages
+# Install base packages. Runtime only: libpq5 rather than libpq-dev (headers are
+# needed to build the pg gem, not to run it), no libvips since the app does not
+# use image_processing, and no curl since the /up health check is run by the load
+# balancer. passwd supplies groupadd/useradd for the final stage; the hardened
+# base only ships base-passwd.
 RUN apt-get update -qq && \
-  apt-get install --no-install-recommends -y curl libjemalloc2 libvips postgresql-client && \
+  apt-get install --no-install-recommends -y libjemalloc2 libpq5 passwd && \
   rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
@@ -30,13 +35,12 @@ FROM base AS build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-  apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config && \
+  apt-get install --no-install-recommends -y build-essential curl git pkg-config libyaml-dev libpq-dev && \
   rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
-RUN --mount=type=secret,id=github_pat \
-  BUNDLE_GITHUB__COM=$(cat /run/secrets/github_pat) bundle install && \
+RUN bundle install && \
   rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
   bundle exec bootsnap precompile --gemfile
 

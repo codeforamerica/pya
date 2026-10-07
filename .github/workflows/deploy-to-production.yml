@@ -142,20 +142,32 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
+  build:
+    needs: ["tag_and_notify"]
+    # TODO: Pin to main once codeforamerica/github-actions#14 is merged.
+    uses: codeforamerica/github-actions/.github/workflows/ecr-build-push.yaml@22cba9c7d216ab83d63684e5835d7337718a9175
+    permissions:
+      contents: read
+      id-token: write
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      REGISTRY_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      REGISTRY_PASSWORD: ${{ secrets.DOCKER_HUB_READONLY_TOKEN }}
+    with:
+      ecr-repository: pya-production-web
+      environment: production
+
   deploy:
     name: deploy
-    needs: ["tag_and_notify"]
+    needs: ["build"]
     environment: production
     runs-on: ubuntu-latest
     env:
-      ECR_REPOSITORY: pya-production-web
       IMAGE_TAG: ${{ github.sha }}
       INFRA_REPO: tax-benefits-backend
     steps:
       - run: echo 'Starting the production deploy'
-
-      - name: Check out code
-        uses: actions/checkout@v7
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6.3.0
@@ -163,17 +175,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: us-east-1
-
-      - name: Log in to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
-      - name: Build and push Docker image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          BUNDLE_GITHUB__COM: ${{ secrets.DEPLOY_PAT }}
-        run: |
-          docker build -t 828007041297.dkr.ecr.us-east-1.amazonaws.com/pya-production-web:${{env.IMAGE_TAG}} --secret id=github_pat,env=BUNDLE_GITHUB__COM --platform linux/amd64 .
-          docker push 828007041297.dkr.ecr.us-east-1.amazonaws.com/pya-production-web:${{env.IMAGE_TAG}}
 
       - name: Update SSM Version Parameter
         run: |
@@ -228,16 +229,6 @@ jobs:
           script: |
             core.setFailed('Deployment workflow completed with status: ${{ steps.waiter.outputs.conclusion }}')
 
-      - name: Notify deploy failure on Slack
-        uses: 8398a7/action-slack@v3
-        if: failure()
-        with:
-          text: "<!subteam^S06P99RGJDS> PYA production deploy ${{ job.status }} :sob:"
-          status: ${{ job.status }}
-          fields: message,commit,author,workflow,took
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
       - name: Notify deploy success on Slack
         uses: slackapi/slack-github-action@v4.0.0
         if: success()
@@ -249,3 +240,19 @@ jobs:
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.TAX_ENG_SLACK_URL }}
+
+  # Runs as its own job so build failures are reported too.
+  notify_failure:
+    name: notify failure
+    needs: ["build", "deploy"]
+    if: ${{ failure() && (needs.build.result == 'failure' || needs.deploy.result == 'failure') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify deploy failure on Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          text: "<!subteam^S06P99RGJDS> PYA production deploy failure :sob:"
+          status: failure
+          fields: message,commit,author,workflow,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
