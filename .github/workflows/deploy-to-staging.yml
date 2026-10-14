@@ -20,8 +20,7 @@ jobs:
     uses: ./.github/workflows/ci.yml
   build:
     needs: ["tests"]
-    # TODO: Pin to main once codeforamerica/github-actions#14 is merged.
-    uses: codeforamerica/github-actions/.github/workflows/ecr-build-push.yaml@22cba9c7d216ab83d63684e5835d7337718a9175
+    uses: codeforamerica/github-actions/.github/workflows/ecr-build-push.yaml@main
     permissions:
       contents: read
       id-token: write
