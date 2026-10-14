@@ -4,12 +4,6 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-    inputs:
-      # TEMPORARY: for testing the shared build workflow. See the deploy job.
-      stop_after_push:
-        description: "Stop after pushing the image to ECR (skip the staging deploy)"
-        type: boolean
-        default: false
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -35,9 +29,6 @@ jobs:
   deploy:
     name: deploy
     needs: ["build"]
-    # TEMPORARY: lets us test the image build without deploying. Remove with
-    # the stop_after_push input once the shared build workflow is verified.
-    if: ${{ !inputs.stop_after_push }}
     environment: staging
     runs-on: ubuntu-latest
     env:
