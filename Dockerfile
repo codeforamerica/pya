@@ -14,8 +14,9 @@ FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 # Rails app lives here
 WORKDIR /rails
 
-# Install base packages
+# Install base packages, pulling in Debian security updates not yet in the upstream image
 RUN apt-get update -qq && \
+  apt-get upgrade -y && \
   apt-get install --no-install-recommends -y curl libjemalloc2 libvips postgresql-client && \
   rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
