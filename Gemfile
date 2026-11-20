@@ -54,6 +54,9 @@ group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
 
+  # Check the Ruby version and RubyGems for known vulnerabilities [https://github.com/civisanalytics/ruby_audit]
+  gem "ruby_audit", require: false
+
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
   gem "rspec-rails"
